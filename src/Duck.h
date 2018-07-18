@@ -22,6 +22,7 @@ protected:
 	Model* duckModel;
 
 	float rotation;         //ggf. Neigung in der Kurve
+	float speedLeftRight;
 	float forwardBackward;
 	float leftRight;
 };
