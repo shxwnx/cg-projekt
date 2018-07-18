@@ -45,16 +45,6 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
 	pConstShader->color(Color(1,1,1));
     pModel->shader(pConstShader, true);
     Models.push_back( pModel );
-
-    
-    // Exercise 2
-    /*
-	pPhongShader = new PhongShader();
-    pTank = new Tank();
-    pTank->shader(pPhongShader, true);
-    pTank->loadModels(ASSET_DIRECTORY "tank_bottom.dae", ASSET_DIRECTORY "tank_top.dae");
-    Models.push_back( pTank );
-	*/
     
     
     // Exercise 3
@@ -69,8 +59,7 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin)
 	pPhongShader = new PhongShader();
 	duck = new Duck();
 	duck->shader(pPhongShader, true);
-	duck->loadModel(ASSET_DIRECTORY "tank_bottom.dae");
-	//duck->loadModel(ASSET_DIRECTORY "duck_highpoly.dae");
+	duck->loadModel(ASSET_DIRECTORY "duck.dae");
 	Models.push_back(duck);
 
 }
