@@ -1,42 +1,9 @@
-﻿  Aabb.cpp
-  Application.cpp
-  BaseModel.cpp
-  BaseShader.cpp
-  Camera.cpp
-  color.cpp
-  ConstantShader.cpp
-  Duck.cpp
-  IndexBuffer.cpp
-  LineBoxModel.cpp
-  LinePlaneModel.cpp
-  main.cpp
+﻿  main.cpp
 ..\..\src\main.cpp(54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 ..\..\src\main.cpp(61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Matrix.cpp
-  Model.cpp
-..\..\src\Model.cpp(100): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-..\..\src\Model.cpp(106): warning C4018: '<': signed/unsigned mismatch
-..\..\src\Model.cpp(112): warning C4018: '<': signed/unsigned mismatch
-..\..\src\Model.cpp(134): warning C4018: '<': signed/unsigned mismatch
-..\..\src\Model.cpp(157): warning C4018: '<': signed/unsigned mismatch
-..\..\src\Model.cpp(202): warning C4018: '<': signed/unsigned mismatch
-..\..\src\Model.cpp(203): warning C4018: '<': signed/unsigned mismatch
-  PhongShader.cpp
-  rgbimage.cpp
-..\..\src\rgbimage.cpp(46): warning C4244: 'initializing': conversion from 'float' to 'unsigned char', possible loss of data
-..\..\src\rgbimage.cpp(84): warning C4018: '<': signed/unsigned mismatch
-  Scene.cpp
-  Tank.cpp
-..\..\src\Tank.cpp(67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-..\..\src\Tank.cpp(68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Texture.cpp
-  TriangleBoxModel.cpp
-  Compiling...
-  TrianglePlaneModel.cpp
-  TriangleSphereModel.cpp
-  vector.cpp
-  VertexBuffer.cpp
   Generating code
-  All 751 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 751 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CGVStudio.vcxproj -> C:\Users\roman\Documents\GitHub\cg-projekt\CGVStudio\Release\CGVStudio.exe

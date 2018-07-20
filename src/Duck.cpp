@@ -49,7 +49,7 @@ void Duck::update(float dtime)
 	float maxSpeedLeftRight = 2.5f; //maximale leftRight Geschwindigkeit
 	float maxSpeedForwardBackward = 1.0f; //maximale forwardBackward Geschwindigkeit
 
-	duckTransform = this->duckModel->transform();
+	duckTransform = this->model->transform();
 
 	/*if (this->leftRight == 0.0f) { //Keine Taste gedrückt
 		if (this->speedLeftRight > 0.0f) { this->speedLeftRight = 0.0f; }
@@ -95,11 +95,11 @@ void Duck::update(float dtime)
 		//<< "Z: " << duckTransform.translation().Z << " || ";
 
 
-	this->duckModel->transform(this->duckModel->transform() * mat1 * mat2);
+	this->model->transform(this->model->transform() * mat1 * mat2);
 
 }
 
 void Duck::draw(const BaseCamera& Cam)
 {
-	this->duckModel->draw(Cam);
+	this->model->draw(Cam);
 }
