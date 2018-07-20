@@ -13,13 +13,13 @@ class Duck : public BaseModel
 public:
 	Duck();
 	virtual ~Duck();
-	bool loadModel(const char* DuckFile);
-	void steer(float ForwardBackward, float LeftRight);
+	bool loadModel(const char* file);
+	void steer(float forwardBackward, float leftRight);
 	void update(float dtime);
-	virtual void draw(const BaseCamera& Cam);
+	virtual void draw(const BaseCamera& camera);
 
 protected:
-	Model* duckModel;
+	Model* model;
 
 	float rotation;         //ggf. Neigung in der Kurve
 	float speedLeftRight;

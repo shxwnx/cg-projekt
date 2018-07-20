@@ -18,19 +18,17 @@ Duck::Duck()
 
 Duck::~Duck()
 {
-	this->duckModel= NULL;
+	this->model= NULL;
 }
 
-bool Duck::loadModel(const char* DuckFile)
+bool Duck::loadModel(const char* file)
 {
-	this->duckModel = new Model(DuckFile, false);
+	this->model = new Model(file, false);
 
-	if (!duckModel->load(DuckFile, false)) {
+	if (!this->model->load(file, false)) {
 		return false;
 	}
-
-	this->duckModel->shader(this->pShader, false);
-
+	this->model->shader(this->pShader, false);
 	return true;
 }
 

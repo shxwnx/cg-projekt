@@ -32,16 +32,14 @@ public:
     void end();
 protected:
     Vector calc3DRay( float x, float y, Vector& Pos);
-    Camera Cam;
-    ModelList Models;
-    GLFWwindow* pWindow;
-    Tank* pTank;
-    Model* pTankTop;
-    Model* pTankBot;
-	float time = 0.0;
+    Camera camera;
+    ModelList models;
+    GLFWwindow* window;
 
-	///////////////////////////////////////////////////////////////////////////////////Duck///////////////////////////////////////////////////////////////////////////////////
+	//Duck
 	Duck* duck;
+	void createDuck();
+	void controlDuck(float dTime);
 
 };
 
