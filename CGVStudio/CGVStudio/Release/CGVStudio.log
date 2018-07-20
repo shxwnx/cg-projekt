@@ -1,9 +1,7 @@
-﻿  main.cpp
-..\..\src\main.cpp(54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-..\..\src\main.cpp(61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  Camera.cpp
   Generating code
-  1 of 751 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  16 of 737 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    12 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CGVStudio.vcxproj -> C:\Users\roman\Documents\GitHub\cg-projekt\CGVStudio\Release\CGVStudio.exe

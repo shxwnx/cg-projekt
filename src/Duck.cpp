@@ -18,7 +18,7 @@ Duck::Duck()
 
 Duck::~Duck()
 {
-	this->model= NULL;
+	this->model = NULL;
 }
 
 bool Duck::loadModel(const char* file)
@@ -29,6 +29,16 @@ bool Duck::loadModel(const char* file)
 		return false;
 	}
 	this->model->shader(this->pShader, false);
+
+	Matrix mRotate;
+	Matrix mPosition;
+	
+	mRotate.translation(0, 0, 0);
+	mRotate.rotationY(-PI / 2);
+	mPosition.translation(0, 0, -2.0f);
+
+	this->model->transform(mPosition);
+
 	return true;
 }
 
@@ -73,7 +83,7 @@ void Duck::update(float dtime)
 	else if (duckTransform.translation().X <= -maxX && this->leftRight > 0.0f) { //linke Kante
 		mat2.translation(0, 0, 0);
 	}
-	else{
+	else {
 		mat2.translation(-maxSpeedLeftRight * this->leftRight * dtime, 0, 0);
 		//mat2.translation(this->speedLeftRight * dtime, 0, 0);
 	}
@@ -90,7 +100,7 @@ void Duck::update(float dtime)
 
 	//mat1.translation(0 , 0, -1*this->forwardBackward * dtime);
 	//mat2.translation(-2*this->leftRight * dtime, 0, 0);
-	
+
 	//std::cout << "X: " << duckTransform.translation().X << " || "
 		//<< "Z: " << duckTransform.translation().Z << " || ";
 

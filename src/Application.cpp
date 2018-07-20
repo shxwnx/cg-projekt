@@ -35,6 +35,17 @@
 
 Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 {
+	BaseModel* pModel;
+	ConstantShader* pConstShader;
+	PhongShader* pPhongShader;
+
+	// create LineGrid model with constant color shader
+	pModel = new LinePlaneModel(6.0f, 9.0f, 6, 9);
+	pConstShader = new ConstantShader();
+	pConstShader->color(Color(1, 1, 1));
+	pModel->shader(pConstShader, true);
+	models.push_back(pModel);
+
 	this->createDuck();
 }
 
@@ -50,13 +61,8 @@ void Application::createDuck()
 
 	PhongShader* shader = new PhongShader();
 	this->duck = new Duck();
-
 	this->duck->shader(shader, true);
 	this->duck->loadModel(ASSET_DIRECTORY "duck.dae");
-
-	Matrix matrix;
-	matrix.scale(50.0f);
-	this->duck->transform(matrix);
 
 	this->models.push_back(this->duck);
 }
