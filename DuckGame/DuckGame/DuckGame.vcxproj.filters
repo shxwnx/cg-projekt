@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Aabb.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BaseModel.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BaseShader.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Camera.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\color.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ConstantShader.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\DuckGame.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\IndexBuffer.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LineBoxModel.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LinePlaneModel.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Matrix.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Model.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PhongShader.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\rgbimage.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Texture.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TriangleBoxModel.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TrianglePlaneModel.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TriangleSphereModel.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vector.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\VertexBuffer.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Application.cpp" />
+    <ClCompile Include="..\..\src\Duck.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Aabb.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BaseModel.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BaseShader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Camera.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\color.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ConstantShader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\IndexBuffer.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\LineBoxModel.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\LinePlaneModel.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Matrix.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Model.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PhongShader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\rgbimage.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Texture.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TriangleBoxModel.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TrianglePlaneModel.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TriangleSphereModel.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vector.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\VertexBuffer.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Application.h" />
+    <ClInclude Include="..\..\src\Duck.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="utils">
+      <UniqueIdentifier>{6a0c1a06-b076-4a75-ab45-2cf65e4bb1bd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
