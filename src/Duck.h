@@ -17,6 +17,7 @@ public:
 	void steer(float forwardBackward, float leftRight);
 	void update(float dtime);
 	virtual void draw(const BaseCamera& camera);
+	Model* getModel();
 
 protected:
 	Model* model;

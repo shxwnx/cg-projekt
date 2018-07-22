@@ -56,8 +56,8 @@ void Duck::update(float dtime)
 	Matrix duckTransform;
 	float maxX = 2.5f; //leftRight Maxima
 	float maxZ = 2.5f; //forwardBackward Maxima
-	float maxSpeedLeftRight = 2.5f; //maximale leftRight Geschwindigkeit
-	float maxSpeedForwardBackward = 1.0f; //maximale forwardBackward Geschwindigkeit
+	float maxSpeedLeftRight = 1.5f; //maximale leftRight Geschwindigkeit
+	float maxSpeedForwardBackward = 0.5f; //maximale forwardBackward Geschwindigkeit
 
 	duckTransform = this->model->transform();
 
@@ -112,4 +112,8 @@ void Duck::update(float dtime)
 void Duck::draw(const BaseCamera& Cam)
 {
 	this->model->draw(Cam);
+}
+
+Model* Duck::getModel() {
+	return this->model;
 }

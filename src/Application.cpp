@@ -1,10 +1,6 @@
 //
 //  Application.cpp
-//  ogl4
-//
-//  Created by Philipp Lensing on 16.09.16.
-//  Copyright © 2016 Philipp Lensing. All rights reserved.
-//
+//  
 
 #include "Application.h"
 #ifdef WIN32
@@ -65,6 +61,11 @@ void Application::createDuck()
 	this->duck->loadModel(ASSET_DIRECTORY "duck.dae");
 
 	this->models.push_back(this->duck);
+
+	Matrix mat;
+	mat.scale(5);
+	this->duck->getModel()->transform(this->duck->getModel()->transform() * mat);
+
 }
 
 void Application::controlDuck(float dTime)
