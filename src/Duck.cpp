@@ -60,21 +60,6 @@ void Duck::update(float dtime)
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
 
-	///////////////////////////acceleration///////////////////////////
-	/*if (this->leftRight == 0.0f) { //no key pressed
-		this->speedLeftRight = 0.0f; 
-	}
-	else if (this->leftRight < 0.0f && -maxSpeedLeftRight < this->speedLeftRight) { //right
-		this->speedLeftRight -= maxSpeedLeftRight / 10;
-		//an -maxSpeedLeftRight * this->leftRight annähern
-	}
-	else if (this->leftRight > 0.0f && maxSpeedLeftRight > this->speedLeftRight) { //left
-		this->speedLeftRight += maxSpeedLeftRight / 10;
-		//an -maxSpeedLeftRight * this->leftRight annähern
-	}*/
-	//////////////////////////////////////////////////////////////////
-
-
 	///////////////////////forward and backward///////////////////////
 	if (duckTransform.translation().Z >= maxZ && this->forwardBackward < 0.0f) { //border (bottom)
 		forwardBackwardMatrix.translation(0, 0, 0);
