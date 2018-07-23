@@ -24,8 +24,11 @@ protected:
 
 	float rotation;         //ggf. Neigung in der Kurve
 	float speedLeftRight;
+	float speedForwardBackward;
 	float forwardBackward;
 	float leftRight;
+
+	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue);
 };
 
 #endif /* Duck_hpp */
