@@ -1,129 +1,130 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\src\Aabb.cpp">
+    <ClCompile Include="Aabb.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BaseModel.cpp">
+    <ClCompile Include="BaseModel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\BaseShader.cpp">
+    <ClCompile Include="BaseShader.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Camera.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\color.cpp">
+    <ClCompile Include="color.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ConstantShader.cpp">
+    <ClCompile Include="ConstantShader.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\DuckGame.cpp">
+    <ClCompile Include="DuckGame.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\IndexBuffer.cpp">
+    <ClCompile Include="IndexBuffer.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\LineBoxModel.cpp">
+    <ClCompile Include="LineBoxModel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\LinePlaneModel.cpp">
+    <ClCompile Include="LinePlaneModel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Matrix.cpp">
+    <ClCompile Include="Matrix.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Model.cpp">
+    <ClCompile Include="Model.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PhongShader.cpp">
+    <ClCompile Include="PhongShader.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\rgbimage.cpp">
+    <ClCompile Include="rgbimage.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Texture.cpp">
+    <ClCompile Include="Texture.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TriangleBoxModel.cpp">
+    <ClCompile Include="TriangleBoxModel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TrianglePlaneModel.cpp">
+    <ClCompile Include="TrianglePlaneModel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TriangleSphereModel.cpp">
+    <ClCompile Include="TriangleSphereModel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\vector.cpp">
+    <ClCompile Include="vector.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\VertexBuffer.cpp">
+    <ClCompile Include="VertexBuffer.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Application.cpp" />
-    <ClCompile Include="..\..\src\Duck.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Duck.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Aabb.h">
+    <ClInclude Include="Aabb.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BaseModel.h">
+    <ClInclude Include="BaseModel.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\BaseShader.h">
+    <ClInclude Include="BaseShader.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Camera.h">
+    <ClInclude Include="Camera.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\color.h">
+    <ClInclude Include="color.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ConstantShader.h">
+    <ClInclude Include="ConstantShader.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\IndexBuffer.h">
+    <ClInclude Include="IndexBuffer.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\LineBoxModel.h">
+    <ClInclude Include="LineBoxModel.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\LinePlaneModel.h">
+    <ClInclude Include="LinePlaneModel.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Matrix.h">
+    <ClInclude Include="Matrix.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Model.h">
+    <ClInclude Include="Model.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PhongShader.h">
+    <ClInclude Include="PhongShader.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\rgbimage.h">
+    <ClInclude Include="rgbimage.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Texture.h">
+    <ClInclude Include="Texture.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TriangleBoxModel.h">
+    <ClInclude Include="TriangleBoxModel.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TrianglePlaneModel.h">
+    <ClInclude Include="TrianglePlaneModel.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TriangleSphereModel.h">
+    <ClInclude Include="TriangleSphereModel.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\vector.h">
+    <ClInclude Include="vector.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\VertexBuffer.h">
+    <ClInclude Include="VertexBuffer.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Application.h" />
-    <ClInclude Include="..\..\src\Duck.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Duck.h" />
+    <ClInclude Include="Spawner.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">
