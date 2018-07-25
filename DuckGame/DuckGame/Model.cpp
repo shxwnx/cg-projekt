@@ -36,6 +36,20 @@ Model::~Model()
 	deleteNodes(&RootNode);
 }
 
+Model::Model(Model * model)
+{
+	this->shader(new PhongShader());
+	this->pMeshes = model->pMeshes;
+	this->MeshCount = model->MeshCount;
+	this->pMaterials = model->pMaterials;
+	this->MaterialCount = model->MaterialCount;
+	this->BoundingBox = model->BoundingBox;
+
+	this->Filepath = model->Filepath;
+	this->Path = model->Path;
+	this->RootNode = model->RootNode;
+}
+
 void Model::deleteNodes(Node* pNode)
 {
     if(!pNode)

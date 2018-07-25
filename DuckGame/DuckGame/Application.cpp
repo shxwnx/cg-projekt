@@ -31,6 +31,7 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 void Application::update(float dTime)
 {
 	this->controlDuck(dTime);
+	this->spawner->update(dTime);
 	this->camera.update();
 }
 
@@ -76,17 +77,16 @@ void Application::controlDuck(float dTime)
 void Application::createSpawner()
 {
 	auto shader = new PhongShader();
-	this->spawner = new Spawner();
+	this->spawner = new Spawner(1, 1.0f, 1.0f);
 	this->spawner->shader(shader, true);
 
 	std::vector<const char*> files = {
 		// ASSET_DIRECTORY "donut_brown.dae" ,
 		ASSET_DIRECTORY "donut_pink.dae" ,
 		ASSET_DIRECTORY "waterball_blue.dae" ,
-		ASSET_DIRECTORY "waterball_colorful.dae" 
+		ASSET_DIRECTORY "waterball_colorful.dae"
 	};
 	this->spawner->loadModels(files);
-
 	this->models.push_back(this->spawner);
 }
 
