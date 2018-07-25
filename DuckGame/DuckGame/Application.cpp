@@ -62,9 +62,10 @@ void Application::createDuck()
 
 	this->models.push_back(this->duck);
 
-	Matrix mat;
+	Matrix mat, mat2;
 	mat.scale(5);
-	this->duck->getModel()->transform(this->duck->getModel()->transform() * mat);
+	mat2.translation(0,0,0.9);
+	this->duck->getModel()->transform(this->duck->getModel()->transform() * mat * mat2);
 
 }
 
