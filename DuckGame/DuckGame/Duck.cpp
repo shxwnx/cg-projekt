@@ -33,14 +33,13 @@ bool Duck::loadModel(const char* file)
 	}
 	this->model->shader(this->pShader, false);
 
-	Matrix mRotate;
-	Matrix mPosition;
-	
-	mRotate.translation(0, 0, 0);
-	mRotate.rotationY(-PI / 2);
-	mPosition.translation(0, 0, -2.0f);
+	Matrix position;
+	Matrix scale;
 
-	this->model->transform(mPosition);
+	position.translation(0, 0, 1);
+	scale.scale(5);
+
+	this->model->transform(position * scale);
 
 	return true;
 }
@@ -88,10 +87,6 @@ void Duck::update(float dtime)
 void Duck::draw(const BaseCamera& Cam)
 {
 	this->model->draw(Cam);
-}
-
-Model* Duck::getModel() {
-	return this->model;
 }
 
 float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border) {
