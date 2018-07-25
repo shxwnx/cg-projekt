@@ -22,7 +22,7 @@ public:
 protected:
 	Model* model;
 
-	float rotation;         //ggf. Neigung in der Kurve
+	float slope;         //ggf. Neigung in der Kurve
 	float speedLeftRight;
 	float speedForwardBackward;
 	float forwardBackward;

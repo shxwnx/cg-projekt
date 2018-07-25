@@ -10,7 +10,7 @@
 
 Duck::Duck()
 {
-	this->rotation = 0.0;
+	this->slope = 0.0;
 	this->forwardBackward = 0.0;
 	this->leftRight = 0.0;
 	this->speedLeftRight = 0.0;
@@ -62,54 +62,46 @@ void Duck::update(float dtime)
 
 	///////////////////////forward and backward///////////////////////
 	if (duckTransform.translation().Z >= maxZ && this->forwardBackward < 0.0f) { //border (bottom)
-		forwardBackwardMatrix.translation(0, 0, 0);
 		this->speedForwardBackward = 0.0f;
 	}
 	else if (duckTransform.translation().Z <= -maxZ && this->forwardBackward > 0.0f) { //border (top)
-		forwardBackwardMatrix.translation(0, 0, 0);
 		this->speedForwardBackward = 0.0f;
 	}
 	else {
-		//forwardBackwardMatrix.translation(0, 0, -maxSpeedForwardBackward * this->forwardBackward * dtime); //without acceleration
-
-		this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward);
-		forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
+		this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward);	
 	}
-	std::cout << this->speedForwardBackward << std::endl;
+	forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
+	//std::cout << this->speedForwardBackward << std::endl;
 	//////////////////////////////////////////////////////////////////
 
 
 	//////////////////////////right and left//////////////////////////
 	if (duckTransform.translation().X >= maxX && this->leftRight < 0.0f) { //border (right)
-		leftRightMatrix.translation(0, 0, 0);
 		this->speedLeftRight = 0.0f;
 	}
 	else if (duckTransform.translation().X <= -maxX && this->leftRight > 0.0f) { //border (left)
-		leftRightMatrix.translation(0, 0, 0);
 		this->speedLeftRight = 0.0f;
 	}
 	else {
 		//leftRightMatrix.translation(-maxSpeedLeftRight * this->leftRight * dtime, 0, 0);	//without acceleration
-
 		this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight);
-		leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);					//with acceleration
-		
-		//this->speedLeftRight = -maxSpeedLeftRight * this->leftRight * dtime;
-		//std::cout <<  this->speedLeftRight;
 	}
+	leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);
 	//std::cout << this->speedLeftRight << std::endl;
 	/////////////////////////////////////////////////////////////////
 
 
 	//////////////////////////////slope//////////////////////////////
-	//Matrix mat3;
-	//mat3.rotationY(this->speedLeftRight*100);
-	//duckTransform.rotationY(this->speedLeftRight * 100);
+	Matrix newSlope;
+	Matrix oldSlope;
+
+	newSlope.rotationY(this->speedLeftRight/5);
+	oldSlope.rotationY(-this->slope);
 	/////////////////////////////////////////////////////////////////
 
 
-	this->model->transform(this->model->transform() * forwardBackwardMatrix * leftRightMatrix);
-
+	this->model->transform(this->model->transform() * oldSlope * forwardBackwardMatrix * leftRightMatrix * newSlope);
+	this->slope = this->speedLeftRight/5;
 }
 
 void Duck::draw(const BaseCamera& Cam)
