@@ -6,6 +6,7 @@ Spawner::Spawner(int count, float spacing, float speed)
 	this->count = count;
 	this->spacing = spacing;
 	this->speed = speed;
+	this->timePassed = 0.0f;
 }
 
 Spawner::~Spawner()
@@ -16,10 +17,12 @@ Spawner::~Spawner()
 
 bool Spawner::loadModels(std::vector<const char*> files)
 {
+	Matrix mPosition;
+	mPosition.translation(0, 0, -4.0f);
 	for (auto file : files) {
 
 		auto model = new Model(file, false);
-		Matrix mPosition;
+
 		if (!model->load(file, false)) {
 			return false;
 		}
@@ -32,6 +35,12 @@ bool Spawner::loadModels(std::vector<const char*> files)
 
 void Spawner::update(float dtime)
 {
+	float spawnSpeed = this->speed * dtime;
+	this->timePassed += spawnSpeed;
+	if (this->timePassed > 1.0f) {
+		auto model = getRandomModel();
+		this->outputModels.push_back(model);
+	}
 }
 
 void Spawner::draw(const BaseCamera & camera)
@@ -40,3 +49,12 @@ void Spawner::draw(const BaseCamera & camera)
 		model->draw(camera);
 	}
 }
+
+Model * Spawner::getRandomModel()
+{
+	std::random_device random_device;
+	std::mt19937 engine{ random_device() };
+	std::uniform_int_distribution<int> dist(0, this->inputModels.size() - 1);
+	return inputModels[dist(engine)];
+}
+

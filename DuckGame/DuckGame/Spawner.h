@@ -22,5 +22,9 @@ protected:
 	int count;
 	float spacing;
 	float speed;
+
+private:
+	float timePassed;
+	Model* getRandomModel();
 };
 
