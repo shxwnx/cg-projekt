@@ -43,9 +43,13 @@ void Application::createDuck()
 
 	this->models.push_back(this->duck);
 
-	Matrix mat;
+	Matrix mat, mat2;
 	mat.scale(5);
+
 	this->duck->getModel()->transform(this->duck->getModel()->transform() * mat);
+
+	mat2.translation(0,0,0.9);
+	this->duck->getModel()->transform(this->duck->getModel()->transform() * mat * mat2);
 }
 
 void Application::controlDuck(float dTime)
@@ -84,7 +88,7 @@ void Application::createSpawner()
 	this->spawner->shader(shader, true);
 
 	std::vector<const char*> files = {
-		//ASSET_DIRECTORY "donut_brown.dae" ,
+		// ASSET_DIRECTORY "donut_brown.dae" ,
 		ASSET_DIRECTORY "donut_pink.dae" ,
 		ASSET_DIRECTORY "waterball_blue.dae" ,
 		ASSET_DIRECTORY "waterball_colorful.dae" 
