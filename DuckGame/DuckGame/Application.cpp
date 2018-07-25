@@ -1,16 +1,6 @@
-//
-//  Application.cpp
-//  
-
 #include "Application.h"
-#ifdef WIN32
 #include <GL/glew.h>
 #include <glfw/glfw3.h>
-#else
-#define GLFW_INCLUDE_GLCOREARB
-#define GLFW_INCLUDE_GLEXT
-#include <glfw/glfw3.h>
-#endif
 #include "lineplanemodel.h"
 #include "triangleplanemodel.h"
 #include "trianglespheremodel.h"
@@ -18,16 +8,8 @@
 #include "triangleboxmodel.h"
 #include "model.h"
 #include "scene.h"
-
-
-#ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
-#else
-#define ASSET_DIRECTORY "../assets/"
-#endif
-
 #define PI 3.14159265358979323846
-
 
 Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 {
@@ -43,18 +25,17 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	models.push_back(pModel);
 
 	this->createDuck();
+	this->createSpawner();
 }
 
 void Application::update(float dTime)
 {
 	this->controlDuck(dTime);
-
 	this->camera.update();
 }
 
 void Application::createDuck()
 {
-
 	PhongShader* shader = new PhongShader();
 	this->duck = new Duck();
 	this->duck->shader(shader, true);
@@ -65,7 +46,6 @@ void Application::createDuck()
 	Matrix mat;
 	mat.scale(5);
 	this->duck->getModel()->transform(this->duck->getModel()->transform() * mat);
-
 }
 
 void Application::controlDuck(float dTime)
@@ -95,6 +75,23 @@ void Application::controlDuck(float dTime)
 
 	this->duck->steer(fb, lr);
 	this->duck->update(dTime);
+}
+
+void Application::createSpawner()
+{
+	auto shader = new PhongShader();
+	this->spawner = new Spawner();
+	this->spawner->shader(shader, true);
+
+	std::vector<const char*> files = {
+		//ASSET_DIRECTORY "donut_brown.dae" ,
+		ASSET_DIRECTORY "donut_pink.dae" ,
+		ASSET_DIRECTORY "waterball_blue.dae" ,
+		ASSET_DIRECTORY "waterball_colorful.dae" 
+	};
+	this->spawner->loadModels(files);
+
+	this->models.push_back(this->spawner);
 }
 
 void Application::start()

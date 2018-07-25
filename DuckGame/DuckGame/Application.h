@@ -1,20 +1,15 @@
-//
-//  Application.hpp
-//  
-
-#ifndef Application_hpp
-#define Application_hpp
+#pragma once
 
 #include <stdio.h>
 #include <list>
-#include "camera.h"
-#include "phongshader.h"
-#include "constantshader.h"
-#include "vertexbuffer.h"
-#include "indexbuffer.h"
-#include "basemodel.h"
-#include "tank.h"
+#include "Camera.h"
+#include "PhongShader.h"
+#include "ConstantShader.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "BaseModel.h"
 #include "Duck.h"
+#include "Spawner.h"
 
 
 class Application
@@ -37,6 +32,8 @@ protected:
 	void createDuck();
 	void controlDuck(float dTime);
 
-};
+	//Spawner
+	Spawner* spawner;
+	void createSpawner();
 
-#endif /* Application_hpp */
+};

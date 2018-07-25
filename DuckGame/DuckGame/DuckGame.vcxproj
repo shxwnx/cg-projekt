@@ -102,6 +102,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PhongShader.cpp" />
     <ClCompile Include="rgbimage.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleBoxModel.cpp" />
     <ClCompile Include="TrianglePlaneModel.cpp" />
