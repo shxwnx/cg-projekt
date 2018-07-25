@@ -7,6 +7,9 @@
 #include <iostream>
 
 #define PI 3.14159265358979323846
+#define FORWARDBACKWARD true
+#define LEFTRIGHT true
+
 
 Duck::Duck()
 {
@@ -50,58 +53,36 @@ void Duck::steer(float ForwardBackward, float LeftRight)
 
 void Duck::update(float dtime)
 {
-	Matrix forwardBackwardMatrix;	//Translation
-	Matrix leftRightMatrix;			//Translation
-
 	Matrix duckTransform = this->model->transform();
+
+	//movement
+	Matrix forwardBackwardMatrix;	//translation
+	Matrix leftRightMatrix;			//translation
 	float maxX = 2.5f;						//leftRight border
 	float maxZ = 2.5f;						//forwardBackward border
 	float maxSpeedLeftRight = 1.5f;			//max leftRight speed
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
 
-	///////////////////////forward and backward///////////////////////
-	if (duckTransform.translation().Z >= maxZ && this->forwardBackward < 0.0f) { //border (bottom)
-		this->speedForwardBackward = 0.0f;
-	}
-	else if (duckTransform.translation().Z <= -maxZ && this->forwardBackward > 0.0f) { //border (top)
-		this->speedForwardBackward = 0.0f;
-	}
-	else {
-		this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward);	
-	}
+	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, duckTransform.translation().Z, maxZ);
 	forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
-	//std::cout << this->speedForwardBackward << std::endl;
-	//////////////////////////////////////////////////////////////////
 
-
-	//////////////////////////right and left//////////////////////////
-	if (duckTransform.translation().X >= maxX && this->leftRight < 0.0f) { //border (right)
-		this->speedLeftRight = 0.0f;
-	}
-	else if (duckTransform.translation().X <= -maxX && this->leftRight > 0.0f) { //border (left)
-		this->speedLeftRight = 0.0f;
-	}
-	else {
-		//leftRightMatrix.translation(-maxSpeedLeftRight * this->leftRight * dtime, 0, 0);	//without acceleration
-		this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight);
-	}
+	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, duckTransform.translation().X, maxX);
 	leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);
-	//std::cout << this->speedLeftRight << std::endl;
-	/////////////////////////////////////////////////////////////////
 
 
-	//////////////////////////////slope//////////////////////////////
+	//slope
 	Matrix newSlope;
 	Matrix oldSlope;
+	float newSlopeValue = calculateSlope();
 
-	newSlope.rotationY(this->speedLeftRight/5);
+	newSlope.rotationY(newSlopeValue);
 	oldSlope.rotationY(-this->slope);
-	/////////////////////////////////////////////////////////////////
 
 
+	//transform
 	this->model->transform(this->model->transform() * oldSlope * forwardBackwardMatrix * leftRightMatrix * newSlope);
-	this->slope = this->speedLeftRight/5;
+	this->slope = newSlopeValue;
 }
 
 void Duck::draw(const BaseCamera& Cam)
@@ -113,20 +94,31 @@ Model* Duck::getModel() {
 	return this->model;
 }
 
-float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue) {
+float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border) {
 	float speed = 0.0f;
-	if (directionValue == 0.0f) { //no key pressed
-		speed = 0.0f;
-	}
-	else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
-		speed = currentSpeed - maxSpeed / 10;
-	}
-	else if (directionValue > 0.0f && maxSpeed > currentSpeed) { //left
-		speed = currentSpeed + maxSpeed / 10;
-	} 
-	else {
-		speed = currentSpeed;
-	}
 
+	if ((translation < border && directionValue < 0.0f) || (translation > -border && directionValue > 0.0f)) {
+		if (directionValue == 0.0f) { //no key pressed !!!!!!!
+			speed = 0.0f;
+		}
+		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
+			speed = currentSpeed - maxSpeed / 10;
+		}
+		else if (directionValue > 0.0f && maxSpeed > currentSpeed) { //left
+			speed = currentSpeed + maxSpeed / 10;
+		} 
+		else {
+			speed = currentSpeed;
+		}
+	}
 	return speed;
+}
+
+float Duck::calculateSlope() {
+	if (this->forwardBackward < 0.0f) {
+		return (-this->speedLeftRight / 5);
+	}
+	else {
+		return (this->speedLeftRight / 5);
+	}
 }

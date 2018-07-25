@@ -6,7 +6,7 @@
 #define Duck_hpp
 
 #include <stdio.h>
-#include "model.h"
+#include "Model.h"
 
 class Duck : public BaseModel
 {
@@ -22,13 +22,14 @@ public:
 protected:
 	Model* model;
 
-	float slope;         //ggf. Neigung in der Kurve
+	float slope;         
 	float speedLeftRight;
 	float speedForwardBackward;
 	float forwardBackward;
 	float leftRight;
 
-	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue);
+	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border);
+	float calculateSlope();
 };
 
 #endif /* Duck_hpp */
