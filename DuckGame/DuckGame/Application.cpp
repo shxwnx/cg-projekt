@@ -40,7 +40,7 @@ void Application::createDuck()
 	PhongShader* shader = new PhongShader();
 	this->duck = new Duck();
 	this->duck->shader(shader, true);
-	this->duck->loadModel(ASSET_DIRECTORY "duck.dae");
+	this->duck->loadModel(ASSET_DIRECTORY "newduck.dae");
 
 	this->models.push_back(this->duck);
 }
