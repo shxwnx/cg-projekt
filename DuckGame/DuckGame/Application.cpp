@@ -77,11 +77,12 @@ void Application::controlDuck(float dTime)
 void Application::createSpawner()
 {
 	auto shader = new PhongShader();
-	this->spawner = new Spawner(1, 1.0f, 1.0f);
+	//(int countRows, int countObjets, float spacing, float spawnTime, float speed)
+	this->spawner = new Spawner(5, 42, 1.0f, 0.1f, 5.0f);
 	this->spawner->shader(shader, true);
 
 	std::vector<const char*> files = {
-		// ASSET_DIRECTORY "donut_brown.dae" ,
+		//ASSET_DIRECTORY "donut_brown.dae" ,
 		ASSET_DIRECTORY "donut_pink.dae" ,
 		ASSET_DIRECTORY "waterball_blue.dae" ,
 		ASSET_DIRECTORY "waterball_colorful.dae"

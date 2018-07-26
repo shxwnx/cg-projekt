@@ -32,8 +32,6 @@ public:
 	virtual void draw(const BaseCamera& Cam);
 	const AABB& boundingBox() const { return BoundingBox; }
 
-	std::string Filepath; // stores pathname and filename
-
 protected: // protected types
 	struct Mesh
 	{
@@ -83,7 +81,7 @@ protected: // protected member variables
 	unsigned int MaterialCount;
 	AABB BoundingBox;
 
-
+	std::string Filepath; // stores pathname and filename
 	std::string Path; // stores path without filename
 	Node RootNode;
 

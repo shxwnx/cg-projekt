@@ -1,9 +1,10 @@
 #include "Spawner.h"
 #define PI 3.14159265358979323846
 
-Spawner::Spawner(int count, float spacing, float spawnTime, float speed)
+Spawner::Spawner(int countRows, int countObjects, float spacing, float spawnTime, float speed)
 {
-	this->count = count;
+	this->countRows = countRows;
+	this->countObjects = countObjects;
 	this->spacing = spacing;
 	this->spawnTime = spawnTime;
 	this->speed = speed;
@@ -18,8 +19,12 @@ Spawner::~Spawner()
 
 bool Spawner::loadModels(std::vector<const char*> files)
 {
+	if (files.size() <= 0 ||this->countObjects <= 0)
+		return false;
+
+	int countPerObject = this->countObjects / files.size();
 	for (auto file : files) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < countPerObject; i++) {
 			auto model = new Model(file, false);
 
 			if (!model->load(file, false)) {
@@ -40,7 +45,7 @@ void Spawner::update(float dtime)
 	if (this->timePassed > this->spawnTime) {
 		auto random = this->getRandomModel();
 		this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
-
+		random->transform(this->randomTransform());
 		this->outputModels.push_back(random);
 		if (this->outputModels.size() >= this->inputModels.size()) {
 			auto first = this->outputModels.front();
@@ -71,15 +76,29 @@ Matrix Spawner::defaultTransform()
 {
 	Matrix position;
 	Matrix scale;
-	position.translation(0, 0.5f, -4.0f);
+	position.translation(0, 0, -5.0f);
 	scale.scale(2);
 	return position * scale;
 }
 
+Matrix Spawner::randomTransform()
+{
+	std::random_device randomDevice;
+	std::mt19937 engine(randomDevice());
+	std::uniform_int_distribution<int> dist(-(int)(this->countRows * this->spacing / 2.0f),
+		(int)(this->countRows*this->spacing / 2.0f));
+	int range = dist(engine);
+
+	Matrix defaultPosition = this->defaultTransform();
+	Matrix randomPosition;
+	randomPosition.translation(range, 0, 0);
+	return  randomPosition * defaultPosition;
+}
+
 Model * Spawner::getRandomModel()
 {
-	std::random_device random_device;
-	std::mt19937 engine{ random_device() };
+	std::random_device randomDevice;
+	std::mt19937 engine{ randomDevice() };
 	std::uniform_int_distribution<int> dist(0, this->inputModels.size() - 1);
 	if (inputModels.size() > 0) {
 		return inputModels[dist(engine)];

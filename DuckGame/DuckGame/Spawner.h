@@ -10,7 +10,7 @@
 class Spawner : public BaseModel
 {
 public:
-	Spawner(int count = 1, float spacing = 1.0f, float spawnTime = 1.0f, float speed = 1.0f);
+	Spawner(int countRows = 1, int countObjects = 10, float spacing = 1.0f, float spawnTime = 1.0f, float speed = 1.0f);
 	virtual ~Spawner();
 	bool loadModels( std::vector<const char*> files);
 	void update(float dtime);
@@ -20,7 +20,8 @@ protected:
 	std::vector<Model*> inputModels;
 	std::vector<Model*> outputModels;
 
-	int count;
+	int countRows;
+	int countObjects;
 	float spacing;
 	float spawnTime;
 	float speed;
@@ -29,5 +30,6 @@ private:
 	float timePassed;
 	Model* getRandomModel();
 	Matrix defaultTransform();
+	Matrix randomTransform();
 };
 
