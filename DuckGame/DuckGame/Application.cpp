@@ -77,8 +77,8 @@ void Application::controlDuck(float dTime)
 void Application::createSpawner()
 {
 	auto shader = new PhongShader();
-	//(int countRows, int countObjets, float spacing, float spawnTime, float speed)
-	this->spawner = new Spawner(5, 42, 1.0f, 0.1f, 5.0f);
+	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
+	this->spawner = new Spawner(5, 42, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);	
 	this->spawner->shader(shader, true);
 
 	std::vector<const char*> files = {
