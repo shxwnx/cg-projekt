@@ -52,15 +52,14 @@ void Spawner::update(float dtime)
 		this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
 		random->transform(this->randomTransform());
 		this->outputModels.push_back(random);
-		//TODO: +6 in Z
-		//this->rearrange();
-		if (this->outputModels.size() >= this->inputModels.size()) {
+		this->rearrange();
+		/*if (this->outputModels.size() >= this->inputModels.size()) {
 			auto first = this->outputModels.front();
 			this->outputModels.erase(this->outputModels.begin());
 
 			first->transform(this->defaultTransform());
 			this->inputModels.push_back(first);
-		}
+		}*/
 		this->spawnTimePassed = 0.0f;
 	}
 
@@ -92,10 +91,12 @@ void Spawner::rearrange()
 {
 	for (auto model : this->outputModels) {
 		auto pos = model->transform();
-		pos = pos;
-		//if (pos > 5.0f) {
+		if (pos.m23 > 6.0f) {
+				this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
+				model->transform(this->defaultTransform());
+				this->inputModels.push_back(model);
 
-		//}
+		}
 	}
 }
 
@@ -103,7 +104,7 @@ Matrix Spawner::defaultTransform()
 {
 	Matrix position;
 	Matrix scale;
-	position.translation(0, 0, -5.0f);
+	position.translation(0, 0, -6.0f);
 	scale.scale(2);
 	return position * scale;
 }

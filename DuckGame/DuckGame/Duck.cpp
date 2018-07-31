@@ -36,7 +36,7 @@ bool Duck::loadModel(const char* file)
 	Matrix position;
 	Matrix scale;
 
-	position.translation(0, 0, 1);
+	position.translation(0, 0, 4);
 	scale.scale(5);
 
 	this->model->transform(position * scale);
