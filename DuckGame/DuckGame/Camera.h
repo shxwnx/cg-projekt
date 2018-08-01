@@ -34,6 +34,7 @@ public:
 class Camera : public BaseCamera
 {
 public:
+	Camera();
     Camera(GLFWwindow* pWin);
     virtual ~Camera() {};
     

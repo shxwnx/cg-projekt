@@ -11,8 +11,13 @@
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
 
+Application::Application()
+{
+}
+
 Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 {
+	this->timePassed = 0.0f;
 	BaseModel* pModel;
 	ConstantShader* pConstShader;
 	PhongShader* pPhongShader;
@@ -30,6 +35,7 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 
 void Application::update(float dTime)
 {
+	this->timePassed += dTime;
 	this->controlDuck(dTime);
 	this->spawner->update(dTime);
 	this->camera.update();
@@ -149,4 +155,9 @@ void Application::end()
 		delete *it;
 
 	models.clear();
+}
+
+float Application::getTimePassed()
+{
+	return this->timePassed;
 }

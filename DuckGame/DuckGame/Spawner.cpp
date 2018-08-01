@@ -13,6 +13,7 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	this->acceleration = acceleration;
 	this->accelerateTime = accelerateTime;
 	this->accelerateTimePassed = 0.0f;
+	this->objectsDodged = 0;
 }
 
 Spawner::~Spawner()
@@ -87,6 +88,21 @@ void Spawner::draw(const BaseCamera & camera)
 	}
 }
 
+float Spawner::getSpawnTime()
+{
+	return this->spawnTime;
+}
+
+float Spawner::getSpeed()
+{
+	return this->speed;
+}
+
+int Spawner::getObjectsDodged()
+{
+	return this->objectsDodged;
+}
+
 void Spawner::rearrange()
 {
 	for (auto model : this->outputModels) {
@@ -95,7 +111,7 @@ void Spawner::rearrange()
 				this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
 				model->transform(this->defaultTransform());
 				this->inputModels.push_back(model);
-
+				this->objectsDodged++;
 		}
 	}
 }
