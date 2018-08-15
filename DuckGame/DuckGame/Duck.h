@@ -32,7 +32,7 @@ protected:
 	float calculateSlope();
 
 	bool checkCollision();
-	bool cubeIntersection();
+	bool boundingBoxIntersection(const AABB* boxA, const AABB* boxB);
 };
 
 #endif /* Duck_hpp */

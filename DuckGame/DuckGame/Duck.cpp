@@ -143,17 +143,23 @@ float Duck::calculateSlope() {
 
 bool Duck::checkCollision() {
 	for (unsigned int i = 0; i < this->obstacleModels->size(); ++i) {
-		/*std::cout << "Obstacle: " 
-			<< this->obstacleModels->at(i)->transform().translation().Z 
-			<< " - Duck: "
-			<< this->transform().translation().Z
-			<< std::endl;*/
-		
-	}
+
+		if (this->model->transform().translation().X - 1 < this->obstacleModels->at(i)->transform().translation().X
+			&& this->model->transform().translation().X + 1 > this->obstacleModels->at(i)->transform().translation().X) {
+
+			if (this->model->transform().translation().Z - 1 < this->obstacleModels->at(i)->transform().translation().Z
+				&& this->model->transform().translation().Z + 1 > this->obstacleModels->at(i)->transform().translation().Z) {
+				//std::cout << "NEAR OBSTACLE" << std::endl;
+				
+				//if (this->boundingBoxIntersection(this->model->boundingBox(), this->obstacleModels->at(i).boundingBox())) return true;
+
+			}
+		}
+	}			
 	return false;
 }
 
-bool Duck::cubeIntersection() {
-
+bool Duck::boundingBoxIntersection(const AABB* boxA, const AABB* boxB) {
+	//Collision
 	return false;
 }
