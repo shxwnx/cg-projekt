@@ -29,8 +29,9 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	pModel->shader(pConstShader, true);
 	models.push_back(pModel);
 
-	this->createDuck();
 	this->createSpawner();
+	this->createDuck();
+	
 }
 
 void Application::update(float dTime)
@@ -44,7 +45,7 @@ void Application::update(float dTime)
 void Application::createDuck()
 {
 	PhongShader* shader = new PhongShader();
-	this->duck = new Duck();
+	this->duck = new Duck(this->spawner->getOutputModels());
 	this->duck->shader(shader, true);
 	this->duck->loadModel(ASSET_DIRECTORY "newduck.dae");
 

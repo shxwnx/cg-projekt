@@ -11,7 +11,7 @@
 class Duck : public BaseModel
 {
 public:
-	Duck();
+	Duck(std::vector<Model*> *obstacleModels);
 	virtual ~Duck();
 	bool loadModel(const char* file);
 	void steer(float forwardBackward, float leftRight);
@@ -20,6 +20,7 @@ public:
 
 protected:
 	Model* model;
+	std::vector<Model*> *obstacleModels;
 
 	float slope;         
 	float speedLeftRight;
@@ -27,8 +28,11 @@ protected:
 	float forwardBackward;
 	float leftRight;
 
-	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border);
+	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction);
 	float calculateSlope();
+
+	bool checkCollision();
+	bool cubeIntersection();
 };
 
 #endif /* Duck_hpp */

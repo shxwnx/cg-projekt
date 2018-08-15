@@ -79,6 +79,7 @@ void Spawner::update(float dtime)
 		this->speed += this->speed * this->acceleration;
 		this->accelerateTimePassed = 0.0f;
 	}
+
 }
 
 void Spawner::draw(const BaseCamera & camera)
@@ -152,4 +153,8 @@ Model * Spawner::getRandomModel()
 	return nullptr;
 }
 
+
+std::vector<Model*> * Spawner::getOutputModels() {
+	return &this->outputModels;
+}
 

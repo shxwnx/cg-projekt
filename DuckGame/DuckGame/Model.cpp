@@ -203,6 +203,7 @@ void Model::loadMaterials(const aiScene* pScene)
 		}
 	}
 }
+
 void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
 {
 	float minX = pScene->mMeshes[0]->mVertices[0].x;
@@ -242,8 +243,8 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
 		}
 	}
 
-	BoundingBox.Max = *new Vector(maxX, maxY, maxZ);
-	BoundingBox.Min = *new Vector(minX, minY, minZ);
+	Box.Max = *new Vector(maxX, maxY, maxZ);
+	Box.Min = *new Vector(minX, minY, minZ);
 }
 
 void Model::loadNodes(const aiScene* pScene)

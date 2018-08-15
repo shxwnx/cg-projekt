@@ -19,6 +19,7 @@ public:
 	float getSpawnTime();
 	float getSpeed();
 	int getObjectsDodged();
+	std::vector<Model*> * getOutputModels();
 
 protected:
 	std::vector<Model*> inputModels;
