@@ -149,7 +149,7 @@ bool Duck::checkCollision() {
 
 			if (this->model->transform().translation().Z - 1 < this->obstacleModels->at(i)->transform().translation().Z
 				&& this->model->transform().translation().Z + 1 > this->obstacleModels->at(i)->transform().translation().Z) {
-				std::cout << "NEAR OBSTACLE" << std::endl;
+				//std::cout << "NEAR OBSTACLE" << std::endl;
 				
 				if (this->boundingBoxIntersection(&this->obstacleModels->at(i)->boundingBox())) return true;
 
@@ -160,7 +160,7 @@ bool Duck::checkCollision() {
 }
 
 bool Duck::boundingBoxIntersection(const AABB* box) {
-	//Collision
+	//Box Collision
 	const AABB* tmp = &this->model->boundingBox();
 
 	if (tmp->getX() - box->getX() < tmp->getSizeX() + box->getSizeX()) {
@@ -171,7 +171,5 @@ bool Duck::boundingBoxIntersection(const AABB* box) {
 		}
 	}
 
-	//&this->model->boundingBox()
-	//boxA->
 	return false;
 }
