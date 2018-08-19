@@ -17,12 +17,18 @@ class AABB
 public:
     Vector Min;
     Vector Max;
+
     AABB();
     AABB(const Vector& min, const Vector& max);
     AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ);
     Vector size() const;
+	float getX() const;
+	float getY() const;
+	float getZ() const;
+	float getSizeX() const;
+	float getSizeY() const;
+	float getSizeZ() const;
+
 };
-
-
 
 #endif /* Aabb_hpp */
