@@ -44,3 +44,10 @@ Vector Water::calculateWave(float x, float z, float time) {
 
 	return wave;
 }
+
+
+//http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch01.html
+//http://fire-face.com/personal/water/index.html
+
+//https://80.lv/articles/tutorial-ocean-shader-with-gerstner-waves/
+//https://pastebin.com/Pq8gDFHB
