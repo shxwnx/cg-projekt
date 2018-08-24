@@ -10,6 +10,7 @@
 #include <assimp/vector2.h>
 #include "Model.h"
 #include "TrianglePlaneModel.h"
+#include "LinePlaneModel.h"
 #include "Vector2D.h"
 #include "Wave.h"
 
@@ -23,6 +24,7 @@ public:
 
 protected:
 	TrianglePlaneModel* model;
+	LinePlaneModel* testModel;
 
 	float sizeX;
 	float sizeZ;
