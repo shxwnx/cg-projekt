@@ -23,14 +23,15 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	PhongShader* pPhongShader;
 
 	// create LineGrid model with constant color shader
-	pModel = new LinePlaneModel(6.0f, 9.0f, 6, 9);
+	/*pModel = new LinePlaneModel(6.0f, 9.0f, 6, 9);
 	pConstShader = new ConstantShader();
 	pConstShader->color(Color(1, 1, 1));
 	pModel->shader(pConstShader, true);
-	models.push_back(pModel);
+	models.push_back(pModel);*/
 
 	this->createSpawner();
 	this->createDuck();
+	this->createWater(6.0f, 9.0f, 6, 9);
 	
 }
 
@@ -96,6 +97,18 @@ void Application::createSpawner()
 	};
 	this->spawner->loadModels(files);
 	this->models.push_back(this->spawner);
+}
+
+void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ) {
+	this->water = new Water(sizeX, sizeZ, segmentsX, segmentsZ);
+
+	//PhongShader* shader = new PhongShader();
+	ConstantShader* shader = new ConstantShader();
+	shader->color(Color(1, 1, 1));
+	this->water->shader(shader, true);
+
+	//Eigenen Shader einfügen
+	models.push_back(this->water);
 }
 
 void Application::start()

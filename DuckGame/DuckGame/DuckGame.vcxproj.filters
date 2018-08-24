@@ -65,6 +65,7 @@
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="UIService.cpp" />
+    <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -128,6 +129,7 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="UIService.h" />
+    <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

@@ -10,6 +10,7 @@
 #include "BaseModel.h"
 #include "Duck.h"
 #include "Spawner.h"
+#include "Water.h"
 
 
 class Application
@@ -38,6 +39,10 @@ protected:
 	// Spawner
 	Spawner* spawner;
 	void createSpawner();
+
+	// Water
+	Water* water;
+	void createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
 
 	//	General
 	float timePassed;
