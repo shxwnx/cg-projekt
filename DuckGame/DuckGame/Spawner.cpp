@@ -50,25 +50,32 @@ void Spawner::update(float dtime)
 	if (this->spawnTimePassed > this->spawnTime) {
 
 		auto random = this->getRandomModel();
-		this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
-		random->transform(this->randomTransform());
-		this->outputModels.push_back(random);
-		this->rearrange();
-		/*if (this->outputModels.size() >= this->inputModels.size()) {
-			auto first = this->outputModels.front();
-			this->outputModels.erase(this->outputModels.begin());
+		if (random != nullptr) {
+			this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
+			random->transform(this->randomTransform());
+			this->outputModels.push_back(random);
 
-			first->transform(this->defaultTransform());
-			this->inputModels.push_back(first);
-		}*/
+			/*if (this->outputModels.size() >= this->inputModels.size()) {
+				auto first = this->outputModels.front();
+				this->outputModels.erase(this->outputModels.begin());
+
+				first->transform(this->defaultTransform());
+				this->inputModels.push_back(first);
+			}*/
+
+		}
+		this->rearrange();
 		this->spawnTimePassed = 0.0f;
 	}
 
 	// Move Objects down
 	for (auto model : this->outputModels) {
-		Matrix newPosition;
-		newPosition.translation(0, 0, this->speed * dtime);
-		model->transform(model->transform() * newPosition);
+		Matrix mPosition;
+		Matrix mRotation;
+		mPosition.translation(0, 0, this->speed * dtime);
+		mRotation.rotationY(PI / 4.0f  * dtime);
+
+		model->transform(mPosition * model->transform() * mRotation);
 	}
 
 	// Acceleration
@@ -109,10 +116,10 @@ void Spawner::rearrange()
 	for (auto model : this->outputModels) {
 		auto pos = model->transform();
 		if (pos.m23 > 6.0f) {
-				this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
-				model->transform(this->defaultTransform());
-				this->inputModels.push_back(model);
-				this->objectsDodged++;
+			this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
+			model->transform(this->defaultTransform());
+			this->inputModels.push_back(model);
+			this->objectsDodged++;
 		}
 	}
 }

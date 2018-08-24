@@ -86,7 +86,7 @@ void Application::createSpawner()
 {
 	auto shader = new PhongShader();
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(5, 42, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);	
+	this->spawner = new Spawner(5, 3, 1.0f, 0.4f, 6.0f, 0.1f, 2.0f);	
 	this->spawner->shader(shader, true);
 
 	std::vector<const char*> files = {
