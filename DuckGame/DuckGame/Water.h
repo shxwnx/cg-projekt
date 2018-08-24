@@ -18,7 +18,7 @@ public:
 	Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
 	virtual ~Water();
 
-	void generateWaves(float dTime);
+	void generateWaves(float dTime, int count);
 
 protected:
 	TrianglePlaneModel* model;
