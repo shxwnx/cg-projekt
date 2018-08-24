@@ -112,6 +112,7 @@
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Water.cpp" />
+    <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Water.h" />
+    <ClInclude Include="Wave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

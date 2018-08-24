@@ -67,6 +67,7 @@
     <ClCompile Include="UIService.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -132,6 +133,7 @@
     <ClInclude Include="UIService.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">
