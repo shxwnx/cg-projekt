@@ -35,6 +35,7 @@ protected:
 	int objectsDodged; //UI
 
 private:
+	float scale;
 	float spawnTimePassed;
 	float accelerateTimePassed;
 	Model* getRandomModel();

@@ -24,11 +24,11 @@ class Model : public BaseModel
 {
 public:
 	Model();
-	Model(const char* ModelFile, bool FitSize = true);
+	Model(const char* ModelFile, bool FitSize = true, float scale = 1.0f);
 	virtual ~Model();
 	Model(Model* model);
 
-	bool load(const char* ModelFile, bool FitSize = true);
+	bool load(const char* ModelFile, bool FitSize = true, float scale = 1.0f);
 	virtual void draw(const BaseCamera& Cam);
 	const AABB& boundingBox() const { return BoundingBox; }
 
@@ -63,9 +63,9 @@ protected: // protected types
 	};
 
 protected: // protected methods
-	void loadMeshes(const aiScene* pScene, bool FitSize);
+	void loadMeshes(const aiScene* pScene, bool FitSize, float scale);
 	void loadMaterials(const aiScene* pScene);
-	void calcBoundingBox(const aiScene* pScene, AABB& Box);
+	void calcBoundingBox(const aiScene* pScene, AABB& Box, float scale);
 
 	void loadNodes(const aiScene* pScene);
 	void copyNodesRecursive(const aiNode* paiNode, Node* pNode);

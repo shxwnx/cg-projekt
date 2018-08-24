@@ -14,6 +14,7 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	this->accelerateTime = accelerateTime;
 	this->accelerateTimePassed = 0.0f;
 	this->objectsDodged = 0;
+	this->scale = 2.0f;
 }
 
 Spawner::~Spawner()
@@ -30,13 +31,14 @@ bool Spawner::loadModels(std::vector<const char*> files)
 	int countPerObject = this->countObjects / files.size();
 	for (auto file : files) {
 		for (int i = 0; i < countPerObject; i++) {
-			auto model = new Model(file, false);
 
+			auto model = new Model(file, false, this->scale);
+			model->transform(this->defaultTransform());
 			if (!model->load(file, false)) {
 				return false;
 			}
 			model->shader(this->pShader, false);
-			model->transform(this->defaultTransform());
+
 			this->inputModels.push_back(model);
 		}
 	}
@@ -129,7 +131,7 @@ Matrix Spawner::defaultTransform()
 	Matrix position;
 	Matrix scale;
 	position.translation(0, 0, -6.0f);
-	scale.scale(2);
+	scale.scale(this->scale);
 	return position * scale;
 }
 

@@ -27,20 +27,20 @@ Duck::~Duck()
 
 bool Duck::loadModel(const char* file)
 {
-	this->model = new Model(file, false);
+	const float scale = 5.0f;
+	this->model = new Model(file, false, scale);
+	Matrix mPosition;
+	Matrix mScale;
+	mPosition.translation(0, 0, 2);
+	mScale.scale(scale);
+	this->model->transform(mPosition * mScale);
 
 	if (!this->model->load(file, false)) {
 		return false;
 	}
 	this->model->shader(this->pShader, false);
 
-	Matrix position;
-	Matrix scale;
 
-	position.translation(0, 0, 2);
-	scale.scale(5);
-
-	this->model->transform(position * scale);
 
 	return true;
 }
@@ -85,7 +85,9 @@ void Duck::update(float dtime)
 	this->slope = newSlopeValue;
 
 	//check collision
-	if (this->checkCollision()) std::cout << "GAME OVER: Collision detected!" << std::endl;
+	if (this->checkCollision(dtime)) {
+		std::cout << "GAME OVER: Collision detected!" << std::endl;
+	}
 }
 
 void Duck::draw(const BaseCamera& Cam)
@@ -114,20 +116,20 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		}
 
 	} else {*/
-		if ((translation < border && directionValue < 0.0f) || (translation > -border && directionValue > 0.0f)) {
-			if (directionValue == 0.0f) { //no key pressed !!!!!!!
-				speed = 0.0f;
-			}
-			else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
-				speed = currentSpeed - maxSpeed / 10;
-			}
-			else if (directionValue > 0.0f && maxSpeed > currentSpeed) { //left
-				speed = currentSpeed + maxSpeed / 10;
-			}
-			else {
-				speed = currentSpeed;
-			}
+	if ((translation < border && directionValue < 0.0f) || (translation > -border && directionValue > 0.0f)) {
+		if (directionValue == 0.0f) { //no key pressed !!!!!!!
+			speed = 0.0f;
 		}
+		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
+			speed = currentSpeed - maxSpeed / 10;
+		}
+		else if (directionValue > 0.0f && maxSpeed > currentSpeed) { //left
+			speed = currentSpeed + maxSpeed / 10;
+		}
+		else {
+			speed = currentSpeed;
+		}
+	}
 	//}
 	return speed;
 }
@@ -141,39 +143,42 @@ float Duck::calculateSlope() {
 	}
 }
 
-bool Duck::checkCollision() {
-	
-	for (auto model : (*this->obstacleModels) ){
-		if (this->model->transform().translation().X - 1 < model->transform().translation().X
-			&& this->model->transform().translation().X + 1 > model->transform().translation().X) {
+bool Duck::checkCollision(float dtime) {
 
-			if (this->model->transform().translation().Z - 1 < model->transform().translation().Z
-				&& this->model->transform().translation().Z + 1 > model->transform().translation().Z) {
-				std::cout << "NEAR OBSTACLE" << std::endl;
+	static float timePassed = 0.0f;
+	timePassed += dtime;
+	if (timePassed > 0.5f) {
+		for (auto object : (*this->obstacleModels)) {
+			if (this->model->transform().translation().X - 1 < object->transform().translation().X
+				&& this->model->transform().translation().X + 1 > object->transform().translation().X) {
 
-				if (this->boundingBoxIntersection(&model->boundingBox())) {
-					return true;
+				if (this->model->transform().translation().Z - 1 < object->transform().translation().Z
+					&& this->model->transform().translation().Z + 1 > object->transform().translation().Z) {
+
+					if (this->boundingBoxIntersection(object)) {
+						timePassed = 0.0f;
+						return true;
+					}
 				}
-
 			}
 		}
-		
 	}
-		
+
 	return false;
 }
 
-bool Duck::boundingBoxIntersection(const AABB* box) {
+bool Duck::boundingBoxIntersection(const Model* object) {
 	//Box Collision
-	const AABB* tmp = &this->model->boundingBox();
+	const AABB modelBox = this->model->boundingBox();
+	const AABB objectBox = object->boundingBox();
 
-	if (tmp->getX() - box->getX() < tmp->getSizeX() + box->getSizeX()) {
-		if (tmp->getZ() - box->getZ() < tmp->getSizeZ() + box->getSizeZ()) {
-			if (tmp->getY() - box->getY() < tmp->getSizeY() + box->getSizeY()) {
+	if (modelBox.getX() - objectBox.getX() < modelBox.getSizeX() + objectBox.getSizeX()) {
+		if (modelBox.getZ() - objectBox.getZ() < modelBox.getSizeZ() + objectBox.getSizeZ()) {
+			if (modelBox.getY() - objectBox.getY() < modelBox.getSizeY() + objectBox.getSizeY()) {
 				return true;
 			}
 		}
 	}
 
-	return false;
+	return true;
 }

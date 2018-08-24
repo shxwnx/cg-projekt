@@ -31,8 +31,8 @@ protected:
 	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction);
 	float calculateSlope();
 
-	bool checkCollision();
-	bool boundingBoxIntersection(const AABB* box);
+	bool checkCollision(float dtime);
+	bool boundingBoxIntersection(const Model* object);
 };
 
 #endif /* Duck_hpp */
