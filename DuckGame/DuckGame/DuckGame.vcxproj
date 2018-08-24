@@ -109,6 +109,7 @@
     <ClCompile Include="TriangleSphereModel.cpp" />
     <ClCompile Include="UIService.cpp" />
     <ClCompile Include="vector.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
@@ -135,6 +136,7 @@
     <ClInclude Include="TriangleSphereModel.h" />
     <ClInclude Include="UIService.h" />
     <ClInclude Include="vector.h" />
+    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>

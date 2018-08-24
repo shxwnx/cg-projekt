@@ -1,4 +1,5 @@
 #include "Water.h"
+#define PI 3.14159265358979323846
 
 Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
 {
@@ -23,6 +24,19 @@ void Water::generateTrianglePlane() {
 	
 }
 
-Vector Water::calculateVertexPosition(int x, int z, float time) {
-	return Vector();
+Vector Water::calculateVertexPosition(float x, float z, float time) {
+	Vector2D* horizontalVector = new Vector2D(x, z);
+	float newX, newY, newZ;
+	float cosinusValue;
+
+	cosinusValue = ((2 * PI) / this->wavelength);// * this->direction;
+
+
+	//newY = this->amplitude;
+	//this->direction.
+
+	//float tmp = cos((this->wavelength*this->direction)*vertexNumber + this->phase*time);
+	//newPositionX = x + (this->direction->this->steepness*this->amplitude 
+
+	return Vector(newX, newY, newZ);
 }
