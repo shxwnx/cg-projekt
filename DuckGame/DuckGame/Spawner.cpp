@@ -75,7 +75,7 @@ void Spawner::update(float dtime)
 		mPosition.translation(0, 0, this->speed * dtime);
 		mRotation.rotationY(PI / 4.0f  * dtime);
 
-		model->transform(mPosition * model->transform() * mRotation);
+		model->transform(model->transform() * mPosition);
 	}
 
 	// Acceleration
@@ -151,10 +151,11 @@ Matrix Spawner::randomTransform()
 
 Model * Spawner::getRandomModel()
 {
-	std::random_device randomDevice;
-	std::mt19937 engine{ randomDevice() };
-	std::uniform_int_distribution<int> dist(0, this->inputModels.size() - 1);
 	if (inputModels.size() > 0) {
+		std::random_device randomDevice;
+		std::mt19937 engine{ randomDevice() };
+		std::uniform_int_distribution<int> dist(0, this->inputModels.size() - 1);
+
 		return inputModels[dist(engine)];
 	}
 	return nullptr;
