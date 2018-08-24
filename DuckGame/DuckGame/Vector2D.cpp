@@ -48,6 +48,14 @@ Vector2D Vector2D::operator*(float c) const
 	return Vector2D(tempX, tempY);
 }
 
+Vector2D Vector2D::operator/(float c) const
+{
+	float tempX = X / c;
+	float tempY = Y / c;
+
+	return Vector2D(tempX, tempY);
+}
+
 Vector2D Vector2D::operator-() const
 {
 	return Vector2D(-X, -Y);

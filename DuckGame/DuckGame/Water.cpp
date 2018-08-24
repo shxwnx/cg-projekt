@@ -16,7 +16,7 @@ Water::~Water()
 	this->model = NULL;
 }
 
-void Water::generateWave(float dTime) {
+void Water::generateWaves(float dTime) {
 
 }
 
@@ -24,13 +24,25 @@ void Water::generateTrianglePlane() {
 	
 }
 
-Vector Water::calculateVertexPosition(float x, float z, float time) {
-	Vector2D* horizontalVector = new Vector2D(x, z);
-	float newX, newY, newZ;
-	float cosinusValue;
+Vector Water::calculateWave(float x, float z, float time) {
+	Vector2D horizontalVector = Vector2D(x, z);
+	Vector2D tmp;
+	Vector wave;
+	//float newX, newY, newZ;
+	//float cosinusValue;
+	float w, phase;
 
-	cosinusValue = ((2 * PI) / this->wavelength);// * this->direction;
+	w = ((2 * PI) / this->wavelength);
+	phase = sqrt(this->speed * w);
 
+	tmp = (this->direction / w) * this->amplitude * sin(this->direction.dot(horizontalVector) - (phase * time));
+	wave.X = tmp.X;
+	wave.Z = tmp.Y;
+	
+	wave.Y = this->amplitude * cos(this->direction.dot(horizontalVector) - (phase * time)) / 2 - (this->amplitude / 2);
+
+	//(this->steepness * this->amplitude) 
+	//cosinusValue = cos((this->direction * w).dot(horizontalVector)) + (phase * time);
 
 	//newY = this->amplitude;
 	//this->direction.
@@ -38,5 +50,5 @@ Vector Water::calculateVertexPosition(float x, float z, float time) {
 	//float tmp = cos((this->wavelength*this->direction)*vertexNumber + this->phase*time);
 	//newPositionX = x + (this->direction->this->steepness*this->amplitude 
 
-	return Vector(newX, newY, newZ);
+	return wave;
 }
