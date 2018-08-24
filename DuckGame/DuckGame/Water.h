@@ -20,11 +20,12 @@ public:
 	Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
 	virtual ~Water();
 
+	bool loadModel();
 	void update(float dTime);
 
 protected:
 	TrianglePlaneModel* model;
-	LinePlaneModel* testModel;
+	//LinePlaneModel* testModel;
 
 	float sizeX;
 	float sizeZ;

@@ -106,6 +106,7 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 	ConstantShader* shader = new ConstantShader();
 	shader->color(Color(1, 1, 1));
 	this->water->shader(shader, true);
+	this->water->loadModel();
 
 	//Eigenen Shader einfügen
 	models.push_back(this->water);
