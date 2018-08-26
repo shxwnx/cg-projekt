@@ -95,6 +95,7 @@
     <ClCompile Include="ConstantShader.cpp" />
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="Lights.cpp" />
     <ClCompile Include="LineBoxModel.cpp" />
     <ClCompile Include="LinePlaneModel.cpp" />
     <ClCompile Include="DuckGame.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PhongShader.cpp" />
     <ClCompile Include="rgbimage.cpp" />
+    <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleBoxModel.cpp" />
@@ -112,6 +114,7 @@
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Water.cpp" />
+    <ClCompile Include="WaterShader.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,12 +127,14 @@
     <ClInclude Include="ConstantShader.h" />
     <ClInclude Include="Duck.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Lights.h" />
     <ClInclude Include="LineBoxModel.h" />
     <ClInclude Include="LinePlaneModel.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PhongShader.h" />
     <ClInclude Include="rgbimage.h" />
+    <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TriangleBoxModel.h" />
@@ -140,6 +145,7 @@
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Water.h" />
+    <ClInclude Include="WaterShader.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

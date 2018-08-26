@@ -49,6 +49,8 @@ void Water::update(float dTime) {
 	//für jeden Vertex neu berechnen und setzen
 }
 
+
+//In den Shader verlagern
 Vector Water::calculateVertexPosition(float x, float z, float time) {
 	Vector2D horizontalVector = Vector2D(x, z);
 	Vector position;
@@ -75,6 +77,7 @@ Vector Water::calculateVertexPosition(float x, float z, float time) {
 	return position;
 }
 
+//In den Shader verlagern
 Vector Water::calculateVertexNormal(Vector position, float time) {
 	Wave* current;
 	float wa, s, c, tmp;
@@ -101,6 +104,7 @@ Vector Water::calculateVertexNormal(Vector position, float time) {
 //http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch01.html
 //http://fire-face.com/personal/water/index.html
 //https://opengllair.wordpress.com/2016/08/24/gerstner-wave-implementation/
+//https://www.gamedev.net/forums/topic/648388-gerstner-wave-function-hlsl/
 
 //https://80.lv/articles/tutorial-ocean-shader-with-gerstner-waves/
 //https://pastebin.com/Pq8gDFHB

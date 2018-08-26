@@ -68,6 +68,9 @@
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Wave.cpp" />
+    <ClCompile Include="WaterShader.cpp" />
+    <ClCompile Include="ShaderLightMapper.cpp" />
+    <ClCompile Include="Lights.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -134,6 +137,9 @@
     <ClInclude Include="Water.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Wave.h" />
+    <ClInclude Include="WaterShader.h" />
+    <ClInclude Include="ShaderLightMapper.h" />
+    <ClInclude Include="Lights.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

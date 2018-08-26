@@ -28,19 +28,34 @@
 class BaseShader
 {
 public:
-    BaseShader();
-    virtual ~BaseShader() {}
-    virtual void modelTransform(const Matrix& m) { ModelTransform = m; }
-    virtual const Matrix& modelTransform() const { return ModelTransform; }
-    
-    virtual void activate(const BaseCamera& Cam) const;
-    virtual void deactivate() const;
+	BaseShader();
+	virtual ~BaseShader() {}
+	virtual void modelTransform(const Matrix& m) { ModelTransform = m; }
+	virtual const Matrix& modelTransform() const { return ModelTransform; }
+
+	virtual void activate(const BaseCamera& Cam) const;
+	virtual void deactivate() const;
+
+	bool load(const char* VertexShaderFile, const char* FragmentShaderFile);
+	GLint getParameterID(const char* ParamenterName) const;
+	GLuint getBlockID(const char* BlockName) const;
+
+	void setBlock(GLuint ID, GLuint UniformBufferID) const;
+	void setParameter(GLint ID, float Param) const;
+	void setParameter(GLint ID, int Param) const;
+	void setParameter(GLint ID, const Vector& Param) const;
+	void setParameter(GLint ID, const Color& Param) const;
+	void setParameter(GLint ID, const Matrix& Param) const;
+
+	GLuint openGLProgramID() { return ShaderProgram; }
 protected:
-    GLuint createShaderProgram( const char* VScode, const char* FScode );
-    Matrix ModelTransform;
-    GLuint ShaderProgram;
-    
-    static const BaseShader* ShaderInPipe;
+	char* loadFile(const char* File, unsigned int& Filesize);
+	GLuint createShaderProgram(const char* VScode, const char* FScode);
+	Matrix ModelTransform;
+	GLuint ShaderProgram;
+	GLuint LightUniformBuffer;
+
+	static const BaseShader* ShaderInPipe;
 };
 
 #endif /* BaseShader_hpp */
