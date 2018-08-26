@@ -9,7 +9,7 @@ Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
 	this->segmentsZ = segmentsZ;
 
 	this->model = new TrianglePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
-	//this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
+	this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
 
 	//default wave sollte sich mit den Objekten bewegen
 	//ggf. speed erhöhen, wenn Objekte schneller werden
@@ -25,13 +25,13 @@ Water::~Water()
 }
 
 bool Water::loadModel() {
-	/*this->model->shader(this->pShader, false);
-	this->model = new TrianglePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
-	this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
-	this->testModel->shader(this->pShader, false);
-	Matrix position;
-	position.translation(0, 0, 0);
-	this->testModel->transform(position);*/
+	//this->model->shader(this->pShader, false);
+	//this->model = new TrianglePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
+	//this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
+	this->testModel->shader(this->pShader, true);
+	//Matrix position;
+	//position.translation(0, 0, 0);
+	//this->testModel->transform(position);*/
 	//this->testModel->shader(this->pShader, true);
 
 	return true;

@@ -25,7 +25,7 @@ public:
 
 protected:
 	TrianglePlaneModel* model;
-	//LinePlaneModel* testModel;
+	LinePlaneModel* testModel;
 
 	float sizeX;
 	float sizeZ;
