@@ -71,6 +71,7 @@
     <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Lights.cpp" />
     <ClCompile Include="UIService.cpp" />
+    <ClCompile Include="FontShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -140,6 +141,7 @@
     <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="UIService.h" />
+    <ClInclude Include="FontShader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

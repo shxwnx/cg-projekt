@@ -48,4 +48,5 @@ private:
 	void renderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, Vector color);
 
 
+
 };

@@ -50,6 +50,7 @@ protected:
 	void createSkyBox();
 
 	// UI
+	UIService* uiService;
 	void createUI();
 	//	General
 	float timePassed;

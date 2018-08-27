@@ -4,6 +4,7 @@
 
 #include "PhongShader.h"
 #include "ConstantShader.h"
+#include "FontShader.h"
 
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
@@ -43,6 +44,7 @@ void Application::update(float dTime)
 	this->controlDuck(dTime);
 	this->spawner->update(dTime);
 	this->camera.update();
+	this->uiService->update(dTime);
 }
 
 void Application::createDuck()
@@ -123,9 +125,9 @@ void Application::createSkyBox()
 
 void Application::createUI()
 {
-	auto uiService = new UIService(ASSET_DIRECTORY "roboto.ttf" );
-	uiService->shader(new PhongShader(), true);
-	this->models.push_back(uiService);
+	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf" );
+	this->uiService->shader(new FontShader(Vector(0,0,0)), true);
+	this->models.push_back(this->uiService);
 }
 
 void Application::start()
