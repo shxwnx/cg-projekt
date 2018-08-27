@@ -44,6 +44,9 @@ protected:
 	Water* water;
 	void createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
 
+
+	// Skybox 
+	void createSkyBox();
 	//	General
 	float timePassed;
 

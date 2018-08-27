@@ -29,9 +29,12 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	pModel->shader(pConstShader, true);
 	models.push_back(pModel);*/
 
+
+
 	this->createSpawner();
 	this->createDuck();
 	this->createWater(6.0f, 9.0f, 6, 9);
+	this->createSkyBox();
 	
 }
 
@@ -110,6 +113,13 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 
 	//Eigenen Shader einfügen
 	models.push_back(this->water);
+}
+
+void Application::createSkyBox()
+{
+	auto model = new Model(ASSET_DIRECTORY "skybox.obj", false);
+	model->shader(new PhongShader(), true);
+	this->models.push_back(model);
 }
 
 void Application::start()
