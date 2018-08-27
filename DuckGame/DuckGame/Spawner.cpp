@@ -72,12 +72,14 @@ void Spawner::update(float dtime)
 
 	// Move Objects down
 	for (auto model : this->outputModels) {
-		Matrix mPosition;
-		Matrix mRotation;
-		mPosition.translation(0, 0, this->speed * dtime);
-		mRotation.rotationY(PI / 4.0f  * dtime);
 
-		model->transform(model->transform() * mPosition);
+		Matrix mRotation;
+		Matrix mPosition;
+
+		mRotation.rotationY(PI * dtime);
+		mPosition.translation(0, 0, 2 * this->speed * dtime);
+
+		model->transform(mPosition *  model->transform() * mRotation);
 	}
 
 	// Acceleration
