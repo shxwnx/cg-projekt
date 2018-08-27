@@ -1,15 +1,13 @@
 #include "Application.h"
-#include <GL/glew.h>
-#include <glfw/glfw3.h>
-#include "lineplanemodel.h"
-#include "triangleplanemodel.h"
-#include "trianglespheremodel.h"
-#include "lineboxmodel.h"
-#include "triangleboxmodel.h"
-#include "model.h"
-#include "scene.h"
+
+#include "Model.h"
+
+#include "PhongShader.h"
+#include "ConstantShader.h"
+
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
+
 
 Application::Application()
 {
@@ -35,7 +33,8 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createDuck();
 	this->createWater(6.0f, 9.0f, 6, 9);
 	this->createSkyBox();
-	
+	this->createUI();
+
 }
 
 void Application::update(float dTime)
@@ -89,7 +88,7 @@ void Application::createSpawner()
 {
 	auto shader = new PhongShader();
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(5, 3, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);	
+	this->spawner = new Spawner(5, 3, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);
 	this->spawner->shader(shader, true);
 
 	std::vector<const char*> files = {
@@ -120,6 +119,13 @@ void Application::createSkyBox()
 	auto model = new Model(ASSET_DIRECTORY "skybox.obj", false);
 	model->shader(new PhongShader(), true);
 	this->models.push_back(model);
+}
+
+void Application::createUI()
+{
+	auto uiService = new UIService(ASSET_DIRECTORY "roboto.ttf" );
+	uiService->shader(new PhongShader(), true);
+	this->models.push_back(uiService);
 }
 
 void Application::start()

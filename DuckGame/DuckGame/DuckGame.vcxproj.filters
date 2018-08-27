@@ -64,13 +64,13 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Spawner.cpp" />
-    <ClCompile Include="UIService.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Wave.cpp" />
     <ClCompile Include="WaterShader.cpp" />
     <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Lights.cpp" />
+    <ClCompile Include="UIService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -133,13 +133,13 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Duck.h" />
     <ClInclude Include="Spawner.h" />
-    <ClInclude Include="UIService.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="WaterShader.h" />
     <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Lights.h" />
+    <ClInclude Include="UIService.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

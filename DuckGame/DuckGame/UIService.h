@@ -1,15 +1,29 @@
 #pragma once
+
+#include <vector>
+#include <ft2build.h>
+#include FT_FREETYPE_H  
+
+#include "BaseModel.h"
 #include "Model.h"
-#include "Application.h"
-#include "Spawner.h"
-#include <GLFW/glfw3.h>
+#include "Vector2D.h"
+
+
+
+struct Character {
+	GLuint     TextureID;  // ID handle of the glyph texture
+	Vector2D Size;       // Size of glyph
+	Vector2D Bearing;    // Offset from baseline to left/top of glyph
+	GLuint     Advance;    // Offset to advance to next glyph
+
+};
 
 class UIService : public BaseModel {
 
-	UIService();
+
 public:
 
-	UIService(Application application, Spawner spawner);
+	UIService(const char* font);
 	virtual ~UIService();
 	bool loadUI(std::vector<const char*> files);
 	void update(float dtime);
@@ -17,13 +31,21 @@ public:
 
 private:
 	std::vector<Model*> ui;
+
+	std::map<GLchar, Character> characters;
+	GLuint VAO;
+	GLuint VBO;
 	// Provider
-	Application application;
-	Spawner spawner;
+	//Application * application;
+	//Spawner * spawner;
 
 	// UI
 	float timePassed;
 	float spawnTime;
 	float speed;
 	int objectsDodged;
+
+	void renderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, Vector color);
+
+
 };

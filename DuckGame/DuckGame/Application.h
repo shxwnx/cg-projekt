@@ -2,16 +2,18 @@
 
 #include <stdio.h>
 #include <list>
-#include "Camera.h"
-#include "PhongShader.h"
-#include "ConstantShader.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+
+#include <GL/glew.h>
+#include <glfw/glfw3.h>
+
 #include "BaseModel.h"
+#include "vector.h"
+#include "Camera.h"
+
 #include "Duck.h"
 #include "Spawner.h"
 #include "Water.h"
-
+#include "UIService.h"
 
 class Application
 {
@@ -44,9 +46,11 @@ protected:
 	Water* water;
 	void createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
 
-
 	// Skybox 
 	void createSkyBox();
+
+	// UI
+	void createUI();
 	//	General
 	float timePassed;
 
