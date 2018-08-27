@@ -110,7 +110,7 @@ void UIService::renderText( std::string text, GLfloat x, GLfloat y, GLfloat scal
 {
 	// Activate corresponding render state	
 	//s.Use();
-	//glUniform3f(glGetUniformLocation(s.Program, "textColor"), color.x, color.y, color.z);
+	//glUniform3f(glGetUniformLocation(this->shader()->openGLProgramID, "textColor"), color.X, color.Y, color.Z);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(this->VAO);
 
