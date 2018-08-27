@@ -22,6 +22,7 @@ public:
 
 	bool loadModel();
 	void update(float dTime);
+	virtual void draw(const BaseCamera& camera);
 
 protected:
 	TrianglePlaneModel* model;
