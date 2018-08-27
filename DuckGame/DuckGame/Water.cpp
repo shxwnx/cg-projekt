@@ -8,8 +8,7 @@ Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
 	this->segmentsX = segmentsX;
 	this->segmentsZ = segmentsZ;
 
-	this->model = new TrianglePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
-	this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
+
 
 	//default wave sollte sich mit den Objekten bewegen
 	//ggf. speed erhöhen, wenn Objekte schneller werden
@@ -21,13 +20,14 @@ Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
 
 Water::~Water()
 {
-	this->model = NULL;
+	this->testModel = NULL;
+	//this->model = NULL;
 }
 
 bool Water::loadModel() {
 	//this->model->shader(this->pShader, false);
 	//this->model = new TrianglePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
-	//this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
+	this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
 	this->testModel->shader(this->pShader, true);
 	//Matrix position;
 	//position.translation(0, 0, 0);
@@ -49,6 +49,11 @@ void Water::update(float dTime) {
 	//für jeden Vertex neu berechnen und setzen
 }
 
+void Water::draw(const BaseCamera& Cam)
+{
+	this->testModel->draw(Cam);
+	//this->model->draw(Cam);
+}
 
 //In den Shader verlagern
 Vector Water::calculateVertexPosition(float x, float z, float time) {

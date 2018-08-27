@@ -108,7 +108,7 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 
 	//PhongShader* shader = new PhongShader();
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(1, 1, 1));
+	shader->color(Color(0, 0, 0));
 	this->water->shader(shader, true);
 	this->water->loadModel();
 
