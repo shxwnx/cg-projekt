@@ -21,7 +21,7 @@
 #include "baseshader.h"
 #include "texture.h"
 
-class WaterShader : BaseShader
+class WaterShader : public BaseShader
 {
 public:
 	WaterShader();

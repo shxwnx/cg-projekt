@@ -85,18 +85,18 @@ void Duck::update(float dtime)
 	this->model->transform(this->model->transform() * oldSlope * forwardBackwardMatrix * leftRightMatrix * newSlope);
 	this->slope = newSlopeValue;
 
-	//Vector cameraPositon(duckTransform.translation().X / 4.0f, 4.0f, 5.5f);
 	Vector cameraPositon(duckTransform.translation().X, 4.0f, 5.5f);
 	Vector cameraTarget(duckTransform.translation());
-	/*if (this->speedLeftRight != 0.0f) {
-		cameraPositon.X *= this->speedLeftRight * dtime;
-	}
-	else {
-		cameraPositon.X = duckTransform.translation().X  * dtime;
-	}*/
+	//if (this->speedLeftRight > 0.0f) {
+	//	cameraTarget.X *= -this->speedLeftRight * dtime;
+	//}
+	//else {
+	//	cameraTarget.X = duckTransform.translation().X  * dtime;
+	//}
 
-	this->camera->setTarget(cameraTarget);
 	this->camera->setPosition(cameraPositon);
+	this->camera->setTarget(cameraTarget);
+
 
 	//check collision
 	if (this->checkCollision(dtime)) {
