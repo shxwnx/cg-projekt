@@ -5,6 +5,8 @@
 #include "PhongShader.h"
 #include "ConstantShader.h"
 #include "FontShader.h"
+#include "WaterShader.h"
+#include "BaseShader.h"
 
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
@@ -108,7 +110,8 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 
 	//PhongShader* shader = new PhongShader();
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(0, 0, 0));
+	WaterShader* shader2 = new WaterShader(); //<------------------------------
+	shader->color(Color(0, 0, 0)); 
 	this->water->shader(shader, true);
 	this->water->loadModel();
 

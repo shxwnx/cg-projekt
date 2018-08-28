@@ -28,6 +28,25 @@ public:
 	~WaterShader();
 
 	//getter and setter...
+	float time() const { return Time; }
+	float steepness() const { return Steepness; }
+	float wavelength() const { return Wavelength; }
+	float amplitude() const { return Amplitude; }
+	float speed() const { return Speed; }
+	float directionX() const { return DirectionX; }
+	float directionZ() const { return DirectionZ; }
+	float frequency() const { return Frequency; }
+	float phase() const { return Phase; }
+
+	void time(float time) { this->Time = time; }
+	void steepness(float steepness) { this->Steepness = steepness; }
+	void wavelength(float wavelength) { this->Wavelength = wavelength; }
+	void amplitude(float amplitude) { this->Amplitude = amplitude; }
+	void speed(float speed) { this->Speed = speed; }
+	void directionX(float directionX) { this->DirectionX = directionX; }
+	void directionZ(float directionZ) { this->DirectionZ = directionZ; }
+	void frequency(float frequency) { this->Frequency = frequency; }
+	void phase(float phase) { this->Phase = phase; }
 
 	virtual void activate(const BaseCamera& Cam) const;
 
@@ -36,6 +55,25 @@ protected:
 
 private:
 	//variables...
+	float Time;
+	float Steepness;	//pinch on the wave 
+	float Wavelength;	//crest-to-crest distance between waves in world space
+	float Amplitude;	//height from the water plane to the wave crest
+	float Speed;		//distance the crest moves forward per second
+	float DirectionX;	//horizontal vector perpendicular to the wave front along which the crest travels
+	float DirectionZ;
+	float Frequency;
+	float Phase;
+
+	GLint TimeLoc;
+	GLint SteepnessLoc;	//pinch on the wave 
+	GLint WavelengthLoc;	//crest-to-crest distance between waves in world space
+	GLint AmplitudeLoc;	//height from the water plane to the wave crest
+	GLint SpeedLoc;		//distance the crest moves forward per second
+	GLint DirectionXLoc;	//horizontal vector perpendicular to the wave front along which the crest travels
+	GLint DirectionZLoc;
+	GLint FrequencyLoc;
+	GLint PhaseLoc;
 
 	GLint DiffuseColorLoc;
 	GLint SpecularColorLoc;
