@@ -52,7 +52,7 @@ void Application::update(float dTime)
 void Application::createDuck()
 {
 	PhongShader* shader = new PhongShader();
-	this->duck = new Duck(this->spawner->getOutputModels());
+	this->duck = new Duck(this->spawner->getOutputModels(), &this->camera);
 	this->duck->shader(shader, true);
 	this->duck->loadModel(ASSET_DIRECTORY "newduck.dae");
 

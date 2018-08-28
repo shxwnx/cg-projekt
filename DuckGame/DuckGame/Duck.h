@@ -11,7 +11,7 @@
 class Duck : public BaseModel
 {
 public:
-	Duck(std::vector<Model*> *obstacleModels);
+	Duck(std::vector<Model*> *obstacleModels, Camera * cam);
 	virtual ~Duck();
 	bool loadModel(const char* file);
 	void steer(float forwardBackward, float leftRight);
@@ -20,6 +20,7 @@ public:
 
 protected:
 	Model* model;
+	Camera* camera;
 	std::vector<Model*> *obstacleModels;
 
 	float slope;         

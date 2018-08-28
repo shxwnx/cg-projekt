@@ -11,13 +11,14 @@
 #define LEFTRIGHT false
 
 
-Duck::Duck(std::vector<Model*> *obstacleModels)
+Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 {
 	this->slope = 0.0;
 	this->forwardBackward = 0.0;
 	this->leftRight = 0.0;
 	this->speedLeftRight = 0.0;
 	this->obstacleModels = obstacleModels;
+	this->camera = cam;
 }
 
 Duck::~Duck()
@@ -83,6 +84,19 @@ void Duck::update(float dtime)
 	//transform
 	this->model->transform(this->model->transform() * oldSlope * forwardBackwardMatrix * leftRightMatrix * newSlope);
 	this->slope = newSlopeValue;
+
+	//Vector cameraPositon(duckTransform.translation().X / 4.0f, 4.0f, 5.5f);
+	Vector cameraPositon(duckTransform.translation().X, 4.0f, 5.5f);
+	Vector cameraTarget(duckTransform.translation());
+	/*if (this->speedLeftRight != 0.0f) {
+		cameraPositon.X *= this->speedLeftRight * dtime;
+	}
+	else {
+		cameraPositon.X = duckTransform.translation().X  * dtime;
+	}*/
+
+	this->camera->setTarget(cameraTarget);
+	this->camera->setPosition(cameraPositon);
 
 	//check collision
 	if (this->checkCollision(dtime)) {
