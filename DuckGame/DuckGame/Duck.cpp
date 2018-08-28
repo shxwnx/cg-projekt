@@ -19,6 +19,7 @@ Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 	this->speedLeftRight = 0.0;
 	this->obstacleModels = obstacleModels;
 	this->camera = cam;
+	this->isCollisionDetected = false;
 }
 
 Duck::~Duck()
@@ -99,14 +100,17 @@ void Duck::update(float dtime)
 
 
 	//check collision
-	if (this->checkCollision(dtime)) {
-		std::cout << "GAME OVER: Collision detected!" << std::endl;
-	}
+	this->checkCollision(dtime);
 }
 
 void Duck::draw(const BaseCamera& Cam)
 {
 	this->model->draw(Cam);
+}
+
+bool Duck::collisionDetected()
+{
+	return this->isCollisionDetected;
 }
 
 float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction) {
@@ -157,7 +161,7 @@ float Duck::calculateSlope() {
 	}
 }
 
-bool Duck::checkCollision(float dtime) {
+void Duck::checkCollision(float dtime) {
 
 	static float timePassed = 0.0f;
 	timePassed += dtime;
@@ -171,14 +175,14 @@ bool Duck::checkCollision(float dtime) {
 
 					if (this->boundingBoxIntersection(object)) {
 						timePassed = 0.0f;
-						return true;
+						this->isCollisionDetected = true;
 					}
 				}
 			}
 		}
 	}
 
-	return false;
+	this->isCollisionDetected = false;
 }
 
 bool Duck::boundingBoxIntersection(const Model* object) {

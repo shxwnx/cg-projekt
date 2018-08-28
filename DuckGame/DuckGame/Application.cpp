@@ -47,6 +47,10 @@ void Application::update(float dTime)
 	this->spawner->update(dTime);
 	this->camera.update();
 	this->uiService->update(dTime);
+
+	if (this->duck->collisionDetected()) {
+		this->reset();
+	}
 }
 
 void Application::createDuck()
@@ -110,8 +114,8 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 
 	//PhongShader* shader = new PhongShader();
 	ConstantShader* shader = new ConstantShader();
-	WaterShader* shader2 = new WaterShader(); 
-	shader->color(Color(0, 0, 0)); 
+	WaterShader* shader2 = new WaterShader();
+	shader->color(Color(0, 0, 0));
 	this->water->shader(shader2, true);
 	this->water->loadModel();
 
@@ -128,9 +132,16 @@ void Application::createSkyBox()
 
 void Application::createUI()
 {
-	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf" );
-	this->uiService->shader(new FontShader(Vector(0,0,0)), true);
+	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf");
+	this->uiService->shader(new FontShader(Vector(0, 0, 0)), true);
 	this->models.push_back(this->uiService);
+}
+
+void Application::reset()
+{
+	this->spawner->stop();
+	this->spawner->reset();
+	this->spawner->start();
 }
 
 void Application::start()

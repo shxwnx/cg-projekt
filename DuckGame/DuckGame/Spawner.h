@@ -21,6 +21,10 @@ public:
 	int getObjectsDodged();
 	std::vector<Model*> * getOutputModels();
 
+	void reset();
+	void stop();
+	void start();
+
 protected:
 	std::vector<Model*> inputModels;
 	std::vector<Model*> outputModels;
@@ -28,11 +32,16 @@ protected:
 	int countRows;
 	int countObjects;
 	float spacing;
+	float defaultSpawnTime; 
+	float defaultSpeed; 
+	float defaultAcceleration;
+	float defaultAccelerateTime;
 	float spawnTime; //UI
 	float speed; //UI
 	float acceleration;
 	float accelerateTime;
 	int objectsDodged; //UI
+	bool isStopped;
 
 private:
 	float scale;

@@ -4,6 +4,12 @@
 Spawner::Spawner(int countRows, int countObjects, float spacing,
 	float spawnTime, float speed, float acceleration, float accelerateTime)
 {
+	this->defaultSpawnTime = spawnTime;
+	this->defaultSpeed = speed;
+	this->defaultAcceleration = acceleration;
+	this->defaultAccelerateTime = accelerateTime;
+
+
 	this->countRows = countRows;
 	this->countObjects = countObjects;
 	this->spacing = spacing;
@@ -47,56 +53,50 @@ bool Spawner::loadModels(std::vector<const char*> files)
 
 void Spawner::update(float dtime)
 {
-	// Spawn Objects
-	this->spawnTimePassed += dtime;
-	if (this->spawnTimePassed > this->spawnTime) {
+	if (!isStopped) {
+		// Spawn Objects
+		this->spawnTimePassed += dtime;
+		if (this->spawnTimePassed > this->spawnTime) {
 
-		auto random = this->getRandomModel();
-		if (random != nullptr) {
-			this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
-			random->transform(this->randomTransform());
-			this->outputModels.push_back(random);
-
-			/*if (this->outputModels.size() >= this->inputModels.size()) {
-				auto first = this->outputModels.front();
-				this->outputModels.erase(this->outputModels.begin());
-
-				first->transform(this->defaultTransform());
-				this->inputModels.push_back(first);
-			}*/
-
+			auto random = this->getRandomModel();
+			if (random != nullptr) {
+				this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
+				random->transform(this->randomTransform());
+				this->outputModels.push_back(random);
+			}
+			this->rearrange();
+			this->spawnTimePassed = 0.0f;
 		}
-		this->rearrange();
-		this->spawnTimePassed = 0.0f;
+
+		// Move Objects down
+		for (auto model : this->outputModels) {
+
+			Matrix mRotation;
+			Matrix mPosition;
+
+			mRotation.rotationY(PI * dtime);
+			mPosition.translation(0, 0, 2 * this->speed * dtime);
+
+			model->transform(mPosition *  model->transform() * mRotation);
+		}
+
+		// Acceleration
+		this->accelerateTimePassed += dtime;
+		if (this->accelerateTimePassed > this->accelerateTime) {
+			this->accelerateTime *= 2;
+			this->spawnTime -= this->spawnTime * this->acceleration;
+			this->speed += this->speed * this->acceleration;
+			this->accelerateTimePassed = 0.0f;
+		}
 	}
-
-	// Move Objects down
-	for (auto model : this->outputModels) {
-
-		Matrix mRotation;
-		Matrix mPosition;
-
-		mRotation.rotationY(PI * dtime);
-		mPosition.translation(0, 0, 2 * this->speed * dtime);
-
-		model->transform(mPosition *  model->transform() * mRotation);
-	}
-
-	// Acceleration
-	this->accelerateTimePassed += dtime;
-	if (this->accelerateTimePassed > this->accelerateTime) {
-		this->accelerateTime *= 2;
-		this->spawnTime -= this->spawnTime * this->acceleration;
-		this->speed += this->speed * this->acceleration;
-		this->accelerateTimePassed = 0.0f;
-	}
-
 }
 
 void Spawner::draw(const BaseCamera & camera)
 {
-	for (auto model : this->outputModels) {
-		model->draw(camera);
+	if (!isStopped) {
+		for (auto model : this->outputModels) {
+			model->draw(camera);
+		}
 	}
 }
 
@@ -168,5 +168,32 @@ Model * Spawner::getRandomModel()
 
 std::vector<Model*> * Spawner::getOutputModels() {
 	return &this->outputModels;
+}
+
+void Spawner::reset()
+{
+	this->spawnTimePassed = 0.0f;
+	this->accelerateTimePassed = 0.0f;
+	this->spawnTime = this->defaultSpawnTime;
+	this->speed = this->defaultSpeed;
+	this->acceleration = this->defaultAcceleration;
+	this->accelerateTime = this->defaultAccelerateTime;
+
+	for (auto model : this->outputModels) {
+		this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
+		model->transform(this->defaultTransform());
+		this->inputModels.push_back(model);
+	}
+}
+
+void Spawner::stop()
+{
+	this->isStopped = true;
+}
+
+void Spawner::start()
+{
+	this->objectsDodged = 0.0f;
+	this->isStopped = false;
 }
 

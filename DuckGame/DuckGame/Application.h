@@ -54,5 +54,6 @@ protected:
 	void createUI();
 	//	General
 	float timePassed;
+	void reset();
 
 };

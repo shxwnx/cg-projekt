@@ -18,21 +18,27 @@ public:
 	void update(float dtime);
 	virtual void draw(const BaseCamera& camera);
 
+	bool collisionDetected();
+
 protected:
-	Model* model;
+	Model * model;
 	Camera* camera;
 	std::vector<Model*> *obstacleModels;
 
-	float slope;         
+	float slope;
 	float speedLeftRight;
 	float speedForwardBackward;
 	float forwardBackward;
 	float leftRight;
 
+	bool isCollisionDetected;
+
 	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction);
 	float calculateSlope();
 
-	bool checkCollision(float dtime);
+	void checkCollision(float dtime);
+
+private:
 	bool boundingBoxIntersection(const Model* object);
 };
 
