@@ -94,6 +94,7 @@
     <ClCompile Include="color.cpp" />
     <ClCompile Include="ConstantShader.cpp" />
     <ClCompile Include="Duck.cpp" />
+    <ClCompile Include="DuckShader.cpp" />
     <ClCompile Include="FontShader.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Lights.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="color.h" />
     <ClInclude Include="ConstantShader.h" />
     <ClInclude Include="Duck.h" />
+    <ClInclude Include="DuckShader.h" />
     <ClInclude Include="FontShader.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Lights.h" />
