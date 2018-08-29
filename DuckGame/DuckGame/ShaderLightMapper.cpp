@@ -3,11 +3,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#ifdef WIN32
-#define ASSET_DIRECTORY "../../assets/"
-#else
-#define ASSET_DIRECTORY "../assets/"
-#endif
+#define SHADER_DIRECTORY "../../assets/Shader/"
+
 
 ShaderLightMapper* ShaderLightMapper::pMapper = NULL;
 
@@ -28,7 +25,7 @@ ShaderLightMapper::ShaderLightMapper()
 {
 
 	BaseShader Shader;
-	bool loaded = Shader.load(ASSET_DIRECTORY"vslightdummy.glsl", ASSET_DIRECTORY"fslightdummy.glsl");
+	bool loaded = Shader.load(SHADER_DIRECTORY"vslight.glsl", SHADER_DIRECTORY"fslight.glsl");
 	assert(loaded);
 
 	GLuint BlockIndex = glGetUniformBlockIndex(Shader.openGLProgramID(), "Lights");
