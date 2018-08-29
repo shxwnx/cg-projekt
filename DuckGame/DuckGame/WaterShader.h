@@ -27,6 +27,9 @@ public:
 	WaterShader();
 	~WaterShader();
 
+	float getTime() const { return this->time; }
+	void setTime(const float t) { this->time = t; }
+
 	virtual void activate(const BaseCamera& Cam) const;
 
 protected:
@@ -34,6 +37,7 @@ protected:
 
 private:
 	//variables...
+	Vector position;
 	float time;
 	float steepness;	//pinch on the wave 
 	float wavelength;	//crest-to-crest distance between waves in world space
@@ -45,6 +49,7 @@ private:
 	float frequency;
 	float phase;
 
+	GLint positionLoc;
 	GLint timeLoc;
 	GLint steepnessLoc;	
 	GLint wavelengthLoc;	
@@ -62,7 +67,6 @@ private:
 	float specularExp;
 	Vector lightPos;
 	Color lightColor;
-	const Texture* diffuseTexture;
 
 	GLint diffuseColorLoc;
 	GLint specularColorLoc;
@@ -70,10 +74,10 @@ private:
 	GLint specularExpLoc;
 	GLint lightPosLoc;
 	GLint lightColorLoc;
+
 	GLint modelMatLoc;
 	GLint modelViewProjLoc;
 	GLint eyePosLoc;
-	GLint diffuseTexLoc;
 };
 
 #endif /* WaterShader_hpp */

@@ -1,4 +1,4 @@
-#version 400
+#version 410
 
 in vec3 Position;
 in vec3 Normal;
@@ -16,5 +16,5 @@ uniform sampler2D DiffuseTexture;
 
 void main()
 {
-    gl_FragColor = vec4(0.5, 0.0, 0.0, 1.0);
+    gl_FragColor = vec4(0.0, 0.0, 0.5, 1.0);
 }

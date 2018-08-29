@@ -13,6 +13,7 @@
 #include "LinePlaneModel.h"
 #include "Vector2D.h"
 #include "Wave.h"
+#include "WaterShader.h"
 
 class Water : public BaseModel
 {

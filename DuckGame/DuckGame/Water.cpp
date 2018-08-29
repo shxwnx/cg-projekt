@@ -8,8 +8,6 @@ Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
 	this->segmentsX = segmentsX;
 	this->segmentsZ = segmentsZ;
 
-
-
 	//default wave sollte sich mit den Objekten bewegen
 	//ggf. speed erhöhen, wenn Objekte schneller werden
 	Wave* defaultWave = new Wave(0.0f, 2.0f, 1.0f, 0.25f, Vector2D(1.0f, 1.0f));
@@ -41,6 +39,10 @@ bool Water::loadModel() {
 
 void Water::update(float dTime) {
 	this->time += dTime;
+
+	WaterShader* pShader = dynamic_cast<WaterShader*>(this->pShader);
+	pShader->setTime(this->time);
+
 	Vector tmp;
 	for (float x = 0.0f; x <= this->sizeX; x += (this->sizeX / this->segmentsX)) {
 		for (float z = 0.0f; z <= this->sizeZ; z += (this->sizeZ / this->segmentsZ)) {

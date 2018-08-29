@@ -51,6 +51,7 @@ void Application::update(float dTime)
 		this->duck->update(dTime);
 		this->spawner->update(dTime);
 		this->uiService->update(dTime);
+		this->water->update(dTime);
 
 		if (this->duck->collisionDetected()) {
 			this->reset();
