@@ -27,27 +27,6 @@ public:
 	WaterShader();
 	~WaterShader();
 
-	//getter and setter...
-	float time() const { return Time; }
-	float steepness() const { return Steepness; }
-	float wavelength() const { return Wavelength; }
-	float amplitude() const { return Amplitude; }
-	float speed() const { return Speed; }
-	float directionX() const { return DirectionX; }
-	float directionZ() const { return DirectionZ; }
-	float frequency() const { return Frequency; }
-	float phase() const { return Phase; }
-
-	void time(float time) { this->Time = time; }
-	void steepness(float steepness) { this->Steepness = steepness; }
-	void wavelength(float wavelength) { this->Wavelength = wavelength; }
-	void amplitude(float amplitude) { this->Amplitude = amplitude; }
-	void speed(float speed) { this->Speed = speed; }
-	void directionX(float directionX) { this->DirectionX = directionX; }
-	void directionZ(float directionZ) { this->DirectionZ = directionZ; }
-	void frequency(float frequency) { this->Frequency = frequency; }
-	void phase(float phase) { this->Phase = phase; }
-
 	virtual void activate(const BaseCamera& Cam) const;
 
 protected:
@@ -55,36 +34,46 @@ protected:
 
 private:
 	//variables...
-	float Time;
-	float Steepness;	//pinch on the wave 
-	float Wavelength;	//crest-to-crest distance between waves in world space
-	float Amplitude;	//height from the water plane to the wave crest
-	float Speed;		//distance the crest moves forward per second
-	float DirectionX;	//horizontal vector perpendicular to the wave front along which the crest travels
-	float DirectionZ;
-	float Frequency;
-	float Phase;
+	float time;
+	float steepness;	//pinch on the wave 
+	float wavelength;	//crest-to-crest distance between waves in world space
+	float amplitude;	//height from the water plane to the wave crest
+	float speed;		//distance the crest moves forward per second
+	//float directionX;	//horizontal vector perpendicular to the wave front along which the crest travels
+	//float directionZ;
+	Vector direction;
+	float frequency;
+	float phase;
 
-	GLint TimeLoc;
-	GLint SteepnessLoc;	//pinch on the wave 
-	GLint WavelengthLoc;	//crest-to-crest distance between waves in world space
-	GLint AmplitudeLoc;	//height from the water plane to the wave crest
-	GLint SpeedLoc;		//distance the crest moves forward per second
-	GLint DirectionXLoc;	//horizontal vector perpendicular to the wave front along which the crest travels
-	GLint DirectionZLoc;
-	GLint FrequencyLoc;
-	GLint PhaseLoc;
+	GLint timeLoc;
+	GLint steepnessLoc;	
+	GLint wavelengthLoc;	
+	GLint amplitudeLoc;	
+	GLint speedLoc;		
+	//GLint directionXLoc;	
+	//GLint directionZLoc;
+	GLint directionLoc;
+	GLint frequencyLoc;
+	GLint phaseLoc;
 
-	GLint DiffuseColorLoc;
-	GLint SpecularColorLoc;
-	GLint AmbientColorLoc;
-	GLint SpecularExpLoc;
-	GLint LightPosLoc;
-	GLint LightColorLoc;
-	GLint ModelMatLoc;
-	GLint ModelViewProjLoc;
-	GLint EyePosLoc;
-	GLint DiffuseTexLoc;
+	Color diffuseColor;
+	Color specularColor;
+	Color ambientColor;
+	float specularExp;
+	Vector lightPos;
+	Color lightColor;
+	const Texture* diffuseTexture;
+
+	GLint diffuseColorLoc;
+	GLint specularColorLoc;
+	GLint ambientColorLoc;
+	GLint specularExpLoc;
+	GLint lightPosLoc;
+	GLint lightColorLoc;
+	GLint modelMatLoc;
+	GLint modelViewProjLoc;
+	GLint eyePosLoc;
+	GLint diffuseTexLoc;
 };
 
 #endif /* WaterShader_hpp */

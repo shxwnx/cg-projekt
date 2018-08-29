@@ -8,15 +8,16 @@
 #endif
 
 WaterShader::WaterShader() :
-	Time(0.0f),
-	Steepness(0.0f),
-	Wavelength(0.0f),
-	Amplitude(0.0f),
-	Speed(0.0f),
-	DirectionX(0.0f),
-	DirectionZ(0.0f),
-	Frequency(0.0f),
-	Phase(0.0f)
+	time(0.0f),
+	steepness(0.0f),
+	wavelength(0.0f),
+	amplitude(0.0f),
+	speed(0.0f),
+	//directionX(0.0f),
+	//directionZ(0.0f),
+	direction(1.0f, 0.0f, 1.0f),
+	frequency(0.0f),
+	phase(0.0f)
 {
 	bool loaded = load(ASSET_DIRECTORY"vswater.glsl", ASSET_DIRECTORY"fswater.glsl");
 	if (!loaded)
@@ -32,43 +33,43 @@ WaterShader::~WaterShader()
 void WaterShader::activate(const BaseCamera& Cam) const {
 	BaseShader::activate(Cam);
 
-	setParameter(TimeLoc, time());
-	setParameter(SteepnessLoc, steepness());
-	setParameter(WavelengthLoc, wavelength());
-	setParameter(AmplitudeLoc, amplitude());
-	setParameter(SpeedLoc, speed());
-	setParameter(DirectionXLoc, directionX());
-	setParameter(DirectionZLoc, directionZ());
+	setParameter(this->timeLoc, this->time);
+	setParameter(this->steepnessLoc, this->steepness);
+	setParameter(this->wavelengthLoc, this->wavelength);
+	setParameter(this->amplitudeLoc, this->amplitude);
+	setParameter(this->speedLoc, this->speed);
+	//setParameter(this->directionXLoc, this->directionX);
+	//setParameter(this->directionZLoc, this->directionZ);
+	setParameter(this->directionLoc, this->direction);
+	setParameter(this->frequencyLoc, this->frequency);
+	setParameter(this->phaseLoc, this->phase);
 
-	setParameter(FrequencyLoc, frequency());
-	setParameter(PhaseLoc, phase());
-
-	//always update
-	Matrix ModelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
-	glUniformMatrix4fv(ModelMatLoc, 1, GL_FALSE, modelTransform().m);
-	glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);
+	Matrix modelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
+	setParameter(this->modelMatLoc, modelTransform());
+	setParameter(this->modelViewProjLoc, modelViewProj);
 }
 
 void WaterShader::assignLocations() {
-	TimeLoc = getParameterID("Time");
-	SteepnessLoc = getParameterID("Steepness");
-	WavelengthLoc = getParameterID("Wavelength");
-	AmplitudeLoc = getParameterID("Amplitude");
-	SpeedLoc = getParameterID("Speed");
-	DirectionXLoc = getParameterID("DirectionX");
-	DirectionZLoc = getParameterID("DirectionZ");
-	FrequencyLoc = getParameterID("Frequency");
-	PhaseLoc = getParameterID("Phase");
+	this->timeLoc = getParameterID("Time");
+	this->steepnessLoc = getParameterID("Steepness");
+	this->wavelengthLoc = getParameterID("Wavelength");
+	this->amplitudeLoc = getParameterID("Amplitude");
+	this->speedLoc = getParameterID("Speed");
+	//this->directionXLoc = getParameterID("DirectionX");
+	//this->directionZLoc = getParameterID("DirectionZ");
+	this->directionLoc = getParameterID("Direction");
+	this->frequencyLoc = getParameterID("Frequency");
+	this->phaseLoc = getParameterID("Phase");
 
-	DiffuseColorLoc = glGetUniformLocation(ShaderProgram, "DiffuseColor");
-	AmbientColorLoc = glGetUniformLocation(ShaderProgram, "AmbientColor");
-	SpecularColorLoc = glGetUniformLocation(ShaderProgram, "SpecularColor");
-	SpecularExpLoc = glGetUniformLocation(ShaderProgram, "SpecularExp");
-	DiffuseTexLoc = glGetUniformLocation(ShaderProgram, "DiffuseTexture");
-	LightPosLoc = glGetUniformLocation(ShaderProgram, "LightPos");
-	LightColorLoc = glGetUniformLocation(ShaderProgram, "LightColor");
-	EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
+	this->diffuseColorLoc = getParameterID("DiffuseColor");
+	this->ambientColorLoc = getParameterID("AmbientColor");
+	this->specularColorLoc = getParameterID("SpecularColor");
+	this->specularExpLoc = getParameterID("SpecularExp");
+	this->diffuseTexLoc = getParameterID("DiffuseTexture");
+	this->lightPosLoc = getParameterID("LightPos");
+	this->lightColorLoc = getParameterID("LightColor");
+	this->eyePosLoc = getParameterID("EyePos");
 
-	ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
-	ModelViewProjLoc = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
+	this->modelMatLoc = getParameterID("ModelMat");
+	this->modelViewProjLoc = getParameterID("ModelViewProjMat");
 }

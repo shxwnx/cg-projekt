@@ -30,8 +30,6 @@ uniform Waves
 
 void main()
 {
-
-    //hier Position und Normal berechnen
     if(Steepness == 0.0){
         //Position = (ModelMat * (VertexPos * mat4(10)).xyz;
         //Steepness = 1.0;
@@ -42,9 +40,9 @@ void main()
     }
 
     //mat4 Pos = VertexPos * mat4(100);
-    Position = (ModelMat * (VertexPos * mat4(100))).xyz;
-    //Position = (ModelMat * VertexPos ).xyz;
-    
+    //Position = (ModelMat * (VertexPos * mat4(100))).xyz;
+
+    Position = (ModelMat * VertexPos).xyz;
     Normal = (ModelMat * vec4(VertexNormal.xyz,0)).xyz;
 
     gl_Position = ModelViewProjMat * VertexPos;

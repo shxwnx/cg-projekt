@@ -18,5 +18,6 @@ uniform sampler2D DiffuseTexture;
 
 void main()
 {
-    //Berechnung für alle visuellen Effekte einfügen
+    //FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 }
