@@ -20,6 +20,7 @@ Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 	this->obstacleModels = obstacleModels;
 	this->camera = cam;
 	this->isCollisionDetected = false;
+	this->scale = 5.0f;
 }
 
 Duck::~Duck()
@@ -29,20 +30,14 @@ Duck::~Duck()
 
 bool Duck::loadModel(const char* file)
 {
-	const float scale = 5.0f;
 	this->model = new Model(file, false, scale);
-	Matrix mPosition;
-	Matrix mScale;
-	mPosition.translation(0, 0, 2);
-	mScale.scale(scale);
-	this->model->transform(mPosition * mScale);
+	this->model->transform(defaultTransfrom());
 
 	if (!this->model->load(file, false)) {
 		return false;
 	}
 	this->model->shader(this->pShader, false);
-
-
+	setCameraPosition();
 
 	return true;
 }
@@ -55,8 +50,6 @@ void Duck::steer(float ForwardBackward, float LeftRight)
 
 void Duck::update(float dtime)
 {
-	Matrix duckTransform = this->model->transform();
-
 	//movement
 	Matrix forwardBackwardMatrix;	//translation
 	Matrix leftRightMatrix;			//translation
@@ -66,10 +59,10 @@ void Duck::update(float dtime)
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
 
-	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, duckTransform.translation().Z, maxZ, FORWARDBACKWARD);
+	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, FORWARDBACKWARD);
 	forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
 
-	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, duckTransform.translation().X, maxX, LEFTRIGHT);
+	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, this->model->transform().translation().X, maxX, LEFTRIGHT);
 	leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);
 
 
@@ -86,18 +79,8 @@ void Duck::update(float dtime)
 	this->model->transform(this->model->transform() * oldSlope * forwardBackwardMatrix * leftRightMatrix * newSlope);
 	this->slope = newSlopeValue;
 
-	Vector cameraPositon(duckTransform.translation().X, 4.0f, 5.5f);
-	Vector cameraTarget(duckTransform.translation());
-	//if (this->speedLeftRight > 0.0f) {
-	//	cameraTarget.X *= -this->speedLeftRight * dtime;
-	//}
-	//else {
-	//	cameraTarget.X = duckTransform.translation().X  * dtime;
-	//}
-
-	this->camera->setPosition(cameraPositon);
-	this->camera->setTarget(cameraTarget);
-
+	//camera positon
+	setCameraPosition();
 
 	//check collision
 	this->checkCollision(dtime);
@@ -161,11 +144,48 @@ float Duck::calculateSlope() {
 	}
 }
 
+Matrix Duck::defaultTransfrom() {
+
+	Matrix mPosition;
+	Matrix mScale;
+	mPosition.translation(0, 0, 2);
+	mScale.scale(this->scale);
+	return mPosition * mScale;
+}
+
+void Duck::setCameraPosition() {
+
+	Vector cameraPositon(this->model->transform().translation().X, 4.0f, 5.5f);
+	Vector cameraTarget(this->model->transform().translation());
+	//if (this->speedLeftRight > 0.0f) {
+	//	cameraTarget.X *= -this->speedLeftRight * dtime;
+	//}
+	//else {
+	//	cameraTarget.X = this->model->transform().translation().X  * dtime;
+	//}
+
+	this->camera->setPosition(cameraPositon);
+	this->camera->setTarget(cameraTarget);
+}
+
+void Duck::reset() {
+
+	this->slope = 0.0f;
+	this->speedLeftRight = 0.0f;
+	this->speedForwardBackward = 0.0f;
+	this->forwardBackward = 0.0f;
+	this->leftRight = 0.0f;
+
+	this->model->transform(defaultTransfrom());
+	setCameraPosition();
+	this->isCollisionDetected = false;
+}
+
 void Duck::checkCollision(float dtime) {
 
 	static float timePassed = 0.0f;
 	timePassed += dtime;
-	if (timePassed > 0.5f) {
+	if (timePassed > 1.0f) {
 		for (auto object : (*this->obstacleModels)) {
 			if (this->model->transform().translation().X - 1 < object->transform().translation().X
 				&& this->model->transform().translation().X + 1 > object->transform().translation().X) {
@@ -182,8 +202,9 @@ void Duck::checkCollision(float dtime) {
 		}
 	}
 
-	this->isCollisionDetected = false;
+
 }
+
 
 bool Duck::boundingBoxIntersection(const Model* object) {
 	//Box Collision

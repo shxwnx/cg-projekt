@@ -19,11 +19,13 @@ public:
 	virtual void draw(const BaseCamera& camera);
 
 	bool collisionDetected();
+	void reset();
 
 protected:
 	Model * model;
 	Camera* camera;
 	std::vector<Model*> *obstacleModels;
+	float scale; 
 
 	float slope;
 	float speedLeftRight;
@@ -39,6 +41,8 @@ protected:
 	void checkCollision(float dtime);
 
 private:
+	void setCameraPosition();
+	Matrix defaultTransfrom();
 	bool boundingBoxIntersection(const Model* object);
 };
 

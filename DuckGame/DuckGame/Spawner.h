@@ -20,6 +20,7 @@ public:
 	float getSpeed();
 	int getObjectsDodged();
 	std::vector<Model*> * getOutputModels();
+	bool getIsStopped();
 
 	void reset();
 	void stop();

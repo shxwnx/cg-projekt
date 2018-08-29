@@ -7,6 +7,7 @@
 #include "FontShader.h"
 #include "WaterShader.h"
 #include "BaseShader.h"
+#include "DuckShader.h"
 
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
@@ -19,6 +20,7 @@ Application::Application()
 Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 {
 	this->timePassed = 0.0f;
+	this->isStopped = true;
 	BaseModel* pModel;
 	ConstantShader* pConstShader;
 	PhongShader* pPhongShader;
@@ -42,20 +44,32 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 
 void Application::update(float dTime)
 {
-	this->timePassed += dTime;
-	this->controlDuck(dTime);
-	this->spawner->update(dTime);
-	this->camera.update();
-	this->uiService->update(dTime);
 
-	if (this->duck->collisionDetected()) {
-		this->reset();
+	if (!this->isStopped) {
+		this->timePassed += dTime;
+		this->controlDuck();
+		this->duck->update(dTime);
+		this->spawner->update(dTime);
+		this->uiService->update(dTime);
+
+		if (this->duck->collisionDetected()) {
+			this->reset();
+			std::cout << "Application::update(): Collision detected!" << std::endl;
+		}
 	}
+	else {
+		if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+			this->spawner->start();
+			this->isStopped = false;
+		}
+	}
+	this->camera.update();
+
 }
 
 void Application::createDuck()
 {
-	PhongShader* shader = new PhongShader();
+	auto shader = new DuckShader();
 	this->duck = new Duck(this->spawner->getOutputModels(), &this->camera);
 	this->duck->shader(shader, true);
 	this->duck->loadModel(ASSET_DIRECTORY "newduck.dae");
@@ -63,7 +77,7 @@ void Application::createDuck()
 	this->models.push_back(this->duck);
 }
 
-void Application::controlDuck(float dTime)
+void Application::controlDuck()
 {
 	float fb = 0.0;
 	float lr = 0.0;
@@ -89,7 +103,6 @@ void Application::controlDuck(float dTime)
 	}
 
 	this->duck->steer(fb, lr);
-	this->duck->update(dTime);
 }
 
 void Application::createSpawner()
@@ -139,9 +152,11 @@ void Application::createUI()
 
 void Application::reset()
 {
+	this->isStopped = true;
+	this->timePassed = 0.0f;
+	this->duck->reset();
 	this->spawner->stop();
 	this->spawner->reset();
-	this->spawner->start();
 }
 
 void Application::start()

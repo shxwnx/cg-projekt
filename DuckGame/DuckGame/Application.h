@@ -32,11 +32,12 @@ protected:
     Camera camera;
     ModelList models;
     GLFWwindow* window;
+	bool isStopped;
 
 	// Duck
 	Duck* duck;
 	void createDuck();
-	void controlDuck(float dTime);
+	void controlDuck();
 
 	// Spawner
 	Spawner* spawner;

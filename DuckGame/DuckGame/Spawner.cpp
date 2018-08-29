@@ -179,11 +179,18 @@ void Spawner::reset()
 	this->acceleration = this->defaultAcceleration;
 	this->accelerateTime = this->defaultAccelerateTime;
 
+	std::vector<Model*> tmp;
 	for (auto model : this->outputModels) {
-		this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
+		tmp.push_back(model);
+	}
+	this->outputModels.clear();
+
+	for (auto model : tmp) {
+		tmp.erase(std::remove(tmp.begin(), tmp.end(), model), tmp.end());
 		model->transform(this->defaultTransform());
 		this->inputModels.push_back(model);
 	}
+	
 }
 
 void Spawner::stop()
@@ -195,5 +202,9 @@ void Spawner::start()
 {
 	this->objectsDodged = 0.0f;
 	this->isStopped = false;
+}
+
+bool Spawner::getIsStopped() {
+	return this->isStopped;
 }
 

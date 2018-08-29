@@ -7,7 +7,8 @@
 //
 
 #include "Model.h"
-#include "phongshader.h"
+#include "PhongShader.h"
+#include "DuckShader.h"
 #include <list>
 
 Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
@@ -86,7 +87,7 @@ bool Model::load(const char* ModelFile, bool FitSize, float scale)
 
 void Model::loadMeshes(const aiScene* pScene, bool FitSize, float scale)
 {
-	calcBoundingBox(pScene, this->BoundingBox ,scale);
+	calcBoundingBox(pScene, this->BoundingBox, scale);
 
 	float max = 2.0;
 	if (FitSize) {														// Ermitteln, des größten Wertes der Bounding Box 
@@ -267,17 +268,27 @@ void Model::applyMaterial(unsigned int index)
 		return;
 
 	PhongShader* pPhong = dynamic_cast<PhongShader*>(shader());
-	if (!pPhong) {
-		std::cout << "Model::applyMaterial(): WARNING Invalid shader-type. Please apply PhongShader for rendering models.\n";
-		return;
+	DuckShader* pDuck = dynamic_cast<DuckShader*>(shader());
+	if (pPhong) {
+		Material* pMat = &pMaterials[index];
+		pPhong->ambientColor(pMat->AmbColor);
+		pPhong->diffuseColor(pMat->DiffColor);
+		pPhong->specularExp(pMat->SpecExp);
+		pPhong->specularColor(pMat->SpecColor);
+		pPhong->diffuseTexture(pMat->DiffTex);
+	}
+	else if (pDuck) {
+		Material* pMat = &pMaterials[index];
+		pDuck->setAmbientColor(pMat->AmbColor);
+		pDuck->setDiffuseColor(pMat->DiffColor);
+		pDuck->setSpecularExp(pMat->SpecExp);
+		pDuck->setSpecularColor(pMat->SpecColor);
+		pDuck->setDiffuseTexture(pMat->DiffTex);
+	}
+	else {
+		std::cout << "Model::applyMaterial() Wrong Shader!" << std::endl;
 	}
 
-	Material* pMat = &pMaterials[index];
-	pPhong->ambientColor(pMat->AmbColor);
-	pPhong->diffuseColor(pMat->DiffColor);
-	pPhong->specularExp(pMat->SpecExp);
-	pPhong->specularColor(pMat->SpecColor);
-	pPhong->diffuseTexture(pMat->DiffTex);
 }
 
 void Model::draw(const BaseCamera& Cam)
