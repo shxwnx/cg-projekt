@@ -8,6 +8,7 @@
 #include "WaterShader.h"
 #include "BaseShader.h"
 #include "DuckShader.h"
+#include "ShaderLightMapper.h"
 
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
@@ -36,6 +37,7 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 
 	this->createSpawner();
 	this->createDuck();
+	this->createLight();
 	this->createWater(6.0f, 9.0f, 6, 9);
 	this->createSkyBox();
 	this->createUI();
@@ -66,6 +68,27 @@ void Application::update(float dTime)
 	}
 	this->camera.update();
 
+}
+
+void Application::createLight() {
+
+	DirectionalLight* dl = new DirectionalLight();
+	dl->direction(Vector(0, 0, 0));
+	dl->color(Color(1, 0, 0));
+	dl->castShadows(true);
+	ShaderLightMapper::instance().addLight(dl);
+
+	Color c = Color(1.0f, 1, 1);
+	Vector a = Vector(1, 1, 1);
+
+	// point lights
+	PointLight* pl = new PointLight();
+	Vector p(this->duck->transform().translation());
+	p.Y = -2;
+	pl->position(p);
+	pl->color(c);
+	pl->attenuation(a);
+	ShaderLightMapper::instance().addLight(pl);
 }
 
 void Application::createDuck()
@@ -202,11 +225,13 @@ void Application::draw()
 	// 1. clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	ShaderLightMapper::instance().activate();
 	// 2. setup shaders and draw models
 	for (ModelList::iterator it = models.begin(); it != models.end(); ++it)
 	{
 		(*it)->draw(camera);
 	}
+	ShaderLightMapper::instance().deactivate();
 
 	// 3. check once per frame for opengl errors
 	GLenum Error = glGetError();

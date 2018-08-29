@@ -53,7 +53,9 @@ protected:
 	// UI
 	UIService* uiService;
 	void createUI();
+
 	//	General
+	void createLight();
 	float timePassed;
 	void reset();
 
