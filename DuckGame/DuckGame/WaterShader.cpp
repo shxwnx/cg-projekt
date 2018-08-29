@@ -12,12 +12,12 @@
 WaterShader::WaterShader() :
 	time(0.0f),
 	steepness(0.0f),
-	wavelength(2.0f),
-	amplitude(5.0f),
+	wavelength(5.0f),
+	amplitude(0.5f),
 	speed(1.0f),
 	//directionX(0.0f),
 	//directionZ(0.0f),
-	direction(1.0f, 0.0f, 1.0f)
+	direction(0.0f, 0.0f, 1.0f)
 {
 	bool loaded = load(ASSET_DIRECTORY"vswater.glsl", ASSET_DIRECTORY"fswater.glsl");
 	if (!loaded)
