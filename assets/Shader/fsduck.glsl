@@ -3,6 +3,8 @@ in vec3 Position;
 in vec3 Normal;
 in vec2 Texcoord;
 in vec3 ViewDirection;
+in vec3 Tangent;
+in vec3 Bitangent;
 
 uniform vec3 DiffuseColor;
 uniform vec3 SpecularColor;
@@ -22,17 +24,42 @@ float sat( in float a)
 
 void main()
 {
-	vec4 diffuseTexture = texture( DiffuseTexture, Texcoord);
+//	vec4 diffuseTexture = texture( DiffuseTexture, Texcoord);
+//
+//	vec3 normal = normalize(Normal);
+//	vec3 viewDirection = normalize(ViewDirection);
+//	vec3 reflection = normalize(reflect(viewDirection, normal)); 
+//
+//	float inverseDotView = 1.0 - max(dot(normal, viewDirection), 0.0);
+//
+////	float specularComponent = pow(SpecularColor, SpecularExp);
+//	vec3 color = (DiffuseColor + AmbientColor) *  diffuseTexture.rgb + SpecularColor;
+//	gl_FragColor = vec4(color, diffuseTexture.a);
 
-	vec3 normal = normalize(Normal);
-	vec3 viewDirection = normalize(ViewDirection);
-	vec3 reflection = normalize(reflect(viewDirection, normal)); 
 
-	float inverseDotView = 1.0 - max(dot(normal, viewDirection), 0.0);
+	vec4 DiffTex = texture( DiffuseTexture, Texcoord);
 
-//	float specularComponent = pow(SpecularColor, SpecularExp);
-	vec3 color = (DiffuseColor + AmbientColor) *  diffuseTexture.rgb + SpecularColor;
-	gl_FragColor = vec4(color, diffuseTexture.a);
+    vec3 N = normalize(Normal);
+    vec3 L = normalize(LightPos-Position);	//Light
+    vec3 E = normalize(EyePos-Position);	//Eye
+    vec3 R = reflect(-L,N);					//Reflection
+    vec3 H = normalize(E + L);				//Halfvector
+
+    vec3 DiffuseComponent = vec3(0,0,0);
+    vec3 SpecularComponent = vec3(0,0,0);
+	vec3 color = LightColor;
+
+    L = LightPos;
+    R = reflect(-L,N);
+    H = normalize(E + L);
+      
+	DiffuseComponent += color  * sat(dot(N,L));
+    SpecularComponent += color * pow(sat(dot(N,H)), SpecularExp);
+    
+    DiffuseComponent *= DiffuseColor;
+    SpecularComponent *= SpecularColor;
+    
+    gl_FragColor =  vec4((DiffuseComponent + AmbientColor) * DiffTex.rgb + SpecularComponent, DiffTex.a);
 
 }
 

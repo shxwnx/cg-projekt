@@ -3,8 +3,6 @@
 in vec3 Position;
 in vec3 Normal;
 
-out vec4 FragColor;
-
 uniform vec3 LightPos;
 uniform vec3 LightColor;
 
@@ -18,6 +16,5 @@ uniform sampler2D DiffuseTexture;
 
 void main()
 {
-    //FragColor = vec4(0.0, 0.0, 0.0, 0.0);
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    gl_FragColor = vec4(0.5, 0.0, 0.0, 1.0);
 }
