@@ -39,6 +39,8 @@ public:
     static Texture* defaultTex();
     static const Texture* LoadShared(const char* Filename);
     static void ReleaseShared( const Texture* pTex );
+
+	void bindTexture(GLenum target);
     
 protected:
     unsigned char* LoadBMP( const char* Filename, unsigned int& width, unsigned int& height );

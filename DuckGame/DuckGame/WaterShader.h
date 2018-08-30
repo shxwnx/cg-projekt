@@ -38,9 +38,15 @@ public:
 
 protected:
 	void assignLocations();
+	void renderReflection();
+	void renderRefractionAndDepth();
 
 private:
 	//variables...
+	Texture* reflectionTexture;
+	Texture* refractionTexture;
+	Texture* depthTexture;
+
 	Vector position;
 	float time;
 

@@ -79,6 +79,10 @@ void Texture::ReleaseShared( const Texture* pTex )
     }
 }
 
+void Texture::bindTexture(GLenum target) {
+	glBindTexture(target, this->m_TextureID);
+}
+
 
 
 Texture::Texture() : m_TextureID(0), m_pImage(NULL), CurrentTextureUnit(0)

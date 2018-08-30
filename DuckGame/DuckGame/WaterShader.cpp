@@ -87,3 +87,51 @@ void WaterShader::setWaves(Wave waves[MAX_WAVES], int num) {
 	this->numWaves = num;
 
 }
+
+void WaterShader::renderReflection() {
+	//glViewport(0, 0, texSize, texSize); //////HIER//texSize definieren
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	//gluLookAt(); //////HIER
+
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, 0.0f);
+	glScalef(1.0, -1.0, 1.0);
+	double plane[4] = { 0.0, 1.0, 0.0, 0.0 }; //water at y=0
+	glEnable(GL_CLIP_PLANE0);
+	glClipPlane(GL_CLIP_PLANE0, plane);
+	//RenderScene();//////HIER
+	glDisable(GL_CLIP_PLANE0);
+	glPopMatrix();
+
+	//render reflection to texture
+	this->reflectionTexture->bindTexture(GL_TEXTURE_2D);
+	//glCopyTexSubImage2D copies the frame buffer
+	//to the bound texture
+	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, texSize, texSize);//////HIER//texSize definieren
+}
+
+void WaterShader::renderRefractionAndDepth(){
+	//glViewport(0, 0, texSize, texSize);//////HIER//texSize definieren
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	//gluLookAt(); //////HIER
+
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, 0.0f);
+	//normal pointing along negative y
+	double plane[4] = { 0.0, -1.0, 0.0, 0.0 };
+	glEnable(GL_CLIP_PLANE0);
+	glClipPlane(GL_CLIP_PLANE0, plane);
+	//RenderScene();//////HIER
+	glDisable(GL_CLIP_PLANE0);
+	glPopMatrix();
+
+	//render color buffer to texture
+	this->refractionTexture->bindTexture(GL_TEXTURE_2D);
+	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, texSize, texSize);//////HIER//texSize definieren
+
+	//render depth to texture
+	this->depthTexture->bindTexture(GL_TEXTURE_2D);
+	//glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 0, 0, texSize, texSize, 0);//////HIER//texSize definieren
+}

@@ -5,6 +5,10 @@ layout(location=1) in vec4 VertexNormal;
 out vec3 Position;
 out vec3 Normal;
 
+out vec3 Bitangent;
+out vec3 Tangent;
+
+
 uniform mat4 ModelMat;
 uniform mat4 ModelViewProjMat;
 

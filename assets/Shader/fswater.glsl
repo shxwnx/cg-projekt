@@ -11,7 +11,10 @@ uniform vec3 DiffuseColor;
 uniform vec3 SpecularColor;
 uniform vec3 AmbientColor;
 uniform float SpecularExp;
-uniform sampler2D DiffuseTexture;
+
+vec3 reflect(vec3 I, vec3 N){
+	return I - 2 * dot(I, N) * N;
+}
 
 
 void main()
