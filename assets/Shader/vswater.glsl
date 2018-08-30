@@ -1,13 +1,13 @@
 #version 410
 layout(location=0) in vec4 VertexPos;
 layout(location=1) in vec4 VertexNormal;
+layout(location=2) in vec4 VertexTexcoord;
 
 out vec3 Position;
 out vec3 Normal;
-
+out vec4 Texcoord;
 out vec3 Bitangent;
 out vec3 Tangent;
-
 
 uniform mat4 ModelMat;
 uniform mat4 ModelViewProjMat;
@@ -68,11 +68,14 @@ void main()
 	}
 	
 	Position =  (ModelMat * vec4(x, y ,z, 0)).xyz;
-	
+	Texcoord = VertexTexcoord;
+
 	vec4 pos = VertexPos;
     pos.y = y;
     vec3 worldNormal = waveNormal(pos.x, pos.z);
     Normal = VertexNormal.xyz * worldNormal;
+
+
 
     gl_Position = ModelViewProjMat * pos;
 
