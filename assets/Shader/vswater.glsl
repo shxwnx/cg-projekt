@@ -58,8 +58,8 @@ void main()
 	Position =  (ModelMat * vec4(x, y ,z, 0)).xyz;
 	
 	vec4 pos = VertexPos;
-    pos.z = positionY(pos.x, pos.y);
-    vec3 worldNormal = waveNormal(pos.x, pos.y);
+    pos.y = positionY(pos.x, pos.z);
+    vec3 worldNormal = waveNormal(pos.x, pos.z);
     Normal = VertexNormal.xyz * worldNormal;
 
     gl_Position = ModelViewProjMat * pos;

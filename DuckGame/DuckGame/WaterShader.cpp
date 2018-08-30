@@ -12,20 +12,20 @@
 WaterShader::WaterShader() :
 	time(0.0f),
 	steepness(0.0f),
-	wavelength(5.0f),
-	amplitude(0.5f),
+	wavelength(1.0f),
+	amplitude(0.05f),
 	speed(1.0f),
 	//directionX(0.0f),
 	//directionZ(0.0f),
-	direction(0.0f, 0.0f, 1.0f)
+	direction(0.0f, 0.0f, -1.0f)
 {
 	bool loaded = load(ASSET_DIRECTORY"vswater.glsl", ASSET_DIRECTORY"fswater.glsl");
 	if (!loaded)
 		throw std::exception();
 	assignLocations();
 
-	this->frequency = ((2 * PI) / this->wavelength);
-	this->phase = this->speed * this->frequency;
+	//this->frequency = ((2 * PI) / this->wavelength);
+	//this->phase = this->speed * this->frequency;
 }
 
 WaterShader::~WaterShader()
@@ -42,11 +42,9 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 	setParameter(this->wavelengthLoc, this->wavelength);
 	setParameter(this->amplitudeLoc, this->amplitude);
 	setParameter(this->speedLoc, this->speed);
-	//setParameter(this->directionXLoc, this->directionX);
-	//setParameter(this->directionZLoc, this->directionZ);
 	setParameter(this->directionLoc, this->direction);
-	setParameter(this->frequencyLoc, this->frequency);
-	setParameter(this->phaseLoc, this->phase);
+	//setParameter(this->frequencyLoc, this->frequency);
+	//setParameter(this->phaseLoc, this->phase);
 
 	Matrix modelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
 	setParameter(this->modelMatLoc, modelTransform());
@@ -69,11 +67,9 @@ void WaterShader::assignLocations() {
 	this->wavelengthLoc = getParameterID("Wavelength");
 	this->amplitudeLoc = getParameterID("Amplitude");
 	this->speedLoc = getParameterID("Speed");
-	//this->directionXLoc = getParameterID("DirectionX");
-	//this->directionZLoc = getParameterID("DirectionZ");
 	this->directionLoc = getParameterID("Direction");
-	this->frequencyLoc = getParameterID("Frequency");
-	this->phaseLoc = getParameterID("Phase");
+	//this->frequencyLoc = getParameterID("Frequency");
+	//this->phaseLoc = getParameterID("Phase");
 
 	this->diffuseColorLoc = getParameterID("DiffuseColor");
 	this->ambientColorLoc = getParameterID("AmbientColor");

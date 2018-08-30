@@ -1,5 +1,7 @@
 #pragma once
 
+#define MAX_WAVES 5
+
 #ifndef WaterShader_hpp
 #define WaterShader_hpp
 
@@ -40,14 +42,18 @@ private:
 	Vector position;
 	float time;
 	float steepness;	//pinch on the wave 
-	float wavelength;	//crest-to-crest distance between waves in world space
+	float wavelength;//crest-to-crest distance between waves in world space
 	float amplitude;	//height from the water plane to the wave crest
 	float speed;		//distance the crest moves forward per second
-	//float directionX;	//horizontal vector perpendicular to the wave front along which the crest travels
-	//float directionZ;
-	Vector direction;
-	float frequency;
-	float phase;
+	Vector direction;//horizontal vector perpendicular to the wave front along which the crest travels
+
+	/*float steepness[MAX_WAVES];	
+	float wavelength[MAX_WAVES];
+	float amplitude[MAX_WAVES];	
+	float speed[MAX_WAVES];		
+	Vector direction[MAX_WAVES];*/
+	//float frequency;
+	//float phase;
 
 	GLint positionLoc;
 	GLint timeLoc;
@@ -55,11 +61,9 @@ private:
 	GLint wavelengthLoc;	
 	GLint amplitudeLoc;	
 	GLint speedLoc;		
-	//GLint directionXLoc;	
-	//GLint directionZLoc;
 	GLint directionLoc;
-	GLint frequencyLoc;
-	GLint phaseLoc;
+	//GLint frequencyLoc;
+	//GLint phaseLoc;
 
 	Color diffuseColor;
 	Color specularColor;
