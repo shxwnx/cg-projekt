@@ -2,6 +2,7 @@
 //
 // Water.hpp
 //
+#define MAX_WAVES 5
 
 #ifndef Water_hpp
 #define Water_hpp
@@ -24,6 +25,7 @@ public:
 	bool loadModel();
 	void update(float dTime);
 	virtual void draw(const BaseCamera& camera);
+	bool generateWaves();
 
 protected:
 	TrianglePlaneModel* model;
@@ -35,11 +37,10 @@ protected:
 	int segmentsZ;
 
 	float time;
+	Wave waves[MAX_WAVES];
+	//std::vector<Wave*> waves;
 
-	std::vector<Wave*> waves;
-
-	Vector calculateVertexPosition(float x, float z, float time);
-	Vector calculateVertexNormal(Vector position, float time);
+	
 };
 
 #endif

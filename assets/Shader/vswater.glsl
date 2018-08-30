@@ -9,56 +9,64 @@ uniform mat4 ModelMat;
 uniform mat4 ModelViewProjMat;
 
 const float pi = 3.14159;
+
 uniform float Time;
 //uniform float Steepness;
-uniform float Wavelength;
-uniform float Amplitude;
-uniform float Speed;
-uniform vec3 Direction;
-//uniform float Frequency;
-//uniform float Phase;
+uniform int numWaves;
+uniform float WavelengthValues[5];
+uniform float AmplitudeValues[5];
+uniform float SpeedValues[5];
+uniform vec3 DirectionValues[5];
 
-float positionY(float x, float z) {
-    float frequency = 2*pi/Wavelength;
-    float phase = Speed * frequency;
-    float theta = dot(Direction.xz, vec2(x, z));
-    return Amplitude * sin(theta * frequency + Time * phase);
+float positionY(int i, float x, float z) {
+    float frequency = 2*pi/WavelengthValues[i];
+    float phase = SpeedValues[i] * frequency;
+    float theta = dot(DirectionValues[i].xz, vec2(x, z));
+    return AmplitudeValues[i] * sin(theta * frequency + Time * phase);
 }
 
-
-float normalX(float x, float z) {
-    float frequency = 2*pi/Wavelength;
-    float phase = Speed * frequency;
-    float theta = dot(Direction.xz, vec2(x, z));
-    float A = Amplitude * Direction.x * frequency;
+float normalX(int i, float x, float z) {
+    float frequency = 2*pi/WavelengthValues[i];
+    float phase = SpeedValues[i] * frequency;
+    float theta = dot(DirectionValues[i].xz, vec2(x, z));
+    float A = AmplitudeValues[i] * DirectionValues[i].x * frequency;
     return A * cos(theta * frequency + Time * phase);
 }
 
-float normalZ(float x, float z) {
-    float frequency = 2*pi/Wavelength;
-    float phase = Speed * frequency;
-    float theta = dot(Direction.xz, vec2(x, z));
-    float A = Amplitude * Direction.z * frequency;
+float normalZ(int i, float x, float z) {
+    float frequency = 2*pi/WavelengthValues[i];
+    float phase = SpeedValues[i] * frequency;
+    float theta = dot(DirectionValues[i].xz, vec2(x, z));
+    float A = AmplitudeValues[i] * DirectionValues[i].z * frequency;
     return A * cos(theta * frequency + Time * phase);
 }
 
 vec3 waveNormal(float x, float z) {
-    float dx = normalX(x, z);
-    float dz = normalZ(x, z);
+	float dx = 0.0;
+    float dz = 0.0;
+    for (int i = 0; i < numWaves; ++i) {
+        dx += normalX(i, x, z);
+        dz += normalZ(i, x, z);
+    }
     vec3 n = vec3(-dx, 1.0, -dz);
     return normalize(n);
-}
 
+}
 
 void main()
 {
+
 	float x = VertexPos.x;
 	float z = VertexPos.z;
-	float y = positionY(VertexPos.x, VertexPos.z);
+	float y = 0.0;
+	for (int i = 0; i < numWaves; ++i) {
+		y += positionY(i, x, z);
+	}
+	
 	Position =  (ModelMat * vec4(x, y ,z, 0)).xyz;
 	
 	vec4 pos = VertexPos;
-    pos.y = positionY(pos.x, pos.z);
+    pos.y = y;
     vec3 worldNormal = waveNormal(pos.x, pos.z);
     Normal = VertexNormal.xyz * worldNormal;
 

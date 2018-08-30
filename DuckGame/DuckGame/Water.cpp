@@ -10,8 +10,10 @@ Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
 
 	//default wave sollte sich mit den Objekten bewegen
 	//ggf. speed erhöhen, wenn Objekte schneller werden
-	Wave* defaultWave = new Wave(0.0f, 2.0f, 1.0f, 0.25f, Vector2D(1.0f, 1.0f));
-	this->waves.push_back(defaultWave);
+	//Wave* wave1 = new Wave(0.0f, 1.0f, 0.05f, 1.0f, Vector2D(0.0f, -1.0f));
+	//generateWaves();
+
+	//this->waves.push_back(defaultWave);
 
 	this->time = 0.0f;
 }
@@ -59,55 +61,24 @@ void Water::draw(const BaseCamera& Cam)
 	this->model->draw(Cam);
 }
 
-//In den Shader verlagern
-Vector Water::calculateVertexPosition(float x, float z, float time) {
-	Vector2D horizontalVector = Vector2D(x, z);
-	Vector position;
+bool Water::generateWaves() {
+	Wave* wave1 = new Wave(1.0f, 0.05f, 0.6f, Vector(0.0f, 0.0f, -1.0f));
+	Wave* wave2 = new Wave(2.0f, 0.05f, 0.4f, Vector(0.5f, 0.0f, -0.5f));
+	Wave* wave3 = new Wave(0.5f, 0.01f, 0.2f, Vector(0.5f, 0.0f, 0.25f));
+	Wave* wave4 = new Wave(3.0f, 0.01f, 0.1f, Vector(-1.0f, 0.0f, 0.0f));
 
-	float tmpX = 0.0f;
-	float tmpZ = 0.0f;
-	Wave* current;
+	this->waves[0] = *wave1;
+	this->waves[1] = *wave2;
+	this->waves[2] = *wave3;
+	this->waves[3] = *wave4;
 
-	//Horizontal Values
-	for (unsigned int i = 0; i < this->waves.size(); ++i) {
-		current = this->waves.at(i);
-		tmpX += (current->steepness * current->amplitude) * current->direction.X * cos((current->direction*current->frequency).dot(horizontalVector) + current->phase * time);
-		tmpZ += (current->steepness * current->amplitude) * current->direction.Y * cos((current->direction*current->frequency).dot(horizontalVector) + current->phase * time);
-	}
-	position.X = x + tmpX;
-	position.Z = z + tmpZ;
-	
-	//Vertical Value
-	for (unsigned int i = 0; i < this->waves.size(); ++i) {
-		current = this->waves.at(i);
-		position.Y += current->amplitude * sin((current->direction*current->frequency).dot(horizontalVector) + (current->phase * time));
-	}
+	if (this->pShader == NULL) return false;
 
-	return position;
-}
+	WaterShader* pShader = dynamic_cast<WaterShader*>(this->pShader);
+	if (pShader == NULL) return false;
 
-//In den Shader verlagern
-Vector Water::calculateVertexNormal(Vector position, float time) {
-	Wave* current;
-	float wa, s, c, tmp;
-	float tmpX = 0.0f;
-	float tmpY = 0.0f;
-	float tmpZ = 0.0f;
-	for (unsigned int i = 0; i < this->waves.size(); ++i) {
-		current = this->waves.at(i); 
-		Vector direction = Vector(current->direction.X, 0.0f, current->direction.Y);
-
-		wa = current->frequency * current->amplitude;
-		tmp = (direction*current->frequency).dot(position) + current->phase * time;
-		s = sin(tmp);
-		c = cos(tmp);
-		
-		tmpX += current->direction.X * wa * c;
-		tmpY += current->steepness * wa * s;
-		tmpZ += current->direction.Y * wa * c;
-	}
-	
-	return Vector(-tmpX, 1-tmpY, -tmpZ);
+	pShader->setWaves(this->waves, 4);
+	return true;
 }
 
 //http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch01.html
