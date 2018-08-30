@@ -22,6 +22,7 @@
 #include "camera.h"
 #include "baseshader.h"
 #include "texture.h"
+#include "Wave.h"
 
 class WaterShader : public BaseShader
 {
@@ -31,6 +32,7 @@ public:
 
 	float getTime() const { return this->time; }
 	void setTime(const float t) { this->time = t; }
+	void setWaves(Wave waves[MAX_WAVES], int num);
 
 	virtual void activate(const BaseCamera& Cam) const;
 
@@ -41,29 +43,13 @@ private:
 	//variables...
 	Vector position;
 	float time;
-	float steepness;	//pinch on the wave 
-	float wavelength;//crest-to-crest distance between waves in world space
-	float amplitude;	//height from the water plane to the wave crest
-	float speed;		//distance the crest moves forward per second
-	Vector direction;//horizontal vector perpendicular to the wave front along which the crest travels
 
-	/*float steepness[MAX_WAVES];	
-	float wavelength[MAX_WAVES];
-	float amplitude[MAX_WAVES];	
-	float speed[MAX_WAVES];		
-	Vector direction[MAX_WAVES];*/
-	//float frequency;
-	//float phase;
-
-	GLint positionLoc;
-	GLint timeLoc;
-	GLint steepnessLoc;	
-	GLint wavelengthLoc;	
-	GLint amplitudeLoc;	
-	GLint speedLoc;		
-	GLint directionLoc;
-	//GLint frequencyLoc;
-	//GLint phaseLoc;
+	//float steepnessValues[MAX_WAVES];
+	int numWaves;
+	float wavelengthValues[MAX_WAVES];	//crest-to-crest distance between waves in world space
+	float amplitudeValues[MAX_WAVES];	//height from the water plane to the wave crest
+	float speedValues[MAX_WAVES];		//distance the crest moves forward per second
+	Vector directionValues[MAX_WAVES];	//horizontal vector perpendicular to the wave front along which the crest travels
 
 	Color diffuseColor;
 	Color specularColor;
@@ -71,6 +57,18 @@ private:
 	float specularExp;
 	Vector lightPos;
 	Color lightColor;
+
+
+	GLint positionLoc;
+	GLint timeLoc;
+	//GLint steepnessLoc;	
+
+	GLint numWavesLoc;
+	//GLint steepnessValuesLoc;
+	GLint wavelengthValuesLoc;
+	GLint amplitudeValuesLoc;
+	GLint speedValuesLoc;
+	GLint directionValuesLoc;
 
 	GLint diffuseColorLoc;
 	GLint specularColorLoc;

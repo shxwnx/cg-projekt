@@ -149,14 +149,12 @@ void Application::createSpawner()
 void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ) {
 	this->water = new Water(sizeX, sizeZ, segmentsX, segmentsZ);
 
-	//PhongShader* shader = new PhongShader();
-	//ConstantShader* shader = new ConstantShader();
-	WaterShader* shader2 = new WaterShader();
-	//shader->color(Color(0, 0, 0));
-	this->water->shader(shader2, true);
+	WaterShader* shader = new WaterShader();
+	this->water->shader(shader, true);
 	this->water->loadModel();
-
-	//Eigenen Shader einfügen
+	if (!this->water->generateWaves()) {
+		std::cout << "Application::createWater(): No WaterShader found!" << std::endl;
+	}
 	models.push_back(this->water);
 }
 

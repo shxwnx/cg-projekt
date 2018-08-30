@@ -202,6 +202,16 @@ void BaseShader::setParameter(GLint ID, const Matrix& Param) const
 	glUniformMatrix4fv(ID, 1, GL_FALSE, Param.m);
 }
 
+void BaseShader::setParameter(GLint ID, const float Param[], int num) const
+{
+	glUniform1fv(ID, num, Param);
+}
+
+void BaseShader::setParameter(GLint ID, const Vector Param[], int num) const
+{
+	glUniform3fv(ID, num, &Param[0].X);
+}
+
 
 
 

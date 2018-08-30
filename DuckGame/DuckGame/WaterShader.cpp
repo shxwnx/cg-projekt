@@ -10,22 +10,12 @@
 #endif
 
 WaterShader::WaterShader() :
-	time(0.0f),
-	steepness(0.0f),
-	wavelength(1.0f),
-	amplitude(0.05f),
-	speed(1.0f),
-	//directionX(0.0f),
-	//directionZ(0.0f),
-	direction(0.0f, 0.0f, -1.0f)
+	time(0.0f)
 {
 	bool loaded = load(ASSET_DIRECTORY"vswater.glsl", ASSET_DIRECTORY"fswater.glsl");
 	if (!loaded)
 		throw std::exception();
 	assignLocations();
-
-	//this->frequency = ((2 * PI) / this->wavelength);
-	//this->phase = this->speed * this->frequency;
 }
 
 WaterShader::~WaterShader()
@@ -38,20 +28,22 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 
 	setParameter(this->positionLoc, this->position);
 	setParameter(this->timeLoc, this->time);
-	setParameter(this->steepnessLoc, this->steepness);
-	setParameter(this->wavelengthLoc, this->wavelength);
-	setParameter(this->amplitudeLoc, this->amplitude);
-	setParameter(this->speedLoc, this->speed);
-	setParameter(this->directionLoc, this->direction);
-	//setParameter(this->frequencyLoc, this->frequency);
-	//setParameter(this->phaseLoc, this->phase);
 
+	//Waves
+	setParameter(this->numWavesLoc, this->numWaves);
+	setParameter(this->wavelengthValuesLoc, this->wavelengthValues, this->numWaves);
+	setParameter(this->amplitudeValuesLoc, this->amplitudeValues, this->numWaves);
+	setParameter(this->speedValuesLoc, this->speedValues, this->numWaves);
+	setParameter(this->directionValuesLoc, this->directionValues, this->numWaves);
+
+	//Projection Matrix
 	Matrix modelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
 	setParameter(this->modelMatLoc, modelTransform());
 	setParameter(this->modelViewProjLoc, modelViewProj);
 
 	setParameter(eyePosLoc, Cam.position());
 
+	//Visual Variables
 	setParameter(this->diffuseColorLoc, this->diffuseColor);
 	setParameter(this->ambientColorLoc, this->ambientColor);
 	setParameter(this->specularColorLoc, this->specularColor);
@@ -63,13 +55,13 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 void WaterShader::assignLocations() {
 	this->positionLoc = getParameterID("Position");
 	this->timeLoc = getParameterID("Time");
-	this->steepnessLoc = getParameterID("Steepness");
-	this->wavelengthLoc = getParameterID("Wavelength");
-	this->amplitudeLoc = getParameterID("Amplitude");
-	this->speedLoc = getParameterID("Speed");
-	this->directionLoc = getParameterID("Direction");
-	//this->frequencyLoc = getParameterID("Frequency");
-	//this->phaseLoc = getParameterID("Phase");
+	//this->steepnessLoc = getParameterID("Steepness");
+
+	this->numWavesLoc = getParameterID("numWaves");
+	this->wavelengthValuesLoc = getParameterID("WavelengthValues");
+	this->amplitudeValuesLoc = getParameterID("AmplitudeValues");
+	this->speedValuesLoc = getParameterID("SpeedValues");
+	this->directionValuesLoc = getParameterID("DirectionValues");
 
 	this->diffuseColorLoc = getParameterID("DiffuseColor");
 	this->ambientColorLoc = getParameterID("AmbientColor");
@@ -81,4 +73,17 @@ void WaterShader::assignLocations() {
 
 	this->modelMatLoc = getParameterID("ModelMat");
 	this->modelViewProjLoc = getParameterID("ModelViewProjMat");
+}
+
+void WaterShader::setWaves(Wave waves[MAX_WAVES], int num) {
+	if (num > MAX_WAVES) num = MAX_WAVES;
+	for (int i = 0; i < num; ++i) {
+		//this->steepnessValues[i] = waves[i].steepness;
+		this->wavelengthValues[i] = waves[i].wavelength;
+		this->amplitudeValues[i] = waves[i].amplitude;
+		this->speedValues[i] = waves[i].speed;
+		this->directionValues[i] = waves[i].direction;
+	}
+	this->numWaves = num;
+
 }

@@ -46,6 +46,8 @@ public:
 	void setParameter(GLint ID, const Vector& Param) const;
 	void setParameter(GLint ID, const Color& Param) const;
 	void setParameter(GLint ID, const Matrix& Param) const;
+	void setParameter(GLint ID, const float Param[], int num) const;
+	void setParameter(GLint ID, const Vector Param[], int num) const;
 
 	GLuint openGLProgramID() { return ShaderProgram; }
 protected:
