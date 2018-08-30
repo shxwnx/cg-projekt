@@ -34,10 +34,10 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	models.push_back(pModel);*/
 
 
-
+	this->createLight();
 	this->createSpawner();
 	this->createDuck();
-	this->createLight();
+
 	this->createWater(6.0f, 9.0f, 60, 90);
 	this->createSkyBox();
 	this->createUI();
@@ -73,18 +73,17 @@ void Application::update(float dTime)
 void Application::createLight() {
 
 	DirectionalLight* dl = new DirectionalLight();
-	dl->direction(Vector(0, 0, 0));
-	dl->color(Color(1, 0, 0));
+	dl->direction(Vector(0.2f, -1, 1));
+	dl->color(Color(0.25, 0.25, 0.5));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
 
-	Color c = Color(1.0f, 1, 1);
-	Vector a = Vector(1, 1, 1);
+	Color c = Color(1.0f, 1.0f, 1.0f);
+	Vector a = Vector(1.0f, 0, 0.1f);
 
 	// point lights
 	PointLight* pl = new PointLight();
-	Vector p(this->duck->transform().translation());
-	p.Y = -2;
+	Vector p(0.0f,1.0f,0.0f);
 	pl->position(p);
 	pl->color(c);
 	pl->attenuation(a);

@@ -65,6 +65,7 @@ void ShaderLightMapper::addLight(BaseLight* Light)
 
 void ShaderLightMapper::activate()
 {
+	
 	ShaderLights.LightCount = (int)lights().size();
 	int ShadowCasterIndex = 0;
 
