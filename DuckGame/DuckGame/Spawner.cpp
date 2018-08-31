@@ -1,4 +1,5 @@
 #include "Spawner.h"
+#include "ToonShader.h"
 #define PI 3.14159265358979323846
 
 Spawner::Spawner(int countRows, int countObjects, float spacing,
@@ -39,11 +40,13 @@ bool Spawner::loadModels(std::vector<const char*> files)
 		for (int i = 0; i < countPerObject; i++) {
 
 			auto model = new Model(file, false, this->scale);
+			
 			model->transform(this->defaultTransform());
 			if (!model->load(file, false)) {
 				return false;
 			}
-			model->shader(this->pShader, false);
+			auto shader = new ToonShader();
+			model->shader(shader, false);
 
 			this->inputModels.push_back(model);
 		}

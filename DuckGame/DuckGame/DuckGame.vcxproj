@@ -108,6 +108,7 @@
     <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="ToonShader.cpp" />
     <ClCompile Include="TriangleBoxModel.cpp" />
     <ClCompile Include="TrianglePlaneModel.cpp" />
     <ClCompile Include="TriangleSphereModel.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="ToonShader.h" />
     <ClInclude Include="TriangleBoxModel.h" />
     <ClInclude Include="TrianglePlaneModel.h" />
     <ClInclude Include="TriangleSphereModel.h" />

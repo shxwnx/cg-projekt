@@ -23,7 +23,7 @@ class UIService : public BaseModel {
 
 public:
 
-	UIService(const char* font);
+	UIService(const char* font, Camera* camera);
 	virtual ~UIService();
 	bool loadUI(std::vector<const char*> files);
 	void update(float dtime);
@@ -31,13 +31,11 @@ public:
 
 private:
 	std::vector<Model*> ui;
+	Camera* camera;
 
 	std::map<GLchar, Character> characters;
 	GLuint VAO;
 	GLuint VBO;
-	// Provider
-	//Application * application;
-	//Spawner * spawner;
 
 	// UI
 	float timePassed;
@@ -45,7 +43,7 @@ private:
 	float speed;
 	int objectsDodged;
 
-	void renderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, Vector color);
+	void renderText(std::string text, GLfloat x, GLfloat y, GLfloat scale);
 
 
 

@@ -13,12 +13,14 @@ class FontShader : public BaseShader
 {
 public:
 	FontShader(Vector color);
-    virtual void activate() ;
-    
+	virtual void activate(const BaseCamera& camera)	 const;
+	Vector getColor() { return this->color; }
     
 private:
 	Vector color;
-	GLuint colorId;
+	GLuint colorLoc;
+	Matrix projection;
+	GLuint projectionLoc;
     
 };
 

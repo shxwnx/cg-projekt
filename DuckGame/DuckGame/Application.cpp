@@ -7,7 +7,7 @@
 #include "FontShader.h"
 #include "WaterShader.h"
 #include "BaseShader.h"
-#include "DuckShader.h"
+#include "ToonShader.h"
 #include "ShaderLightMapper.h"
 
 #define ASSET_DIRECTORY "../../assets/"
@@ -74,7 +74,7 @@ void Application::createLight() {
 
 	DirectionalLight* dl = new DirectionalLight();
 	dl->direction(Vector(0.2f, -1, 1));
-	dl->color(Color(0.25, 0.25, 0.5));
+	dl->color(Color(1.0f, 1.0f, 1.0f));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
 
@@ -82,17 +82,17 @@ void Application::createLight() {
 	Vector a = Vector(1.0f, 0, 0.1f);
 
 	// point lights
-	PointLight* pl = new PointLight();
+	/*PointLight* pl = new PointLight();
 	Vector p(0.0f,1.0f,0.0f);
 	pl->position(p);
 	pl->color(c);
 	pl->attenuation(a);
-	ShaderLightMapper::instance().addLight(pl);
+	ShaderLightMapper::instance().addLight(pl);*/
 }
 
 void Application::createDuck()
 {
-	auto shader = new DuckShader();
+	auto shader = new ToonShader();
 	this->duck = new Duck(this->spawner->getOutputModels(), &this->camera);
 	this->duck->shader(shader, true);
 	this->duck->loadModel(ASSET_DIRECTORY "newduck.dae");
@@ -130,10 +130,9 @@ void Application::controlDuck()
 
 void Application::createSpawner()
 {
-	auto shader = new PhongShader();
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
 	this->spawner = new Spawner(5, 3, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);
-	this->spawner->shader(shader, true);
+
 
 	std::vector<const char*> files = {
 		//ASSET_DIRECTORY "donut_brown.dae" ,
@@ -166,8 +165,8 @@ void Application::createSkyBox()
 
 void Application::createUI()
 {
-	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf");
-	this->uiService->shader(new FontShader(Vector(0, 0, 0)), true);
+	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf", &this->camera);
+	this->uiService->shader(new FontShader(Vector(1.0f, 0.0f, 0.0f)), false);
 	this->models.push_back(this->uiService);
 }
 

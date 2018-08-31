@@ -73,6 +73,7 @@
     <ClCompile Include="UIService.cpp" />
     <ClCompile Include="FontShader.cpp" />
     <ClCompile Include="DuckShader.cpp" />
+    <ClCompile Include="ToonShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -144,6 +145,7 @@
     <ClInclude Include="UIService.h" />
     <ClInclude Include="FontShader.h" />
     <ClInclude Include="DuckShader.h" />
+    <ClInclude Include="ToonShader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

@@ -8,7 +8,7 @@
 
 #include "Model.h"
 #include "PhongShader.h"
-#include "DuckShader.h"
+#include "ToonShader.h"
 #include <list>
 
 Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
@@ -268,7 +268,7 @@ void Model::applyMaterial(unsigned int index)
 		return;
 
 	PhongShader* pPhong = dynamic_cast<PhongShader*>(shader());
-	DuckShader* pDuck = dynamic_cast<DuckShader*>(shader());
+	ToonShader* pToon = dynamic_cast<ToonShader*>(shader());
 	if (pPhong) {
 		Material* pMat = &pMaterials[index];
 		pPhong->ambientColor(pMat->AmbColor);
@@ -277,13 +277,13 @@ void Model::applyMaterial(unsigned int index)
 		pPhong->specularColor(pMat->SpecColor);
 		pPhong->diffuseTexture(pMat->DiffTex);
 	}
-	else if (pDuck) {
+	else if (pToon) {
 		Material* pMat = &pMaterials[index];
-		pDuck->setAmbientColor(pMat->AmbColor);
-		pDuck->setDiffuseColor(pMat->DiffColor);
-		pDuck->setSpecularExp(pMat->SpecExp);
-		pDuck->setSpecularColor(pMat->SpecColor);
-		pDuck->setDiffuseTexture(pMat->DiffTex);
+		pToon->setAmbientColor(pMat->AmbColor);
+		pToon->setDiffuseColor(pMat->DiffColor);
+		pToon->setSpecularExp(pMat->SpecExp);
+		pToon->setSpecularColor(pMat->SpecColor);
+		pToon->setDiffuseTexture(pMat->DiffTex);
 	}
 	else {
 		std::cout << "Model::applyMaterial() Wrong Shader!" << std::endl;
