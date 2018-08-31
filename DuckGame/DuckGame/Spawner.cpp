@@ -46,7 +46,7 @@ bool Spawner::loadModels(std::vector<const char*> files)
 				return false;
 			}
 			auto shader = new ToonShader();
-			model->shader(shader, false);
+			model->shader(shader, true);
 
 			this->inputModels.push_back(model);
 		}

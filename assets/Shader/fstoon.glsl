@@ -56,25 +56,25 @@ void main()
     vec3 specularComponent = vec3(0,0,0);
 	vec3 color = vec3(0,0,0);
 
-	if(lights[0].Type == 1)
-	{
-		color = lights[0].Color;
-		diffuseComponent = color  * sat(dot(N,L));
-		specularComponent = color * pow(sat(dot(N,H)), SpecularExp);
-	}
+//	if(lights[0].Type == 1)
+//	{
+//		color = lights[0].Color;
+//		diffuseComponent = color  * sat(dot(N,L));
+//		specularComponent = color * pow(sat(dot(N,H)), SpecularExp);
+//	}
 
 	float diffuse = max(0, dot(L,N));
-    diffuseComponent *=  DiffuseColor * 1.5f  * floor(diffuse * levels) * scaleFactor;
+    diffuseComponent = LightColor * DiffuseColor * 2.0f  * floor(diffuse * levels) * scaleFactor * sat(dot(N,L));
 	
 	float specular = 0.0;
 	if( dot(L,N) > 0.0)
 	{
 		specular = pow( max(0, dot(H, N)), shininess);
 	}	
-    specularComponent *= SpecularColor * specular;
+    specularComponent = LightColor * SpecularColor * specular * pow(sat(dot(N,H)), SpecularExp);
     
 	float specMask = (pow(dot(H, N), shininess) > 0.4) ? 1 : 0;
-	float edgeDetection = (dot(E, N) > 0.4) ? 1 : 0;
+	float edgeDetection = (dot(E, N) > 0.25) ? 1 : 0;
  
     gl_FragColor =  vec4(edgeDetection * diffuseComponent  * diffuseTexture.rgb + specularComponent * specMask, 1);
 }

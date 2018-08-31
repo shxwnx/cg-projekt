@@ -32,9 +32,9 @@ UIService::UIService(const char* font, Camera* camera)
 			continue;
 		}
 		// Generate texture
-		GLuint texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
+	
+		glGenTextures(1, &textureLoc);
+		glBindTexture(GL_TEXTURE_2D, textureLoc);
 		glTexImage2D(
 			GL_TEXTURE_2D,
 			0,
@@ -53,7 +53,7 @@ UIService::UIService(const char* font, Camera* camera)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		// Now store character for later use
 		Character character = {
-			texture,
+			textureLoc,
 			Vector2D(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 			Vector2D(face->glyph->bitmap_left, face->glyph->bitmap_top),
 			face->glyph->advance.x

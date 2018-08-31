@@ -34,6 +34,7 @@ private:
 	Camera* camera;
 
 	std::map<GLchar, Character> characters;
+	GLuint textureLoc;
 	GLuint VAO;
 	GLuint VBO;
 

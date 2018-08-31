@@ -36,7 +36,7 @@ bool Duck::loadModel(const char* file)
 	if (!this->model->load(file, false)) {
 		return false;
 	}
-	this->model->shader(this->pShader, false);
+	this->model->shader(this->pShader, true);
 	setCameraPosition();
 
 	return true;
