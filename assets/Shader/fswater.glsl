@@ -54,9 +54,9 @@ float getLinearScreenDepth() {
 
 vec2 getTexturePosition(vec2 texcoord) {
 	float speed = SpeedValues[0];
-	vec2 direction = vec2(DirectionValues[0].x, DirectionValues[0].x);
+	vec2 direction = vec2(DirectionValues[0].x, DirectionValues[0].z);
 
-	return texcoord - (Time * 100 * direction);
+	return texcoord + (Time * speed * 0.1 * direction);
 }
 
 void main()
