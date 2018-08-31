@@ -59,6 +59,7 @@ vec2 getTexturePosition(vec2 texcoord) {
 	return texcoord + (Time * speed * 0.1 * direction);
 }
 
+
 void main()
 {
 //	  vec4 color = vec4(0.0,0.7,1.0,0.5);
@@ -68,25 +69,27 @@ void main()
 //    
 //    vec4 waterlines = texture2d(surfacetexture,pos);
 //    color.rgba += waterlines.r * 0.1;
-//    
-//    float worlddepth = getlineardepth(position);
-//    float screendepth = getlinearscreendepth();
+
+	
+	
+//    float worlddepth = getLinearDepth(Position);
+//    float screendepth = getLinearScreenDepth();
 //    float foamline = clamp((screendepth - worlddepth),0.0,1.0) ;
-//    
 //    if(foamline < 0.7){
 //        color.rgba += 0.2;
 //    }
-//    
-//	gl_fragcolor = color;
-
+  
 	vec2 texcoord;
 	texcoord.x = Texcoord.x * (WaterSize.x / 5);
 	texcoord.y = Texcoord.y * (WaterSize.y / 5);
 	texcoord = getTexturePosition(texcoord);
 
 	vec4 surface = texture(SurfaceTexture, texcoord);
-	vec4 color = vec4(0.0,0.7,1.0,0.5);
-	color += surface.r * 0.1;
+
+	vec4 color = vec4(0.0,0.7,1.0,0.5) + surface.r * 0.1; 
+	vec4 color2 = vec4(0.5,0.9,1.0,0.5) + surface.r * 0.1;
+	
+	color = mix(color, color2, Position.y);
 
 	gl_FragColor = color;
     //gl_FragColor = vec4(0.0,0.7,1.0,0.3);
