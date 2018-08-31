@@ -38,7 +38,8 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createSpawner();
 	this->createDuck();
 
-	this->createWater(6.0f, 9.0f, 60, 90);
+	//this->createWater(6.0f, 9.0f, 60, 90);
+	this->createWater(12.0f, 18.0f, 60, 90);
 	this->createSkyBox();
 	this->createUI();
 
@@ -147,7 +148,8 @@ void Application::createSpawner()
 void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ) {
 	this->water = new Water(sizeX, sizeZ, segmentsX, segmentsZ);
 
-	WaterShader* shader = new WaterShader();
+	WaterShader* shader = new WaterShader(Vector2D(sizeX, sizeZ));
+	shader->setDepthTexture(&this->depthTexture);
 	this->water->shader(shader, true);
 	this->water->loadModel();
 	if (!this->water->generateWaves()) {
@@ -218,6 +220,16 @@ Vector Application::calc3DRay(float x, float y, Vector& Pos)
 }
 void Application::draw()
 {
+	//Generate texture
+	glGenTextures(1, &depthTexture);
+	glBindTexture(GL_TEXTURE_2D, depthTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 512,
+		512, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+
 	// 1. clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -232,6 +244,15 @@ void Application::draw()
 	// 3. check once per frame for opengl errors
 	GLenum Error = glGetError();
 	assert(Error == 0);
+
+	//copy depth buffer to texture
+	glBindTexture(GL_TEXTURE_2D, depthTexture);
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, 512, 512);
+
+	//enable texturing and bind the depth texture
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, depthTexture);
+
 }
 void Application::end()
 {

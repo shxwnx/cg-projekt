@@ -24,6 +24,7 @@
 #include "vector.h"
 #include "matrix.h"
 #include "camera.h"
+#include "Vector2D.h"
 
 class BaseShader
 {
@@ -43,7 +44,9 @@ public:
 	void setBlock(GLuint ID, GLuint UniformBufferID) const;
 	void setParameter(GLint ID, float Param) const;
 	void setParameter(GLint ID, int Param) const;
+	void setParameter(GLint ID, GLuint Param) const;
 	void setParameter(GLint ID, const Vector& Param) const;
+	void setParameter(GLint ID, const Vector2D& Param) const;
 	void setParameter(GLint ID, const Color& Param) const;
 	void setParameter(GLint ID, const Matrix& Param) const;
 	void setParameter(GLint ID, const float Param[], int num) const;

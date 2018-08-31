@@ -23,34 +23,38 @@
 #include "baseshader.h"
 #include "texture.h"
 #include "Wave.h"
+#include "Vector2D.h"
 
 class WaterShader : public BaseShader
 {
 public:
-	WaterShader();
+	WaterShader(Vector2D waterSize);
 	~WaterShader();
 
 	float getTime() const { return this->time; }
 	void setTime(const float t) { this->time = t; }
+	void setDepthTexture(GLuint* depthTexture) { this->depthTexture = depthTexture; }
 	void setWaves(Wave waves[MAX_WAVES], int num);
 
 	virtual void activate(const BaseCamera& Cam) const;
 
 protected:
 	void assignLocations();
-	void renderReflection();
+	void renderReflection(const Camera& Cam);
 	void renderRefractionAndDepth();
 
 private:
 	//variables...
 	Texture* reflectionTexture;
 	Texture* refractionTexture;
-	Texture* depthTexture;
+	GLuint* depthTexture;
+	Texture* surfaceTexture;
 
 	Vector position;
 	float time;
+	Vector2D waterSize;
+	
 
-	//float steepnessValues[MAX_WAVES];
 	int numWaves;
 	float wavelengthValues[MAX_WAVES];	//crest-to-crest distance between waves in world space
 	float amplitudeValues[MAX_WAVES];	//height from the water plane to the wave crest
@@ -64,13 +68,13 @@ private:
 	Vector lightPos;
 	Color lightColor;
 
+	GLint depthTextureLoc;
 
 	GLint positionLoc;
 	GLint timeLoc;
-	//GLint steepnessLoc;	
+	GLint waterSizeLoc;
 
 	GLint numWavesLoc;
-	//GLint steepnessValuesLoc;
 	GLint wavelengthValuesLoc;
 	GLint amplitudeValuesLoc;
 	GLint speedValuesLoc;
@@ -86,6 +90,8 @@ private:
 	GLint modelMatLoc;
 	GLint modelViewProjLoc;
 	GLint eyePosLoc;
+
+	GLint surfaceTextureLoc;
 };
 
 #endif /* WaterShader_hpp */
