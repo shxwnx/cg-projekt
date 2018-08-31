@@ -44,6 +44,7 @@ public:
 	void setBlock(GLuint ID, GLuint UniformBufferID) const;
 	void setParameter(GLint ID, float Param) const;
 	void setParameter(GLint ID, int Param) const;
+	void setParameter(GLint ID, GLuint Param) const;
 	void setParameter(GLint ID, const Vector& Param) const;
 	void setParameter(GLint ID, const Vector2D& Param) const;
 	void setParameter(GLint ID, const Color& Param) const;

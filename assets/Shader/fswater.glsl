@@ -4,6 +4,10 @@ in vec3 Position;
 in vec3 Normal;
 in vec4 Texcoord;
 
+uniform mat4 ModelMat;
+uniform mat4 ModelViewProjMat;
+uniform float Time;
+
 uniform float SpeedValues[5];
 uniform vec3 DirectionValues[5];
 
@@ -16,12 +20,9 @@ uniform vec3 SpecularColor;
 uniform vec3 AmbientColor;
 uniform float SpecularExp;
 
-uniform vec4 Camera;
-uniform sampler2D DepthMap;
+uniform vec4 CameraParam;
+uniform sampler2D DepthTexture;
 uniform vec4 ScreenSize;
-uniform mat4 ModelMat;
-uniform mat4 ModelViewProjMat;
-uniform float Time;
 
 uniform sampler2D SurfaceTexture;
 uniform vec2 WaterSize;
@@ -31,7 +32,7 @@ uniform vec2 WaterSize;
 
 float linearizeDepth(float z) {
         float tmp = z * 2.0 - 1.0;
-        return 1.0 / (Camera.z * tmp + Camera.w);
+        return 1.0 / (CameraParam.z * tmp + CameraParam.w);
 }
 
 float unpackFloat(vec4 rgbaDepth) {
@@ -40,7 +41,7 @@ float unpackFloat(vec4 rgbaDepth) {
 }
 
 float getLinearScreenDepth(vec2 uv) {
-        return linearizeDepth(texture2D(DepthMap, uv).r) * Camera.y;
+        return linearizeDepth(texture2D(DepthTexture, uv).r) * CameraParam.y;
 }
 
 float getLinearDepth(vec3 pos) {
@@ -77,6 +78,7 @@ void main()
 //    float foamline = clamp((screendepth - worlddepth),0.0,1.0) ;
 //    if(foamline < 0.7){
 //        color.rgba += 0.2;
+//			----> mix()
 //    }
   
 	vec2 texcoord;
@@ -86,10 +88,11 @@ void main()
 
 	vec4 surface = texture(SurfaceTexture, texcoord);
 
-	vec4 color = vec4(0.0,0.7,1.0,0.5) + surface.r * 0.1; 
-	vec4 color2 = vec4(0.5,0.9,1.0,0.5) + surface.r * 0.1;
+	vec4 color = vec4(0.0,0.7,1.0,0.6) + surface.r * 0.1; 
+	vec4 color2 = vec4(0.5,0.9,1.0,0.6) + surface.r * 0.1;
 	
 	color = mix(color, color2, Position.y);
+	//color = mix(color, color2, texture(DepthTexture, gl_FragCoord.xy * ScreenSize.zw));
 
 	gl_FragColor = color;
     //gl_FragColor = vec4(0.0,0.7,1.0,0.3);

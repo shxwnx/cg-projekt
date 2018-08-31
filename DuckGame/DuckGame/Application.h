@@ -33,6 +33,7 @@ protected:
     ModelList models;
     GLFWwindow* window;
 	bool isStopped;
+	GLuint depthTexture;
 
 	// Duck
 	Duck* duck;

@@ -188,6 +188,10 @@ void BaseShader::setParameter(GLint ID, int Param) const
 {
 	glUniform1i(ID, Param);
 }
+void BaseShader::setParameter(GLint ID, GLuint Param) const
+{
+	glUniform1i(ID, Param);
+}
 void BaseShader::setParameter(GLint ID, const Vector& Param) const
 {
 	glUniform3f(ID, Param.X, Param.Y, Param.Z);

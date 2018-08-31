@@ -13,7 +13,6 @@ WaterShader::WaterShader(Vector2D waterSize) :
 	time(0.0f),
 	reflectionTexture(Texture::defaultTex()),
 	refractionTexture(Texture::defaultTex()),
-	depthTexture(Texture::defaultTex()),
 	surfaceTexture(Texture::defaultTex())
 {
 	bool loaded = load(ASSET_DIRECTORY"Shader/vswater.glsl", ASSET_DIRECTORY"Shader/fswater.glsl");
@@ -33,6 +32,8 @@ WaterShader::~WaterShader()
 
 void WaterShader::activate(const BaseCamera& Cam) const {
 	BaseShader::activate(Cam);
+
+	setParameter(this->depthTextureLoc, *this->depthTexture);
 
 	setParameter(this->positionLoc, this->position);
 	setParameter(this->timeLoc, this->time);
@@ -65,10 +66,11 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 }
 
 void WaterShader::assignLocations() {
+	this->depthTextureLoc = getParameterID("DepthTexture");
+	
 	this->positionLoc = getParameterID("Position");
 	this->timeLoc = getParameterID("Time");
 	this->waterSizeLoc = getParameterID("WaterSize");
-	//this->steepnessLoc = getParameterID("Steepness");
 
 	this->numWavesLoc = getParameterID("numWaves");
 	this->wavelengthValuesLoc = getParameterID("WavelengthValues");
@@ -93,7 +95,6 @@ void WaterShader::assignLocations() {
 void WaterShader::setWaves(Wave waves[MAX_WAVES], int num) {
 	if (num > MAX_WAVES) num = MAX_WAVES;
 	for (int i = 0; i < num; ++i) {
-		//this->steepnessValues[i] = waves[i].steepness;
 		this->wavelengthValues[i] = waves[i].wavelength;
 		this->amplitudeValues[i] = waves[i].amplitude;
 		this->speedValues[i] = waves[i].speed;
@@ -149,6 +150,6 @@ void WaterShader::renderRefractionAndDepth(){
 	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, texSize, texSize);//////HIER//texSize definieren
 
 	//render depth to texture
-	this->depthTexture->bindTexture(GL_TEXTURE_2D);
+	//this->depthTexture->bindTexture(GL_TEXTURE_2D);
 	//glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 0, 0, texSize, texSize, 0);//////HIER//texSize definieren
 }
