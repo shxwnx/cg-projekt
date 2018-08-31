@@ -26,6 +26,7 @@ public:
 	void update(float dTime);
 	virtual void draw(const BaseCamera& camera);
 	bool generateWaves();
+	Vector2D getSize() { return Vector2D(this->sizeX, this->sizeZ); }
 
 protected:
 	TrianglePlaneModel* model;

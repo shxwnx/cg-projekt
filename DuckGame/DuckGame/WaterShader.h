@@ -23,11 +23,12 @@
 #include "baseshader.h"
 #include "texture.h"
 #include "Wave.h"
+#include "Vector2D.h"
 
 class WaterShader : public BaseShader
 {
 public:
-	WaterShader();
+	WaterShader(Vector2D waterSize);
 	~WaterShader();
 
 	float getTime() const { return this->time; }
@@ -38,7 +39,7 @@ public:
 
 protected:
 	void assignLocations();
-	void renderReflection();
+	void renderReflection(const Camera& Cam);
 	void renderRefractionAndDepth();
 
 private:
@@ -46,9 +47,11 @@ private:
 	Texture* reflectionTexture;
 	Texture* refractionTexture;
 	Texture* depthTexture;
+	Texture* surfaceTexture;
 
 	Vector position;
 	float time;
+	Vector2D waterSize;
 
 	//float steepnessValues[MAX_WAVES];
 	int numWaves;
@@ -67,6 +70,7 @@ private:
 
 	GLint positionLoc;
 	GLint timeLoc;
+	GLint waterSizeLoc;
 	//GLint steepnessLoc;	
 
 	GLint numWavesLoc;
@@ -86,6 +90,8 @@ private:
 	GLint modelMatLoc;
 	GLint modelViewProjLoc;
 	GLint eyePosLoc;
+
+	GLint surfaceTextureLoc;
 };
 
 #endif /* WaterShader_hpp */

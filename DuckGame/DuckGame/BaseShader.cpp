@@ -192,6 +192,10 @@ void BaseShader::setParameter(GLint ID, const Vector& Param) const
 {
 	glUniform3f(ID, Param.X, Param.Y, Param.Z);
 }
+void BaseShader::setParameter(GLint ID, const Vector2D& Param) const
+{
+	glUniform2f(ID, Param.X, Param.Y);
+}
 void BaseShader::setParameter(GLint ID, const Color& Param) const
 {
 	glUniform3f(ID, Param.R, Param.G, Param.B);

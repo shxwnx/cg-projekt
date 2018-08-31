@@ -4,18 +4,26 @@
 #define PI 3.14159265358979323846
 
 #ifdef WIN32
-#define ASSET_DIRECTORY "../../assets/Shader/"
+#define ASSET_DIRECTORY "../../assets/"
 #else
-#define ASSET_DIRECTORY "../assets/Shader/"
+#define ASSET_DIRECTORY "../assets/"
 #endif
 
-WaterShader::WaterShader() :
-	time(0.0f)
+WaterShader::WaterShader(Vector2D waterSize) :
+	time(0.0f),
+	reflectionTexture(Texture::defaultTex()),
+	refractionTexture(Texture::defaultTex()),
+	depthTexture(Texture::defaultTex()),
+	surfaceTexture(Texture::defaultTex())
 {
-	bool loaded = load(ASSET_DIRECTORY"vswater.glsl", ASSET_DIRECTORY"fswater.glsl");
+	bool loaded = load(ASSET_DIRECTORY"Shader/vswater.glsl", ASSET_DIRECTORY"Shader/fswater.glsl");
 	if (!loaded)
 		throw std::exception();
 	assignLocations();
+
+	this->surfaceTexture->load(ASSET_DIRECTORY"tex/water_surface.png");
+
+	this->waterSize = waterSize;
 }
 
 WaterShader::~WaterShader()
@@ -28,6 +36,7 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 
 	setParameter(this->positionLoc, this->position);
 	setParameter(this->timeLoc, this->time);
+	setParameter(this->waterSizeLoc, this->waterSize);
 
 	//Waves
 	setParameter(this->numWavesLoc, this->numWaves);
@@ -50,11 +59,15 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 	setParameter(this->specularExpLoc, this->specularExp);
 	setParameter(this->lightPosLoc, this->lightPos);
 	setParameter(this->lightColorLoc, this->lightColor);
+
+	this->surfaceTexture->activate(0);
+	setParameter(this->surfaceTextureLoc, 0);
 }
 
 void WaterShader::assignLocations() {
 	this->positionLoc = getParameterID("Position");
 	this->timeLoc = getParameterID("Time");
+	this->waterSizeLoc = getParameterID("WaterSize");
 	//this->steepnessLoc = getParameterID("Steepness");
 
 	this->numWavesLoc = getParameterID("numWaves");
@@ -70,6 +83,8 @@ void WaterShader::assignLocations() {
 	this->lightPosLoc = getParameterID("LightPos");
 	this->lightColorLoc = getParameterID("LightColor");
 	this->eyePosLoc = getParameterID("EyePos");
+
+	this->surfaceTextureLoc = getParameterID("SurfaceTexture");
 
 	this->modelMatLoc = getParameterID("ModelMat");
 	this->modelViewProjLoc = getParameterID("ModelViewProjMat");
@@ -88,11 +103,13 @@ void WaterShader::setWaves(Wave waves[MAX_WAVES], int num) {
 
 }
 
-void WaterShader::renderReflection() {
-	//glViewport(0, 0, texSize, texSize); //////HIER//texSize definieren
+void WaterShader::renderReflection(const Camera& Cam) {
+	glViewport(0, 0, 2048, 2048); //////HIER//texSize definieren
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	//gluLookAt(); //////HIER
+	//gluLookAt(Cam.position().X, Cam.position().Y, Cam.position().Z, 
+		//Cam.target().X, Cam.target().Y, Cam.target().Z,
+		//Cam.up().X, Cam.up().Y, Cam.up().Z);
 
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);
@@ -108,7 +125,7 @@ void WaterShader::renderReflection() {
 	this->reflectionTexture->bindTexture(GL_TEXTURE_2D);
 	//glCopyTexSubImage2D copies the frame buffer
 	//to the bound texture
-	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, texSize, texSize);//////HIER//texSize definieren
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, 2048, 2048);//////HIER//texSize definieren
 }
 
 void WaterShader::renderRefractionAndDepth(){

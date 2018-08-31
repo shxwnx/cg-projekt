@@ -38,7 +38,8 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createSpawner();
 	this->createDuck();
 
-	this->createWater(6.0f, 9.0f, 60, 90);
+	//this->createWater(6.0f, 9.0f, 60, 90);
+	this->createWater(12.0f, 18.0f, 60, 90);
 	this->createSkyBox();
 	this->createUI();
 
@@ -148,7 +149,7 @@ void Application::createSpawner()
 void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ) {
 	this->water = new Water(sizeX, sizeZ, segmentsX, segmentsZ);
 
-	WaterShader* shader = new WaterShader();
+	WaterShader* shader = new WaterShader(Vector2D(sizeX, sizeZ));
 	this->water->shader(shader, true);
 	this->water->loadModel();
 	if (!this->water->generateWaves()) {
