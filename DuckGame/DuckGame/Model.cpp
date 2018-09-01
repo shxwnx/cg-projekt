@@ -227,8 +227,8 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box, float scale)
 		}
 	}
 
-	Box.Min = min.operator*(scale);
-	Box.Max = max.operator*(scale);
+	Box.Min = min;
+	Box.Max = max;
 }
 
 void Model::loadNodes(const aiScene* pScene)

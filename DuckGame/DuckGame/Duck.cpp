@@ -187,18 +187,18 @@ void Duck::checkCollision(float dtime) {
 	timePassed += dtime;
 	if (timePassed > 1.0f) {
 		for (auto object : (*this->obstacleModels)) {
-			if (this->model->transform().translation().X - 1 < object->transform().translation().X
+		/*	if (this->model->transform().translation().X - 1 < object->transform().translation().X
 				&& this->model->transform().translation().X + 1 > object->transform().translation().X) {
 
 				if (this->model->transform().translation().Z - 1 < object->transform().translation().Z
-					&& this->model->transform().translation().Z + 1 > object->transform().translation().Z) {
+					&& this->model->transform().translation().Z + 1 > object->transform().translation().Z) {*/
 
 					if (this->boundingBoxIntersection(object)) {
 						timePassed = 0.0f;
 						this->isCollisionDetected = true;
 					}
-				}
-			}
+			/*	}
+			}*/
 		}
 	}
 
