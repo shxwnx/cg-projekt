@@ -40,7 +40,7 @@ bool Spawner::loadModels(std::vector<const char*> files)
 		for (int i = 0; i < countPerObject; i++) {
 
 			auto model = new Model(file, false, this->scale);
-			
+
 			model->transform(this->defaultTransform());
 			if (!model->load(file, false)) {
 				return false;
@@ -120,10 +120,17 @@ int Spawner::getObjectsDodged()
 
 void Spawner::rearrange()
 {
+	std::vector<Model *> tmp;
 	for (auto model : this->outputModels) {
-		auto pos = model->transform();
-		if (pos.m23 > 6.0f) {
-			this->outputModels.erase(std::remove(this->outputModels.begin(), this->outputModels.end(), model), this->outputModels.end());
+		tmp.push_back(model);
+	}
+	this->outputModels.clear();
+	for (auto model : tmp) {
+		auto pos = model->transform().translation();
+		if (pos.Z < 6.0f) {
+			this->outputModels.push_back(model);
+		}
+		else {
 			model->transform(this->defaultTransform());
 			this->inputModels.push_back(model);
 			this->objectsDodged++;
@@ -189,11 +196,12 @@ void Spawner::reset()
 	this->outputModels.clear();
 
 	for (auto model : tmp) {
-		tmp.erase(std::remove(tmp.begin(), tmp.end(), model), tmp.end());
+		//tmp.erase(std::remove(tmp.begin(), tmp.end(), model), tmp.end());
 		model->transform(this->defaultTransform());
 		this->inputModels.push_back(model);
 	}
-	
+	tmp.clear();
+
 }
 
 void Spawner::stop()
