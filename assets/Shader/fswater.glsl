@@ -58,9 +58,17 @@ vec2 getTexturePosition(vec2 texcoord) {
 	//float speed = SpeedValues[0];
 	vec2 direction = vec2(DirectionValues[0].x, DirectionValues[0].z);
 
-	return texcoord + (Time * Speed * 0.45 * direction);
+	return texcoord + (Time * Speed * 0.42 * direction);
 }
 
+float sat(in float a)
+{
+	return clamp(a, 0.0, 1.0);
+}
+
+const int levels = 6;
+const float scaleFactor = 1.0 / levels;
+const float shininess = 0.1f;
 
 void main()
 {
@@ -89,12 +97,36 @@ void main()
 
 	vec4 surface = texture(SurfaceTexture, texcoord);
 
-	vec4 color = vec4(0.0,0.7,1.0,0.6) + surface.r * 0.1; 
-	vec4 color2 = vec4(0.5,0.9,1.0,0.6) + surface.r * 0.1;
+	vec4 color = vec4(0.1, 0.8, 1.0, 0.6) + surface.r * 0.05;
+	//vec4 color2 = vec4(0.5,0.9,1.0,0.6) + surface.r * 0.1;
 	
-	color = mix(color, color2, Position.y);
+	//color = mix(color, color2, Position.y);
 	//color = mix(color, color2, texture(DepthTexture, gl_FragCoord.xy * ScreenSize.zw));
 
-	gl_FragColor = color;
-    //gl_FragColor = vec4(0.0,0.7,1.0,0.3);
+	/////////////////////////////////////////////////////////////
+	vec3 N = normalize(Normal);
+	vec3 L = normalize(LightPos - Position);
+	vec3 E = normalize(EyePos - Position);
+	vec3 H = normalize(E + L);
+
+	vec3 diffuseComponent = vec3(0, 0, 0);
+	vec3 specularComponent = vec3(0, 0, 0);
+
+
+	float diffuse = max(0, dot(L, N));
+	diffuseComponent = LightColor * color.xyz * 2.0 * floor(diffuse * levels) * scaleFactor * sat(dot(N, L));
+
+	float specular = 0.0;
+	if (dot(L, N) > 0.0)
+	{
+		specular = pow(max(0, dot(H, N)), shininess);
+	}
+	specularComponent = LightColor * color.xyz * specular;
+
+	float specMask = (pow(dot(H, N), shininess) > 0.4) ? 1 : 0;
+	float edgeDetection = (dot(E, N) > 0.25) ? 1 : 0;
+
+	////////////////////////////////////////////////////////////
+	//gl_FragColor = color;
+    gl_FragColor = vec4(color.xyz * edgeDetection * diffuseComponent  * specularComponent * specMask,color.a);
 }

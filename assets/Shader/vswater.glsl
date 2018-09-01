@@ -15,7 +15,6 @@ uniform mat4 ModelViewProjMat;
 const float pi = 3.14159;
 
 uniform float Time;
-//uniform float Steepness;
 uniform int numWaves;
 uniform float WavelengthValues[5];
 uniform float AmplitudeValues[5];
@@ -60,22 +59,22 @@ vec3 waveNormal(float x, float z) {
 void main()
 {
 
+	Texcoord = VertexTexcoord;
+
 	float x = VertexPos.x;
 	float z = VertexPos.z;
 	float y = 0.0;
 	for (int i = 0; i < numWaves; ++i) {
 		y += positionY(i, x, z);
 	}
-	
-	Position =  (ModelMat * vec4(x, y ,z, 0)).xyz;
-	Texcoord = VertexTexcoord;
 
 	vec4 pos = VertexPos;
     pos.y = y;
-    vec3 worldNormal = waveNormal(pos.x, pos.z);
-    Normal = VertexNormal.xyz * worldNormal;
+	Position =  (ModelMat * pos).xyz;
 
-
+    vec4 newNormal = vec4(waveNormal(pos.x, pos.z), 1.0);
+    //Normal = VertexNormal.xyz * worldNormal;
+	Normal = normalize(ModelMat * newNormal).xyz;
 
     gl_Position = ModelViewProjMat * pos;
 

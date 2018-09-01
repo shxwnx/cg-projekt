@@ -13,7 +13,9 @@ WaterShader::WaterShader(Vector2D waterSize) :
 	time(0.0f),
 	reflectionTexture(Texture::defaultTex()),
 	refractionTexture(Texture::defaultTex()),
-	surfaceTexture(Texture::defaultTex())
+	surfaceTexture(Texture::defaultTex()),
+	lightPos(20.0f, 20.0f, 20.0f),
+	lightColor(1, 1, 1)
 {
 	bool loaded = load(ASSET_DIRECTORY"Shader/vswater.glsl", ASSET_DIRECTORY"Shader/fswater.glsl");
 	if (!loaded)

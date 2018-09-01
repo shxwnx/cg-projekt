@@ -15,6 +15,7 @@ Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 {
 	this->slope = 0.0;
 	this->forwardBackward = 0.0;
+	this->speedForwardBackward = 0.0;
 	this->leftRight = 0.0;
 	this->speedLeftRight = 0.0;
 	this->obstacleModels = obstacleModels;
@@ -69,7 +70,7 @@ void Duck::update(float dtime)
 	//slope
 	Matrix newSlope;
 	Matrix oldSlope;
-	float newSlopeValue = calculateSlope();
+	float newSlopeValue = calculateSlope(maxX);
 
 	newSlope.rotationY(newSlopeValue);
 	oldSlope.rotationY(-this->slope);
@@ -117,9 +118,16 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		}
 
 	} else {*/
-	if ((translation < border && directionValue < 0.0f) || (translation > -border && directionValue > 0.0f)) {
+	if ((translation < border && directionValue <= 0.0f) || (translation > -border && directionValue >= 0.0f)) {
 		if (directionValue == 0.0f) { //no key pressed !!!!!!!
-			speed = 0.0f;
+			if (currentSpeed == 0.0f) {
+				speed = 0.0f;
+			}else if (currentSpeed < 0.0f) {
+				speed = currentSpeed + maxSpeed / 10;
+			} else if (currentSpeed > 0.0f) {
+				speed = currentSpeed - maxSpeed / 10;
+			}
+			
 		}
 		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
 			speed = currentSpeed - maxSpeed / 10;
@@ -130,13 +138,24 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		else {
 			speed = currentSpeed;
 		}
+	} else if (translation == border || translation == -border) {
+
 	}
 	//}
 	return speed;
 }
 
-float Duck::calculateSlope() {
-	if (this->forwardBackward < 0.0f) {
+float Duck::calculateSlope(float border) {
+	if (this->model->transform().translation().X >= border || this->model->transform().translation().X <= -border) {
+		if (this->slope > 0.1f) {
+			return this->slope - 0.1;
+		}
+		else if (this->slope < -0.1f) {
+			return this->slope + 0.1;
+		}
+		else return 0.0f;
+	} 
+	else if (this->forwardBackward < 0.0f) {
 		return (-this->speedLeftRight / 5);
 	}
 	else {
