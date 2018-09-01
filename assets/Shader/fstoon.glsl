@@ -34,14 +34,9 @@ uniform Lights
 	Light lights[MAX_LIGHTS];
 };
 
-float sat( in float a)
-{
-    return clamp(a, 0.0, 1.0);
-}
 
 const int levels = 6;
-const float scaleFactor = 1.0 / levels;
-const float shininess = 0.1f;
+const float scaleFactor = 1.5 / levels;
 
 void main()
 {
@@ -64,16 +59,16 @@ void main()
 //	}
 
 	float diffuse = max(0, dot(L,N));
-    diffuseComponent = LightColor * DiffuseColor * 2.0f  * floor(diffuse * levels) * scaleFactor * sat(dot(N,L));
+    diffuseComponent = LightColor * DiffuseColor * floor(diffuse * levels) * scaleFactor ;
 	
 	float specular = 0.0;
 	if( dot(L,N) > 0.0)
 	{
-		specular = pow( max(0, dot(H, N)), shininess);
+		specular = pow( max(0, dot(H, N)), SpecularExp);
 	}	
-    specularComponent = LightColor * SpecularColor * specular * pow(sat(dot(N,H)), SpecularExp);
+    specularComponent = LightColor * SpecularColor * specular;
     
-	float specMask = (pow(dot(H, N), shininess) > 0.4) ? 1 : 0;
+	float specMask = (pow(dot(H, N), SpecularExp) > 0.4) ? 1 : 0;
 	float edgeDetection = (dot(E, N) > 0.25) ? 1 : 0;
  
     gl_FragColor =  vec4(edgeDetection * diffuseComponent  * diffuseTexture.rgb + specularComponent * specMask, 1);

@@ -44,8 +44,7 @@ private:
 	float speed;
 	int objectsDodged;
 
+
 	void renderText(std::string text, GLfloat x, GLfloat y, GLfloat scale);
-
-
 
 };

@@ -32,6 +32,10 @@ public:
 	virtual void draw(const BaseCamera& Cam);
 	const AABB& boundingBox() const { return BoundingBox; }
 
+	float getRotation() { return rotation; }
+	void setRotation(float r) { rotation = r; }
+
+	
 protected: // protected types
 	struct Mesh
 	{
@@ -80,6 +84,7 @@ protected: // protected member variables
 	Material* pMaterials;
 	unsigned int MaterialCount;
 	AABB BoundingBox;
+	float rotation;
 
 	std::string Filepath; // stores pathname and filename
 	std::string Path; // stores path without filename

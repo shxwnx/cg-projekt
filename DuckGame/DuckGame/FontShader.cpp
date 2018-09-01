@@ -20,5 +20,5 @@ void FontShader::activate(const BaseCamera& camera)	 const
 	Matrix proj = camera.getProjectionMatrix();
 
 	setParameter(this->colorLoc, this->color);
-	setParameter(this->projectionLoc, proj.orthographic(600.0f, 900.0f, 0.0f, 0.0f));
+	setParameter(this->projectionLoc, proj.orthographic(600.0f,900.0f,1,1));
 }

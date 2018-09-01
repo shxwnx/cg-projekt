@@ -172,8 +172,7 @@ void Application::createSkyBox()
 
 void Application::createUI()
 {
-	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf", &this->camera);
-	this->uiService->shader(new FontShader(Vector(1.0f, 0.0f, 0.0f)), false);
+	this->uiService = new UIService(ASSET_DIRECTORY "arial.ttf", &this->camera);
 	this->models.push_back(this->uiService);
 }
 
