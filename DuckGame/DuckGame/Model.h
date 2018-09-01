@@ -24,7 +24,8 @@ class Model : public BaseModel
 {
 public:
 	Model();
-	Model(const char* ModelFile, bool FitSize = true, float scale = 1.0f);
+	Model(const char* ModelFile, bool FitSize = true, float 
+		= 1.0f);
 	virtual ~Model();
 	Model(Model* model);
 

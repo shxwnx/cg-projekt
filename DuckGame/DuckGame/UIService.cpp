@@ -1,10 +1,8 @@
 #include "UIService.h"
 #include "FontShader.h"
-#include <GL/GLU.h>
 
 UIService::UIService(const char* font, Camera* camera)
 {
-	glutBitmapCharacter(
 	this->camera = camera;
 	// Activate corresponding render state	
 	auto shader = new FontShader(Vector(1.0f, 0.0f, 0.0f));

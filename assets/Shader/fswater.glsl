@@ -67,7 +67,7 @@ float sat(in float a)
 }
 
 const int levels = 6;
-const float scaleFactor = 1.0 / levels;
+const float scaleFactor = 1.5 / levels;
 const float shininess = 0.1f;
 
 void main()
@@ -114,7 +114,7 @@ void main()
 
 
 	float diffuse = max(0, dot(L, N));
-	diffuseComponent = LightColor * color.xyz * 2.0 * floor(diffuse * levels) * scaleFactor * sat(dot(N, L));
+	diffuseComponent = LightColor * color.xyz * floor(diffuse * levels) * scaleFactor;
 
 	float specular = 0.0;
 	if (dot(L, N) > 0.0)
@@ -128,5 +128,5 @@ void main()
 
 	////////////////////////////////////////////////////////////
 	//gl_FragColor = color;
-    gl_FragColor = vec4(color.xyz * edgeDetection * diffuseComponent  * specularComponent * specMask,color.a);
+    gl_FragColor = vec4(edgeDetection * diffuseComponent  * color.xyz * specularComponent * specMask,color.a);
 }
