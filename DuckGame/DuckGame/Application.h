@@ -14,6 +14,7 @@
 #include "Spawner.h"
 #include "Water.h"
 #include "UIService.h"
+#include "TriangleSphereModel.h"	
 
 class Application
 {
@@ -56,6 +57,7 @@ protected:
 	void createUI();
 
 	//	General
+	TriangleSphereModel* sun;
 	void createLight();
 	float timePassed;
 	void reset();

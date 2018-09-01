@@ -20,7 +20,7 @@ Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 	this->obstacleModels = obstacleModels;
 	this->camera = cam;
 	this->isCollisionDetected = false;
-	this->scale = 5.0f;
+	this->scale = 1.0f;
 }
 
 Duck::~Duck()
@@ -33,7 +33,7 @@ bool Duck::loadModel(const char* file)
 	this->model = new Model(file, false, scale);
 	this->model->transform(defaultTransfrom());
 
-	if (!this->model->load(file, false)) {
+	if (!this->model->load(file, true)) {
 		return false;
 	}
 	this->model->shader(this->pShader, true);
@@ -211,7 +211,7 @@ bool Duck::boundingBoxIntersection(const Model* object) {
 	const AABB modelBox = this->model->boundingBox();
 	const AABB objectBox = object->boundingBox();
 
-	if (modelBox.getX() - objectBox.getX() < modelBox.getSizeX() + objectBox.getSizeX()) {
+ 	if (modelBox.getX() - objectBox.getX() < modelBox.getSizeX() + objectBox.getSizeX()) {
 		if (modelBox.getZ() - objectBox.getZ() < modelBox.getSizeZ() + objectBox.getSizeZ()) {
 			if (modelBox.getY() - objectBox.getY() < modelBox.getSizeY() + objectBox.getSizeY()) {
 				return true;
