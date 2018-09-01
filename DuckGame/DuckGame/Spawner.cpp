@@ -103,20 +103,7 @@ void Spawner::draw(const BaseCamera & camera)
 	}
 }
 
-float Spawner::getSpawnTime()
-{
-	return this->spawnTime;
-}
 
-float Spawner::getSpeed()
-{
-	return this->speed;
-}
-
-int Spawner::getObjectsDodged()
-{
-	return this->objectsDodged;
-}
 
 void Spawner::rearrange()
 {

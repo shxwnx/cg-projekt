@@ -9,19 +9,20 @@
 class Spawner : public BaseModel
 {
 public:
-	Spawner(int countRows = 1, int countObjects = 10, float spacing = 1.0f,
-			float spawnTime = 1.0f, float speed = 1.0f, float acceleration = 0.1f, float accelerateTime = 1.0f);
+	Spawner(int countRows = 1, int countObjects = 10, float spacing = 1.0f, float spawnTime = 1.0f,
+		float speed = 1.0f, float acceleration = 0.1f, float accelerateTime = 1.0f);
 	virtual ~Spawner();
 	bool loadModels(std::vector<const char*> files);
 	void update(float dtime);
 	virtual void draw(const BaseCamera& camera);
 
-	float getSpawnTime();
-	float getSpeed();
-	int getObjectsDodged();
+	float getSpawnTime() { return this->spawnTime; }
+	float* getSpeed() { return &this->speed; }
+	int getObjectsDodged() { return this->objectsDodged; }
+
 	std::vector<Model*> * getOutputModels();
 	bool getIsStopped();
-
+	void setCamera(Camera* camera) { this->camera = camera; };
 	void reset();
 	void stop();
 	void start();
@@ -29,12 +30,13 @@ public:
 protected:
 	std::vector<Model*> inputModels;
 	std::vector<Model*> outputModels;
+	Camera* camera;
 
 	int countRows;
 	int countObjects;
 	float spacing;
-	float defaultSpawnTime; 
-	float defaultSpeed; 
+	float defaultSpawnTime;
+	float defaultSpeed;
 	float defaultAcceleration;
 	float defaultAccelerateTime;
 	float spawnTime; //UI

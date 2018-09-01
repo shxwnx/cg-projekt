@@ -20,7 +20,7 @@ Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 	this->obstacleModels = obstacleModels;
 	this->camera = cam;
 	this->isCollisionDetected = false;
-	this->scale = 1.0f;
+	this->scale = 4.0f;
 }
 
 Duck::~Duck()
@@ -33,7 +33,7 @@ bool Duck::loadModel(const char* file)
 	this->model = new Model(file, false, scale);
 	this->model->transform(defaultTransfrom());
 
-	if (!this->model->load(file, true)) {
+	if (!this->model->load(file, false)) {
 		return false;
 	}
 	this->model->shader(this->pShader, true);
