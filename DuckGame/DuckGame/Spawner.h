@@ -17,7 +17,7 @@ public:
 	virtual void draw(const BaseCamera& camera);
 
 	float getSpawnTime() { return this->spawnTime; }
-	float* getSpeed() { return &this->speed; }
+	float getSpeed() { return this->speed; }
 	int getObjectsDodged() { return this->objectsDodged; }
 
 	std::vector<Model*> * getOutputModels();
@@ -30,7 +30,7 @@ public:
 protected:
 	std::vector<Model*> inputModels;
 	std::vector<Model*> outputModels;
-	Camera* camera;
+	Camera* camera = nullptr;
 
 	int countRows;
 	int countObjects;
