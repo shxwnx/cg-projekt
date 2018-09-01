@@ -27,6 +27,7 @@ protected:
 	std::vector<Model*> *obstacleModels;
 	float scale; 
 
+	Vector defaultPosition;
 	float slope;
 	float speedLeftRight;
 	float speedForwardBackward;
@@ -42,7 +43,7 @@ protected:
 
 private:
 	void setCameraPosition();
-	Matrix defaultTransfrom();
+	Matrix defaultTransform();
 	bool boundingBoxIntersection(const Model* object);
 };
 

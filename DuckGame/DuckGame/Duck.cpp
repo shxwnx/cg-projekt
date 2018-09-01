@@ -32,7 +32,9 @@ Duck::~Duck()
 bool Duck::loadModel(const char* file)
 {
 	this->model = new Model(file, false, this->scale);
-	this->model->transform(defaultTransfrom());
+	Matrix d = defaultTransform();
+	this->defaultPosition = d.translation();
+	this->model->transform(d);
 
 	//if (!this->model->load(file, true)) {
 	//	return false;
@@ -55,7 +57,7 @@ void Duck::update(float dtime)
 	Matrix forwardBackwardMatrix;	//translation
 	Matrix leftRightMatrix;			//translation
 	float maxX = 2.5f;						//leftRight border
-	float maxZ = 2.0f;						//forwardBackward border
+	float maxZ = 1.0f;						//forwardBackward border
 	float maxSpeedLeftRight = 1.5f;			//max leftRight speed
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
@@ -99,7 +101,6 @@ bool Duck::collisionDetected()
 
 float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction) {
 	float speed = 0.0f;
-
 	//falls die Duck weiter nach vorne als nach nach hinten kann
 	/*if (direction == FORWARDBACKWARD) {
 		if ((translation < (border + 1.0f) && directionValue < 0.0f) || (translation > -border && directionValue > 0.0f)) {
@@ -118,16 +119,19 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		}
 
 	} else {*/
+
 	if ((translation < border && directionValue <= 0.0f) || (translation > -border && directionValue >= 0.0f)) {
 		if (directionValue == 0.0f) { //no key pressed !!!!!!!
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
-			}else if (currentSpeed < 0.0f) {
+			}
+			else if (currentSpeed < 0.0f) {
 				speed = currentSpeed + maxSpeed / 10;
-			} else if (currentSpeed > 0.0f) {
+			}
+			else if (currentSpeed > 0.0f) {
 				speed = currentSpeed - maxSpeed / 10;
 			}
-			
+
 		}
 		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
 			speed = currentSpeed - maxSpeed / 10;
@@ -138,7 +142,8 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		else {
 			speed = currentSpeed;
 		}
-	} else if (translation == border || translation == -border) {
+	}
+	else if (translation == border || translation == -border) {
 
 	}
 	//}
@@ -154,7 +159,7 @@ float Duck::calculateSlope(float border) {
 			return this->slope + 0.1;
 		}
 		else return 0.0f;
-	} 
+	}
 	else if (this->forwardBackward < 0.0f) {
 		return (-this->speedLeftRight / 5);
 	}
@@ -163,18 +168,19 @@ float Duck::calculateSlope(float border) {
 	}
 }
 
-Matrix Duck::defaultTransfrom() {
+Matrix Duck::defaultTransform() {
 
 	Matrix mPosition;
 	Matrix mScale;
-	mPosition.translation(0, -0.2, 2);
+	mPosition.translation(0, -0.2, 6);
 	mScale.scale(this->scale);
 	return mPosition * mScale;
 }
 
 void Duck::setCameraPosition() {
 
-	Vector cameraPositon(this->model->transform().translation().X, 4.0f, 5.5f);
+	Vector actualCameraPosition = this->camera->position();
+	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
 	Vector cameraTarget(this->model->transform().translation());
 	//if (this->speedLeftRight > 0.0f) {
 	//	cameraTarget.X *= -this->speedLeftRight * dtime;
@@ -195,7 +201,7 @@ void Duck::reset() {
 	this->forwardBackward = 0.0f;
 	this->leftRight = 0.0f;
 
-	this->model->transform(defaultTransfrom());
+	this->model->transform(defaultTransform());
 	setCameraPosition();
 	this->isCollisionDetected = false;
 }
@@ -206,7 +212,7 @@ void Duck::checkCollision(float dtime) {
 	timePassed += dtime;
 	if (timePassed > 0.1f) {
 		for (auto object : (*this->obstacleModels)) {
-		if (this->model->transform().translation().X - 0.7 < object->transform().translation().X
+			if (this->model->transform().translation().X - 0.7 < object->transform().translation().X
 				&& this->model->transform().translation().X + 0.7 > object->transform().translation().X) {
 
 				if (this->model->transform().translation().Z - 0.8f < object->transform().translation().Z
@@ -237,7 +243,7 @@ bool Duck::boundingBoxIntersection(const Model* object) {
 	AABB objectBox = object->boundingBox();
 
 
- 	if (modelBox.getX() - objectBox.getX() < modelBox.getSizeX() + objectBox.getSizeX()) {
+	if (modelBox.getX() - objectBox.getX() < modelBox.getSizeX() + objectBox.getSizeX()) {
 		if (modelBox.getZ() - objectBox.getZ() < modelBox.getSizeZ() + objectBox.getSizeZ()) {
 			if (modelBox.getY() - objectBox.getY() < modelBox.getSizeY() + objectBox.getSizeY()) {
 				return false;
