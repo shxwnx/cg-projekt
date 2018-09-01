@@ -29,14 +29,16 @@ public:
 	virtual ~Model();
 	Model(Model* model);
 
-	bool load(const char* ModelFile, bool FitSize = true, float scale = 1.0f);
+	bool load(const char* ModelFile, bool FitSize = true);
 	virtual void draw(const BaseCamera& Cam);
 	const AABB& boundingBox() const { return BoundingBox; }
 
 	float getRotation() { return rotation; }
 	void setRotation(float r) { rotation = r; }
 
-	
+	float getScale() { return scale; }
+	void setScale(float s) { scale = s; }
+
 protected: // protected types
 	struct Mesh
 	{
@@ -68,9 +70,9 @@ protected: // protected types
 	};
 
 protected: // protected methods
-	void loadMeshes(const aiScene* pScene, bool FitSize, float scale);
+	void loadMeshes(const aiScene* pScene, bool FitSize);
 	void loadMaterials(const aiScene* pScene);
-	void calcBoundingBox(const aiScene* pScene, AABB& Box, float scale);
+	void calcBoundingBox(const aiScene* pScene, AABB& Box);
 
 	void loadNodes(const aiScene* pScene);
 	void copyNodesRecursive(const aiNode* paiNode, Node* pNode);
@@ -86,6 +88,7 @@ protected: // protected member variables
 	unsigned int MaterialCount;
 	AABB BoundingBox;
 	float rotation;
+	float scale;
 
 	std::string Filepath; // stores pathname and filename
 	std::string Path; // stores path without filename

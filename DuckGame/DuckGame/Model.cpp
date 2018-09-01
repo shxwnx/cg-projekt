@@ -17,7 +17,8 @@ Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 }
 Model::Model(const char* ModelFile, bool FitSize, float scale) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
-	bool ret = load(ModelFile, FitSize, scale);
+	this->scale = scale;
+	bool ret = load(ModelFile, FitSize);
 	if (!ret)
 		throw std::exception();
 }
@@ -63,7 +64,7 @@ void Model::deleteNodes(Node* pNode)
 		delete[] pNode->Meshes;
 }
 
-bool Model::load(const char* ModelFile, bool FitSize, float scale)
+bool Model::load(const char* ModelFile, bool FitSize)
 {
 	const aiScene* pScene = aiImportFile(ModelFile, aiProcessPreset_TargetRealtime_Fast | aiProcess_TransformUVCoords);
 
@@ -78,43 +79,22 @@ bool Model::load(const char* ModelFile, bool FitSize, float scale)
 	if (pos != std::string::npos)
 		Path.resize(pos + 1);
 
-	loadMeshes(pScene, FitSize, scale);
+	loadMeshes(pScene, FitSize);
 	loadMaterials(pScene);
 	loadNodes(pScene);
 
 	return true;
 }
 
-void Model::loadMeshes(const aiScene* pScene, bool FitSize, float scale)
+void Model::loadMeshes(const aiScene* pScene, bool FitSize)
 {
-	calcBoundingBox(pScene, this->BoundingBox, scale);
+	calcBoundingBox(pScene, this->BoundingBox);
 
-	float max = 2.0;
-	if (FitSize) {														// Ermitteln, des größten Wertes der Bounding Box 
-		if (max < fabs(BoundingBox.Max.X)) {
-			max = fabs(BoundingBox.Max.X);
-		}
-		if (max < fabs(BoundingBox.Max.Y)) {
-			max = fabs(BoundingBox.Max.Y);
-		}
-		if (max < fabs(BoundingBox.Max.Z)) {
-			max = fabs(BoundingBox.Max.Z);
-		}
+	Vector mul(1, 1, 1);
 
-		if (max < fabs(BoundingBox.Min.X)) {
-			max = fabs(BoundingBox.Min.X);
-		}
-		if (max < fabs(BoundingBox.Min.Y)) {
-			max = fabs(BoundingBox.Min.Y);
-		}
-		if (max < fabs(BoundingBox.Min.Z)) {
-			max = fabs(BoundingBox.Min.Z);
-		}
-	}
 
-	float factor = 2.0 / max;
 
-	std::cout << "scale factor: " << factor << std::endl;
+	//std::cout << "scale factor: " << factor << std::endl;
 	MeshCount = pScene->mNumMeshes;
 	this->pMeshes = new Mesh[MeshCount];								//Initialisierung der Meshes Liste
 
@@ -138,7 +118,13 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize, float scale)
 					float t = -(pScene->mMeshes[i]->mTextureCoords[0][k].y);
 					tmpMesh.VB.addTexcoord0(s, t);						//Hinzufügen der Textur Koordinaten
 				}
-				tmpMesh.VB.addVertex(vert.x*factor, vert.y*factor, vert.z*factor);
+				if (FitSize)
+				{
+					Vector size = this->BoundingBox.size();
+					mul = Vector(this->scale / size.X, this->scale / size.Y, this->scale / size.Z);
+				}
+
+				tmpMesh.VB.addVertex(vert.x * mul.X, vert.y * mul.Y, vert.z *  mul.Z);
 				//Hinzufügen der skalierten Vertizes
 			}
 		}
@@ -205,7 +191,7 @@ void Model::loadMaterials(const aiScene* pScene)
 	}
 }
 
-void Model::calcBoundingBox(const aiScene* pScene, AABB& Box, float scale)
+void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
 {
 	Vector	min(0, 0, 0);
 	Vector	max(0, 0, 0);
@@ -227,8 +213,8 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box, float scale)
 		}
 	}
 
-	Box.Min = min.operator*(scale);
-	Box.Max = max.operator*(scale);
+	Box.Min = min;
+	Box.Max = max;
 }
 
 void Model::loadNodes(const aiScene* pScene)
