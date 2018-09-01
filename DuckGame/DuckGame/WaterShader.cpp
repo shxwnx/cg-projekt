@@ -38,6 +38,7 @@ void WaterShader::activate(const BaseCamera& Cam) const {
 	setParameter(this->positionLoc, this->position);
 	setParameter(this->timeLoc, this->time);
 	setParameter(this->waterSizeLoc, this->waterSize);
+	setParameter(this->speedLoc, this->speed);
 
 	//Waves
 	setParameter(this->numWavesLoc, this->numWaves);
@@ -71,6 +72,7 @@ void WaterShader::assignLocations() {
 	this->positionLoc = getParameterID("Position");
 	this->timeLoc = getParameterID("Time");
 	this->waterSizeLoc = getParameterID("WaterSize");
+	this->speedLoc = getParameterID("Speed");
 
 	this->numWavesLoc = getParameterID("numWaves");
 	this->wavelengthValuesLoc = getParameterID("WavelengthValues");

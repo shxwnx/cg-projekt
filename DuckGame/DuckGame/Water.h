@@ -15,11 +15,12 @@
 #include "Vector2D.h"
 #include "Wave.h"
 #include "WaterShader.h"
+#include "Spawner.h"
 
 class Water : public BaseModel
 {
 public:
-	Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
+	Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ, Spawner* spawner);
 	virtual ~Water();
 
 	bool loadModel();
@@ -29,6 +30,8 @@ public:
 	Vector2D getSize() { return Vector2D(this->sizeX, this->sizeZ); }
 
 protected:
+	Spawner* spawner;
+
 	TrianglePlaneModel* model;
 	LinePlaneModel* testModel;
 
