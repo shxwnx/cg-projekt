@@ -4,6 +4,7 @@
 
 
 #include "Duck.h"
+#include "ToonShader.h"
 #include <iostream>
 
 #define PI 3.14159265358979323846
@@ -53,6 +54,8 @@ void Duck::steer(float ForwardBackward, float LeftRight)
 
 void Duck::update(float dtime)
 {
+	auto toonShader = dynamic_cast<ToonShader *>(this->shader());
+	toonShader->addTime(dtime);
 	//movement
 	Matrix forwardBackwardMatrix;	//translation
 	Matrix leftRightMatrix;			//translation
@@ -87,6 +90,8 @@ void Duck::update(float dtime)
 
 	//check collision
 	this->checkCollision(dtime);
+
+
 }
 
 void Duck::draw(const BaseCamera& Cam)
@@ -182,6 +187,7 @@ void Duck::setCameraPosition() {
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
 	Vector cameraTarget(this->model->transform().translation());
+	cameraTarget.Z -= 1;
 	//if (this->speedLeftRight > 0.0f) {
 	//	cameraTarget.X *= -this->speedLeftRight * dtime;
 	//}

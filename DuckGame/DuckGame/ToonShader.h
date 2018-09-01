@@ -29,6 +29,7 @@ public:
 	void setLightPos(const Vector& pos) { this->lightPos = pos; }
 	void setLightColor(const Color& c) { this->lightColor = c; }
 
+	void addTime(float time) { this->time += time; }
 
 	virtual void activate(const BaseCamera& Cam) const;
     
@@ -41,6 +42,7 @@ private:
 	Vector lightPos;
 	Color lightColor;
 	const Texture* diffuseTexture;
+	float time;
 
 	GLuint modelMatLoc;
 	GLuint modelViewProjLoc;
@@ -53,6 +55,8 @@ private:
 	GLint lightColorLoc;
 	GLint eyePosLoc;
 	GLint diffuseTexLoc;
+
+	GLuint timeLoc;
 
 
     

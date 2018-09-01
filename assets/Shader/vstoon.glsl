@@ -7,16 +7,25 @@ out vec3 Position;
 out vec3 Normal;
 out vec2 Texcoord;
 
+uniform float Time;
 uniform vec3 EyePos;
 uniform mat4 ModelMat;
 uniform mat4 ModelViewProjMat;
 
+const float pi = 3.14159;
+
+float positionY() {
+    float frequency = 2 * pi ;
+    return  sin(frequency * Time);
+}
+
 void main()
 {
-	Position = (ModelMat * VertexPos).xyz;
+	vec4 wavePos = vec4(VertexPos.x, VertexPos.y + positionY(), VertexPos.z,VertexPos.w);
+	Position = (ModelMat * wavePos).xyz;
 	Normal = normalize(ModelMat * VertexNormal).xyz;
 	Texcoord = VertexTexcoord;
-	gl_Position = ModelViewProjMat * VertexPos;
+	gl_Position = ModelViewProjMat * wavePos;
 }
 
 

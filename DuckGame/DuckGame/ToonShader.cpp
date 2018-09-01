@@ -11,6 +11,7 @@ ToonShader::ToonShader() :
 	lightColor(1, 1, 1),
 	diffuseTexture(Texture::defaultTex())
 {
+	this->time = 0.0f;
 	//this->color = color;
 	bool loaded = load(SHADER_DIRECTORY "vstoon.glsl", SHADER_DIRECTORY "fstoon.glsl");
 	if (!loaded)
@@ -26,6 +27,7 @@ ToonShader::ToonShader() :
 	this->lightColorLoc = getParameterID("LightColor");
 	this->eyePosLoc = getParameterID("EyePos");
 	this->diffuseTexLoc = getParameterID("DiffuseTexture");
+	this->timeLoc = getParameterID("Time");
 }
 
 void ToonShader::activate(const BaseCamera& camera)	 const
@@ -48,4 +50,5 @@ void ToonShader::activate(const BaseCamera& camera)	 const
 	setParameter(this->modelViewProjLoc, modelViewProj);
 
 	setParameter(eyePosLoc, camera.position());
+	setParameter(timeLoc, this->time);
 }

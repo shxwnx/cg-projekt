@@ -47,6 +47,7 @@ protected:
 	bool isStopped;
 
 private:
+	float timePassed;
 	float scale;
 	float spawnTimePassed;
 	float accelerateTimePassed;
