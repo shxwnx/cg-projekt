@@ -58,7 +58,7 @@ void Camera::setUp(const Vector& Up)
 void Camera::mouseInput(int x, int y, int Button, int State)
 {
 
-	/*if (State == GLFW_PRESS)
+	if (State == GLFW_PRESS)
 	{
 		if (m_LastMouseX == -1) m_LastMouseX = x;
 		if (m_LastMouseY == -1) m_LastMouseY = y;
@@ -87,7 +87,7 @@ void Camera::mouseInput(int x, int y, int Button, int State)
 		m_LastMouseX = -1;
 		m_LastMouseY = -1;
 
-	}*/
+	}
 }
 
 void Camera::pan(float dx, float dy)
@@ -215,7 +215,7 @@ void Camera::updateMouseInput()
 
 void Camera::update()
 {
-	//updateMouseInput();
+	updateMouseInput();
 
 	Vector Pos = position(); //m_Position + m_Panning + m_Zoom + m_Rotation;
 	Vector Target = target(); //m_Target + m_Panning;

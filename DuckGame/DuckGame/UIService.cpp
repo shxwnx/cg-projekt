@@ -1,9 +1,16 @@
 #include "UIService.h"
 #include "FontShader.h"
+#include <GL/GLU.h>
 
 UIService::UIService(const char* font, Camera* camera)
 {
+	glutBitmapCharacter(
 	this->camera = camera;
+	// Activate corresponding render state	
+	auto shader = new FontShader(Vector(1.0f, 0.0f, 0.0f));
+	this->shader(shader, false);
+	//FontShader* shader = dynamic_cast<FontShader*>(this->shader());
+
 
 	// FreeType
 	FT_Library ft;
@@ -93,7 +100,7 @@ bool UIService::loadUI(std::vector<const char*> files)
 		if (!model->load(file, false)) {
 			return false;
 		}
-		model->shader(this->pShader, false);
+		model->shader(this->shader(), false);
 		this->ui.push_back(model);
 	}
 	return true;
@@ -106,11 +113,13 @@ void UIService::update(float dtime)
 	//this->speed = this->spawner->getSpeed();
 	//this->objectsDodged = this->spawner->getObjectsDodged();
 
-	renderText("HAAAAAAAAAARRRRRRROOOOOOOOOOOOOOOO", 1.0f, 1.0f, 10.0f);
+
 }
 
 void UIService::draw(const BaseCamera & camera)
 {
+	//this->shader()->activate(*this->camera);
+	this->renderText("HARRO", 0 , 0, 0.1f);
 	for (auto model : this->ui) {
 		model->draw(camera);
 	}
@@ -118,48 +127,45 @@ void UIService::draw(const BaseCamera & camera)
 
 void UIService::renderText( std::string text, GLfloat x, GLfloat y, GLfloat scale)
 {
-	// Activate corresponding render state	
-	FontShader* shader = dynamic_cast<FontShader*>(this->shader());
-	shader->activate(*this->camera);
+			
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindVertexArray(VAO);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindVertexArray(VAO);
+	//// Iterate through all characters
+	//std::string::const_iterator c;
+	//for (c = text.begin(); c != text.end(); c++)
+	//{
+	//	Character ch = this->characters[*c];
 
-	// Iterate through all characters
-	std::string::const_iterator c;
-	for (c = text.begin(); c != text.end(); c++)
-	{
-		Character ch = this->characters[*c];
+	//	GLfloat xpos = x + ch.Bearing.X * scale;
+	//	GLfloat ypos = y - (ch.Size.Y - ch.Bearing.Y) * scale;
 
-		GLfloat xpos = x + ch.Bearing.X * scale;
-		GLfloat ypos = y - (ch.Size.Y - ch.Bearing.Y) * scale;
+	//	GLfloat w = ch.Size.X * scale;
+	//	GLfloat h = ch.Size.Y * scale;
+	//	// Update VBO for each character
+	//	GLfloat vertices[6][4] = {
+	//		{ xpos,     ypos + h,   0.0, 0.0 },
+	//	{ xpos,     ypos,       0.0, 1.0 },
+	//	{ xpos + w, ypos,       1.0, 1.0 },
 
-		GLfloat w = ch.Size.X * scale;
-		GLfloat h = ch.Size.Y * scale;
-		// Update VBO for each character
-		GLfloat vertices[6][4] = {
-			{ xpos,     ypos + h,   0.0, 0.0 },
-		{ xpos,     ypos,       0.0, 1.0 },
-		{ xpos + w, ypos,       1.0, 1.0 },
+	//	{ xpos,     ypos + h,   0.0, 0.0 },
+	//	{ xpos + w, ypos,       1.0, 1.0 },
+	//	{ xpos + w, ypos + h,   1.0, 0.0 }
+	//	};
+	//	// Render glyph texture over quad
+	//	glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+	//	// Update content of VBO memory
+	//	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
 
-		{ xpos,     ypos + h,   0.0, 0.0 },
-		{ xpos + w, ypos,       1.0, 1.0 },
-		{ xpos + w, ypos + h,   1.0, 0.0 }
-		};
-		// Render glyph texture over quad
-		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-		// Update content of VBO memory
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		// Render quad
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
-	}
-	//shader->setBlock()
-	glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//	// Render quad
+	//	glDrawArrays(GL_TRIANGLES, 0, 6);
+	//	// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+	//	x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+	//}
+	////shader->setBlock()
+	//glBindVertexArray(0);
+	//glBindTexture(GL_TEXTURE_2D, 0);
 }
 

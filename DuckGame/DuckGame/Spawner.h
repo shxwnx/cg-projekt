@@ -53,6 +53,9 @@ private:
 	Model* getRandomModel();
 	Matrix defaultTransform();
 	Matrix randomTransform();
+	float random(float min, float max);
+	float randomRotation();
+
 	void rearrange();
 };
 

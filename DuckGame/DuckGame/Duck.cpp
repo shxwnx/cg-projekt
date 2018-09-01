@@ -148,7 +148,7 @@ Matrix Duck::defaultTransfrom() {
 
 	Matrix mPosition;
 	Matrix mScale;
-	mPosition.translation(0, 0, 2);
+	mPosition.translation(0, -0.2, 2);
 	mScale.scale(this->scale);
 	return mPosition * mScale;
 }

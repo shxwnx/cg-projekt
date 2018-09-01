@@ -1,5 +1,7 @@
 #include "Spawner.h"
 #include "ToonShader.h"
+
+#include <time.h>
 #define PI 3.14159265358979323846
 
 Spawner::Spawner(int countRows, int countObjects, float spacing,
@@ -64,6 +66,8 @@ void Spawner::update(float dtime)
 			auto random = this->getRandomModel();
 			if (random != nullptr) {
 				this->inputModels.erase(std::remove(this->inputModels.begin(), this->inputModels.end(), random), this->inputModels.end());
+
+				random->setRotation(this->randomRotation());
 				random->transform(this->randomTransform());
 				this->outputModels.push_back(random);
 			}
@@ -77,7 +81,7 @@ void Spawner::update(float dtime)
 			Matrix mRotation;
 			Matrix mPosition;
 
-			mRotation.rotationY(PI * dtime);
+			mRotation.rotationY(model->getRotation() * dtime);
 			mPosition.translation(0, 0, 2 * this->speed * dtime);
 
 			model->transform(mPosition *  model->transform() * mRotation);
@@ -133,6 +137,19 @@ Matrix Spawner::defaultTransform()
 	position.translation(0, 0, -6.0f);
 	scale.scale(this->scale);
 	return position * scale;
+}
+
+float Spawner::random(float min, float max) {
+	return  (max - min) * ((((float)rand()) / (float)RAND_MAX)) + min;
+}
+
+float Spawner::randomRotation()
+{
+	float rSign = this->random(0, 1);
+	int sign = rSign >= 0.5f ? 1 : -1;
+
+	float rot = this->random(0, PI);
+	return sign * rot;
 }
 
 Matrix Spawner::randomTransform()
