@@ -124,7 +124,7 @@ void main()
 	specularComponent = LightColor * color.xyz * specular;
 
 	float specMask = (pow(dot(H, N), shininess) > 0.4) ? 1 : 0;
-	float edgeDetection = (dot(E, N) > 0.25) ? 1 : 0;
+	float edgeDetection = (dot(E, N) > 0.02) ? 1 : 0;
 
 	////////////////////////////////////////////////////////////
 	//gl_FragColor = color;

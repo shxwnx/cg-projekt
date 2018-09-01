@@ -56,7 +56,7 @@ void Duck::update(float dtime)
 	//movement
 	Matrix forwardBackwardMatrix;	//translation
 	Matrix leftRightMatrix;			//translation
-	float maxX = 2.5f;						//leftRight border
+	float maxX = 5.0f;						//leftRight border
 	float maxZ = 1.0f;						//forwardBackward border
 	float maxSpeedLeftRight = 1.5f;			//max leftRight speed
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
@@ -120,7 +120,7 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 
 	} else {*/
 
-	if ((translation < border && directionValue <= 0.0f) || (translation > -border && directionValue >= 0.0f)) {
+	if ((translation < defaultTranslation + border && directionValue <= 0.0f) || (translation > defaultTranslation - border && directionValue >= 0.0f)) {
 		if (directionValue == 0.0f) { //no key pressed !!!!!!!
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
@@ -143,9 +143,9 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			speed = currentSpeed;
 		}
 	}
-	else if (translation == border || translation == -border) {
+	//else if (translation == border || translation == -border) {
 
-	}
+	//}
 	//}
 	return speed;
 }
