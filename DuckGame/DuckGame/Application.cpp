@@ -163,6 +163,10 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 	models.push_back(this->water);
 }
 
+void Application::createPool() {
+	//this->pool = new Pool();
+}
+
 void Application::createSkyBox()
 {
 	auto model = new Model(ASSET_DIRECTORY "skybox.obj", false);

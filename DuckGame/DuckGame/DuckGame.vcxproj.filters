@@ -65,15 +65,20 @@
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Water.cpp" />
-    <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Wave.cpp" />
     <ClCompile Include="WaterShader.cpp" />
-    <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Lights.cpp" />
     <ClCompile Include="UIService.cpp" />
     <ClCompile Include="FontShader.cpp" />
     <ClCompile Include="DuckShader.cpp" />
     <ClCompile Include="ToonShader.cpp" />
+    <ClCompile Include="ShaderLightMapper.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Pool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -137,15 +142,20 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Water.h" />
-    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="WaterShader.h" />
-    <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="UIService.h" />
     <ClInclude Include="FontShader.h" />
     <ClInclude Include="DuckShader.h" />
     <ClInclude Include="ToonShader.h" />
+    <ClInclude Include="ShaderLightMapper.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Pool.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">

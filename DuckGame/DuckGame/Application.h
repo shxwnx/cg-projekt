@@ -13,6 +13,7 @@
 #include "Duck.h"
 #include "Spawner.h"
 #include "Water.h"
+#include "Pool.h"
 #include "UIService.h"
 #include "TriangleSphereModel.h"	
 
@@ -48,6 +49,10 @@ protected:
 	// Water
 	Water* water;
 	void createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
+
+	// Pool
+	Pool* pool;
+	void createPool();
 
 	// Skybox 
 	void createSkyBox();

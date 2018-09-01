@@ -104,6 +104,7 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PhongShader.cpp" />
+    <ClCompile Include="Pool.cpp" />
     <ClCompile Include="rgbimage.cpp" />
     <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Spawner.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PhongShader.h" />
+    <ClInclude Include="Pool.h" />
     <ClInclude Include="rgbimage.h" />
     <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Spawner.h" />
