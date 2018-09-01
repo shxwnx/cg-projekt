@@ -1,12 +1,14 @@
 #include "Water.h"
 #define PI 3.14159265358979323846
 
-Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ)
+Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ, Spawner* spawner)
 {
 	this->sizeX = sizeX;
 	this->sizeZ = sizeZ;
 	this->segmentsX = segmentsX;
 	this->segmentsZ = segmentsZ;
+
+	this->spawner = spawner;
 
 	//default wave sollte sich mit den Objekten bewegen
 	//ggf. speed erhöhen, wenn Objekte schneller werden
@@ -44,6 +46,7 @@ void Water::update(float dTime) {
 
 	WaterShader* pShader = dynamic_cast<WaterShader*>(this->pShader);
 	pShader->setTime(this->time);
+	pShader->setSpeed(this->spawner->getSpeed());
 
 	Vector tmp;
 	for (float x = 0.0f; x <= this->sizeX; x += (this->sizeX / this->segmentsX)) {
@@ -62,8 +65,8 @@ void Water::draw(const BaseCamera& Cam)
 }
 
 bool Water::generateWaves() {
-	Wave* wave1 = new Wave(1.0f, 0.05f, 0.6f, Vector(0.0f, 0.0f, -1.0f));
-	Wave* wave2 = new Wave(2.0f, 0.05f, 0.4f, Vector(0.5f, 0.0f, -0.5f));
+	Wave* wave1 = new Wave(1.0f, 0.03f, 0.6f, Vector(0.0f, 0.0f, -1.0f));
+	Wave* wave2 = new Wave(2.0f, 0.04f, 0.4f, Vector(0.5f, 0.0f, -0.5f));
 	Wave* wave3 = new Wave(0.5f, 0.01f, 0.2f, Vector(0.5f, 0.0f, 0.25f));
 	Wave* wave4 = new Wave(3.0f, 0.01f, 0.1f, Vector(-1.0f, 0.0f, 0.0f));
 

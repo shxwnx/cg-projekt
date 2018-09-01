@@ -7,6 +7,7 @@ in vec4 Texcoord;
 uniform mat4 ModelMat;
 uniform mat4 ModelViewProjMat;
 uniform float Time;
+uniform float Speed;
 
 uniform float SpeedValues[5];
 uniform vec3 DirectionValues[5];
@@ -54,10 +55,10 @@ float getLinearScreenDepth() {
 }
 
 vec2 getTexturePosition(vec2 texcoord) {
-	float speed = SpeedValues[0];
+	//float speed = SpeedValues[0];
 	vec2 direction = vec2(DirectionValues[0].x, DirectionValues[0].z);
 
-	return texcoord + (Time * speed * 0.1 * direction);
+	return texcoord + (Time * Speed * 0.45 * direction);
 }
 
 
