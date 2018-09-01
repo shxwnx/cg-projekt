@@ -62,10 +62,10 @@ void Duck::update(float dtime)
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
 
-	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, this->defaultTransfrom.Z);
+	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, this->defaultPosition.Z);
 	forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
 
-	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, this->model->transform().translation().X, maxX, this->defaultTransfrom.X);
+	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, this->model->transform().translation().X, maxX, this->defaultPosition.X);
 	leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);
 
 
@@ -182,6 +182,7 @@ void Duck::setCameraPosition() {
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
 	Vector cameraTarget(this->model->transform().translation());
+	cameraTarget.Z += 2;
 	//if (this->speedLeftRight > 0.0f) {
 	//	cameraTarget.X *= -this->speedLeftRight * dtime;
 	//}
