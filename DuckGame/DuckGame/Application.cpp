@@ -39,7 +39,7 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createDuck();
 
 	//this->createWater(6.0f, 9.0f, 60, 90);
-	this->createWater(12.0f, 18.0f, 60, 90);
+	this->createWater(12.0f, 25.0f, 60, 125);
 	this->createSkyBox();
 	this->createUI();
 
