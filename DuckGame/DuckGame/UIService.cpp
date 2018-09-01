@@ -118,7 +118,7 @@ void UIService::update(float dtime)
 void UIService::draw(const BaseCamera & camera)
 {
 	//this->shader()->activate(*this->camera);
-	this->renderText("HARRO", 0 , 0, 0.1f);
+	//this->renderText("HARRO", 0 , 0, 0.1f);
 	for (auto model : this->ui) {
 		model->draw(camera);
 	}
