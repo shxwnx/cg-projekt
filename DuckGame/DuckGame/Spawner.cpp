@@ -24,6 +24,7 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	this->accelerateTimePassed = 0.0f;
 	this->objectsDodged = 0;
 	this->scale = 2.0f;
+	this->timePassed = 0.0f;
 }
 
 Spawner::~Spawner()
@@ -58,7 +59,10 @@ bool Spawner::loadModels(std::vector<const char*> files)
 
 void Spawner::update(float dtime)
 {
+
 	if (!isStopped) {
+
+		this->timePassed += dtime;
 		// Spawn Objects
 		this->spawnTimePassed += dtime;
 		if (this->spawnTimePassed > this->spawnTime) {
@@ -78,6 +82,9 @@ void Spawner::update(float dtime)
 		// Move Objects down
 		for (auto model : this->outputModels) {
 
+			auto toonShader = dynamic_cast<ToonShader *>(model->shader());
+			toonShader->addTime(dtime);
+
 			Matrix mRotation;
 			Matrix mPosition;
 
@@ -90,9 +97,9 @@ void Spawner::update(float dtime)
 		// Acceleration
 		this->accelerateTimePassed += dtime;
 		if (this->accelerateTimePassed > this->accelerateTime) {
-			/*this->accelerateTime *= 2;
-			this->spawnTime -= this->spawnTime * this->acceleration;
-			this->speed += this->speed * this->acceleration;*/
+			//this->accelerateTime *= 2;
+			//this->spawnTime -= this->spawnTime * this->acceleration;
+			//this->speed += this->speed * this->acceleration;
 			this->accelerateTimePassed = 0.0f;
 		}
 	}
@@ -187,6 +194,7 @@ std::vector<Model*> * Spawner::getOutputModels() {
 
 void Spawner::reset()
 {
+	this->timePassed = 0.0f;
 	this->spawnTimePassed = 0.0f;
 	this->accelerateTimePassed = 0.0f;
 	this->spawnTime = this->defaultSpawnTime;
