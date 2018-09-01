@@ -103,21 +103,6 @@ void Spawner::draw(const BaseCamera & camera)
 	}
 }
 
-float Spawner::getSpawnTime()
-{
-	return this->spawnTime;
-}
-
-float Spawner::getSpeed()
-{
-	return this->speed;
-}
-
-int Spawner::getObjectsDodged()
-{
-	return this->objectsDodged;
-}
-
 void Spawner::rearrange()
 {
 	std::vector<Model *> tmp;
@@ -127,14 +112,17 @@ void Spawner::rearrange()
 	this->outputModels.clear();
 	for (auto model : tmp) {
 		auto pos = model->transform().translation();
-		if (pos.Z < 6.0f) {
-			this->outputModels.push_back(model);
+		if (this->camera != nullptr) {
+			if (pos.Z < this->camera->position().Z) {
+				this->outputModels.push_back(model);
+			}
+			else {
+				model->transform(this->defaultTransform());
+				this->inputModels.push_back(model);
+				this->objectsDodged++;
+			}
 		}
-		else {
-			model->transform(this->defaultTransform());
-			this->inputModels.push_back(model);
-			this->objectsDodged++;
-		}
+
 	}
 }
 

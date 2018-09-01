@@ -138,7 +138,7 @@ void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
 	this->spawner = new Spawner(5, 3, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);
-
+	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
 		//ASSET_DIRECTORY "donut_brown.dae" ,
