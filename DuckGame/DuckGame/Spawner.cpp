@@ -86,9 +86,9 @@ void Spawner::update(float dtime)
 		// Acceleration
 		this->accelerateTimePassed += dtime;
 		if (this->accelerateTimePassed > this->accelerateTime) {
-			this->accelerateTime *= 2;
+			/*this->accelerateTime *= 2;
 			this->spawnTime -= this->spawnTime * this->acceleration;
-			this->speed += this->speed * this->acceleration;
+			this->speed += this->speed * this->acceleration;*/
 			this->accelerateTimePassed = 0.0f;
 		}
 	}
