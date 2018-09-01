@@ -60,10 +60,10 @@ void Duck::update(float dtime)
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
 
-	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, FORWARDBACKWARD);
+	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, this->defaultTransfrom.Z);
 	forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
 
-	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, this->model->transform().translation().X, maxX, LEFTRIGHT);
+	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, this->model->transform().translation().X, maxX, this->defaultTransfrom.X);
 	leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);
 
 
@@ -97,7 +97,7 @@ bool Duck::collisionDetected()
 	return this->isCollisionDetected;
 }
 
-float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction) {
+float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation) {
 	float speed = 0.0f;
 
 	//falls die Duck weiter nach vorne als nach nach hinten kann

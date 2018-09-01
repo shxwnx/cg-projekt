@@ -35,7 +35,7 @@ protected:
 
 	bool isCollisionDetected;
 
-	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, bool direction);
+	float calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation);
 	float calculateSlope(float border);
 
 	void checkCollision(float dtime);
