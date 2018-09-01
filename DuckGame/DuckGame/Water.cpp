@@ -65,10 +65,10 @@ void Water::draw(const BaseCamera& Cam)
 }
 
 bool Water::generateWaves() {
-	Wave* wave1 = new Wave(1.0f, 0.03f, 0.6f, Vector(0.0f, 0.0f, -1.0f));
-	Wave* wave2 = new Wave(2.0f, 0.04f, 0.4f, Vector(0.5f, 0.0f, -0.5f));
-	Wave* wave3 = new Wave(0.5f, 0.01f, 0.2f, Vector(0.5f, 0.0f, 0.25f));
-	Wave* wave4 = new Wave(3.0f, 0.01f, 0.1f, Vector(-1.0f, 0.0f, 0.0f));
+	Wave* wave1 = new Wave(2.0f, 0.04f, 6.0f, Vector(0.0f, 0.0f, -1.0f));
+	Wave* wave2 = new Wave(4.0f, 0.06f, 0.4f, Vector(0.5f, 0.0f, -0.5f));
+	Wave* wave3 = new Wave(1.0f, 0.04f, 0.2f, Vector(0.5f, 0.0f, 0.25f));
+	Wave* wave4 = new Wave(5.0f, 0.03f, 0.1f, Vector(-1.0f, 0.0f, 0.0f));
 
 	this->waves[0] = *wave1;
 	this->waves[1] = *wave2;
