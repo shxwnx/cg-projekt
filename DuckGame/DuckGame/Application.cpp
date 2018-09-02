@@ -8,7 +8,6 @@
 #include "WaterShader.h"
 #include "BaseShader.h"
 #include "ToonShader.h"
-#include "ShaderLightMapper.h"
 
 #define ASSET_DIRECTORY "../../assets/"
 #define PI 3.14159265358979323846
@@ -23,7 +22,6 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->timePassed = 0.0f;
 	this->isStopped = true;
 
-	this->createLight();
 	this->createSpawner();
 	this->createDuck();
 
@@ -60,22 +58,6 @@ void Application::update(float dTime)
 
 }
 
-void Application::createLight() {
-
-	auto dl = new DirectionalLight();
-	dl->direction(Vector(1.0f, -1, 1));
-	dl->color(Color(1.0f, 1.0f, 1.0f));
-	dl->castShadows(true);
-	ShaderLightMapper::instance().addLight(dl);
-
-	//Color c = Color(1.0f, 1.0f, 1.0f);
-	//Vector a = Vector(1.0f, 0, 0.1f);
-
-	//this->sun = new TriangleSphereModel(20.0f);
-	//this->sun->transform();
-	//this->sun->shader(new ToonShader());
-	//this->models.push_back(this->sun);
-}
 
 void Application::createDuck()
 {
@@ -118,7 +100,7 @@ void Application::controlDuck()
 void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(9, 3, 1.4f, 0.3f, 4.0f, 0.1f, 2.0f);
+	this->spawner = new Spawner(9, 3, 1.25f, 0.3f, 4.0f, 0.1f, 2.0f);
 	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
@@ -234,13 +216,13 @@ void Application::draw()
 	// 1. clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	ShaderLightMapper::instance().activate();
+	//ShaderLightMapper::instance().activate();
 	// 2. setup shaders and draw models
 	for (ModelList::iterator it = models.begin(); it != models.end(); ++it)
 	{
 		(*it)->draw(camera);
 	}
-	ShaderLightMapper::instance().deactivate();
+	//ShaderLightMapper::instance().deactivate();
 
 	// 3. check once per frame for opengl errors
 	GLenum Error = glGetError();
