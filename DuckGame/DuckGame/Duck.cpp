@@ -13,6 +13,8 @@
 
 const float maxX = 5.5f;
 const float maxZ = 1.0f;
+const float maxSpeedLeftRight = 1.5f;
+const float maxSpeedForwardBackward = 0.5f;
 
 Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 {
@@ -35,8 +37,12 @@ Duck::~Duck()
 bool Duck::loadModel(const char* file)
 {
 	this->model = new Model(file, false, this->scale);
+	Matrix default = defaultTransform();
+	this->defaultPosition = default.translation();
+	this->model->transform(default);
 
 	this->model->shader(this->pShader, true);
+	this->setCameraPosition();
 
 	return true;
 }
@@ -52,6 +58,9 @@ void Duck::update(float dtime)
 	auto toonShader = dynamic_cast<ToonShader *>(this->shader());
 	toonShader->addTime(dtime);
 
+	//movement
+	Matrix forwardBackwardMatrix;
+	Matrix leftRightMatrix;
 
 	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, this->defaultPosition.Z);
 	forwardBackwardMatrix.translation(0, 0, -this->speedForwardBackward * dtime);
@@ -62,6 +71,7 @@ void Duck::update(float dtime)
 	//slope
 	Matrix newSlope;
 	Matrix oldSlope;
+	float newSlopeValue = this->calculateSlope(maxX);
 
 	newSlope.rotationY(newSlopeValue);
 	oldSlope.rotationY(-this->slope);
@@ -71,6 +81,7 @@ void Duck::update(float dtime)
 	this->slope = newSlopeValue;
 
 	//camera positon
+	this->setCameraPosition();
 
 	//check collision
 	this->checkCollision(dtime);
@@ -93,6 +104,9 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 	if ((translation < defaultTranslation + border) && (translation > defaultTranslation - border)) { //no border
 		if (directionValue == 0.0f) { //no key pressed
 =======
+	if ((translation < defaultTranslation + border && directionValue <= 0.0f)
+		|| (translation > defaultTranslation - border && directionValue >= 0.0f)) {
+		if (directionValue == 0.0f) { //no key pressed 
 >>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
@@ -160,6 +174,7 @@ Matrix Duck::defaultTransform() {
 
 	Matrix mPosition;
 	Matrix mScale;
+	mPosition.translation(0.0f, -0.2f, 10.0f);
 	mScale.scale(this->scale);
 	return mPosition * mScale;
 }
@@ -181,6 +196,20 @@ void Duck::setCameraPosition() {
 	this->camera->setPosition(cameraPositon);
 	this->camera->setTarget(cameraTarget);
 =======
+	Vector modelPosition = this->model->transform().translation();
+	Vector cameraPosition = this->camera->position();
+
+	Vector viewPosition(modelPosition.X, cameraPosition.Y, cameraPosition.Z);
+	Vector viewTarget(modelPosition);
+	viewTarget.Z -= 1.0f;
+
+	//float z = 10.0f - modelPosition.Z;
+	//viewTarget.Y = (z + modelPosition.Y) * 1.1f;
+	//viewPosition.Y = 2.0f - z;
+
+	this->camera->setPosition(viewPosition);
+	this->camera->setTarget(viewTarget);
+
 >>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 }
 
