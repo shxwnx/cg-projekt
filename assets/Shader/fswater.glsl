@@ -93,7 +93,7 @@ void main()
 
 	vec4 surface = texture(SurfaceTexture, texcoord);
 
-	vec4 color = vec4(0.1, 0.8, 1.0, 0.6) + surface.r * 0.05;
+	vec4 color = vec4(0.1, 0.8, 1.0, 0.7) + surface.r * 0.05;
 
 	vec3 N = normalize(Normal);
 	vec3 L = normalize(LightPos - Position);
