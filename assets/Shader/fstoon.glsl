@@ -17,30 +17,7 @@ uniform vec3 LightPos;
 uniform vec3 LightColor;
 uniform vec3 EyePos;
 
-uniform mat4 ModelMat;
-uniform mat4 ModelViewProjMat;
-
-const int MAX_LIGHTS=14;
-struct Light
-{
-	int Type;
-	vec3 Color;
-	vec3 Position;
-	vec3 Direction;
-	vec3 Attenuation;
-	vec3 SpotRadius;
-	int ShadowIndex;
-};
-
-uniform Lights 
-{
-	int LightCount;
-	Light lights[MAX_LIGHTS];
-};
-
-
-const int levels = 6;
-const float scaleFactor = 1.5 / levels;
+int levels = 6;
 
 vec2 getTexturePosition(vec2 texcoord) {
 	vec2 direction = vec2(0.0, -1.0);
@@ -51,9 +28,11 @@ void main()
 {
 	vec2 texcoord = Texcoord;
 	if(Type == 1){
+		levels = 20;
 		texcoord = getTexturePosition(texcoord);
 	} 
-
+	float scaleFactor = 1.5 / levels;
+	
 	vec4 diffuseTexture = texture(DiffuseTexture, texcoord);
 
 	vec3 N = normalize(Normal);
