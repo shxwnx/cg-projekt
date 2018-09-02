@@ -15,6 +15,7 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	spacing(spacing),
 	spawnTime(spawnTime),
 	speed(speed),
+	spawnTimePassed(speed),
 	acceleration(acceleration),
 	accelerateTime(accelerateTime),
 	accelerateTimePassed(0.0f),
@@ -23,7 +24,6 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	timePassed(0.0f),
 	currentSpeed(0.0f)
 {
-	this->spawnTimePassed = this->speed;
 }
 
 Spawner::~Spawner()
@@ -93,7 +93,7 @@ void Spawner::update(float dtime)
 		// acceleration
 		this->accelerateTimePassed += dtime;
 		if (this->accelerateTimePassed > this->accelerateTime) {
-			this->accelerateTime = 4.0f;
+			this->accelerateTime++;
 			this->spawnTime -= this->spawnTime * this->acceleration;
 			this->accelerateTimePassed = 0.0f;
 			this->currentSpeed = this->speed;
@@ -150,7 +150,7 @@ Matrix Spawner::defaultTransform()
 {
 	Matrix position;
 	Matrix scale;
-	position.translation(0, 0, -11.0f);
+	position.translation(0, 0, -13.0f);
 	scale.scale(this->scale);
 	return position * scale;
 }
