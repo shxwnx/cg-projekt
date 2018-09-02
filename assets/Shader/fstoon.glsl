@@ -21,7 +21,7 @@ int levels = 6;
 
 vec2 getTexturePosition(vec2 texcoord) {
 	vec2 direction = vec2(0.0, -1.0);
-	return texcoord - (Time * Speed * 0.2 * direction);
+	return texcoord + (Time * direction * (Speed/20));
 }
 
 void main()
