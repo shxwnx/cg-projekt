@@ -46,6 +46,9 @@ void Application::update(float dTime)
 			this->reset();
 			std::cout << "Application::update(): Collision detected!" << std::endl;
 		}
+		if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+			this->reset();
+		}
 	}
 	else {
 		if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
@@ -53,6 +56,12 @@ void Application::update(float dTime)
 			this->isStopped = false;
 		}
 	}
+
+	if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+		exit(0);
+	}
+	
+
 	this->camera.update();
 
 }
@@ -107,7 +116,7 @@ void Application::createSpawner()
 		ASSET_DIRECTORY "donut_pink.dae" ,
 		ASSET_DIRECTORY "waterball_blue.dae" ,
 		ASSET_DIRECTORY "waterball_colorful.dae",
-		ASSET_DIRECTORY "waterball_rainbow2.dae"
+		ASSET_DIRECTORY "waterball_rainbow.dae"
 	};
 	this->spawner->loadModels(files);
 	this->models.push_back(this->spawner);
@@ -133,7 +142,7 @@ void Application::createPool()
 	shader->setType(POOL);
 	this->pool = new Pool(this->spawner);
 	this->pool->shader(shader, true);
-	this->pool->loadModel(ASSET_DIRECTORY "pool_test.dae");
+	this->pool->loadModel(ASSET_DIRECTORY "pool.dae");
 
 	Matrix mPosition;
 	mPosition.translation(0.0, -2.0, 0.0);

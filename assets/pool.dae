@@ -4,15 +4,15 @@
 		<contributor>
 			<authoring_tool>CINEMA4D 18.020 COLLADA Exporter</authoring_tool>
 		</contributor>
-		<created>2018-09-02T17:12:04Z</created>
-		<modified>2018-09-02T17:12:04Z</modified>
+		<created>2018-09-02T17:13:36Z</created>
+		<modified>2018-09-02T17:13:36Z</modified>
 		<unit meter="0.01" name="centimeter"/>
 		<up_axis>Y_UP</up_axis>
 	</asset>
 	<library_images>
 		<image id="ID3">
 			<init_from>
-				<ref>file:///C:/Users/Shawna/AppData/Roaming/MAXON/CINEMA%204D%20R18_62A5E681/tex/md-image-74806186_1.png</ref>
+				<ref>tex/md-image-74806186_1.png</ref>
 			</init_from>
 		</image>
 	</library_images>

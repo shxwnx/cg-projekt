@@ -56,11 +56,3 @@ bool Water::generateWaves() {
 	return true;
 }
 
-
-//http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch01.html
-//http://fire-face.com/personal/water/index.html
-//https://opengllair.wordpress.com/2016/08/24/gerstner-wave-implementation/
-//https://www.gamedev.net/forums/topic/648388-gerstner-wave-function-hlsl/
-
-//https://80.lv/articles/tutorial-ocean-shader-with-gerstner-waves/
-//https://pastebin.com/Pq8gDFHB
