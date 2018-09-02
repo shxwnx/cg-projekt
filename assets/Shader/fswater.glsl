@@ -28,8 +28,6 @@ uniform vec4 ScreenSize;
 uniform sampler2D SurfaceTexture;
 uniform vec2 WaterSize;
 
-//uniform sampler2D reflectionTexture;
-//uniform sampler2D refractionTexture;
 
 float linearizeDepth(float z) {
         float tmp = z * 2.0 - 1.0;
@@ -55,7 +53,6 @@ float getLinearScreenDepth() {
 }
 
 vec2 getTexturePosition(vec2 texcoord) {
-	//float speed = SpeedValues[0];
 	vec2 direction = vec2(DirectionValues[0].x, DirectionValues[0].z);
 
 	return texcoord + (Time * Speed * 0.42 * direction);
@@ -98,12 +95,7 @@ void main()
 	vec4 surface = texture(SurfaceTexture, texcoord);
 
 	vec4 color = vec4(0.1, 0.8, 1.0, 0.6) + surface.r * 0.05;
-	//vec4 color2 = vec4(0.5,0.9,1.0,0.6) + surface.r * 0.1;
-	
-	//color = mix(color, color2, Position.y);
-	//color = mix(color, color2, texture(DepthTexture, gl_FragCoord.xy * ScreenSize.zw));
 
-	/////////////////////////////////////////////////////////////
 	vec3 N = normalize(Normal);
 	vec3 L = normalize(LightPos - Position);
 	vec3 E = normalize(EyePos - Position);
@@ -126,7 +118,5 @@ void main()
 	float specMask = (pow(dot(H, N), shininess) > 0.4) ? 1 : 0;
 	float edgeDetection = (dot(E, N) > 0.02) ? 1 : 0;
 
-	////////////////////////////////////////////////////////////
-	//gl_FragColor = color;
     gl_FragColor = vec4(edgeDetection * diffuseComponent  * color.xyz * specularComponent * specMask,color.a);
 }

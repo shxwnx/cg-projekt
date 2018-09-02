@@ -7,10 +7,10 @@
 #include <iostream>
 
 
-Pool::Pool(Camera * cam)
+Pool::Pool(Spawner* spawner): 
+	scale (4000.0f),
+	spawner (spawner)
 {
-	this->camera = cam;
-	this->scale = 4.0f;
 }
 
 Pool::~Pool()
@@ -20,7 +20,7 @@ Pool::~Pool()
 
 bool Pool::loadModel(const char* file)
 {
-	this->model = new Model(file, false, this->scale);
+	this->model = new Model(file, true, this->scale);
 	this->model->shader(this->pShader, true);
 
 	return true;
@@ -29,7 +29,9 @@ bool Pool::loadModel(const char* file)
 
 void Pool::update(float dtime)
 {
-
+	auto toonShader = dynamic_cast<ToonShader *>(this->shader());
+	toonShader->addTime(dtime);
+	toonShader->setSpeed(this->spawner->getSpeed());
 }
 
 void Pool::draw(const BaseCamera& Cam)

@@ -73,40 +73,9 @@ void main()
 	Position =  (ModelMat * pos).xyz;
 
     vec4 newNormal = vec4(waveNormal(pos.x, pos.z), 1.0);
-    //Normal = VertexNormal.xyz * worldNormal;
 	Normal = normalize(ModelMat * newNormal).xyz;
 
     gl_Position = ModelViewProjMat * pos;
 
-	//Position
-	//vec2 horizontalPosition = VertexPos.xz;
-	//vec2 horizontalDirection = Direction.xz;
-
-	//float trigoValue = dot(horizontalDirection * Frequency, horizontalPosition) + (Phase * Time);
-
-	//float x = VertexPos.x + ((Steepness * Amplitude) * Direction.x * cos(trigoValue));
-	//float z = VertexPos.z + ((Steepness * Amplitude) * Direction.z * cos(trigoValue));
-
-	//float y = Amplitude * sin(trigoValue);
-
-	//Position =  (ModelMat * vec4(x, y, z, 0)).xyz;
-	//Position = (ModelMat * VertexPos).xyz;///////////////////
-
-	//Normal
-	//float wa = Frequency * Amplitude;
-	//float trigoValueNormal = dot(Direction * Frequency, VertexPos.xyz) + (Phase * Time);
-	//float s = sin(trigoValueNormal);
-	//float c = cos (trigoValueNormal);
-
-	//float xNormal = -(Direction.x * wa * c);
-	//float yNormal = 1 - (Steepness * wa * s);
-	//float zNormal = -(Direction.z * wa * c);
-
-	//Normal = (ModelMat * vec4(xNormal, yNormal, zNormal, 0)).xyz;
-	//Normal = (ModelMat * vec4(VertexNormal.xyz,0)).xyz;/////////////////
-
-    //gl_Position = ModelViewProjMat * vec4(x, y, z, 0);
-	//gl_Normal = ModelViewProjMat * vec4(xNormal, yNormal, zNormal, 0);//////////////////
-	//gl_Position = ModelViewProjMat * VertexPos;/////////////////////
 }
 

@@ -7,12 +7,15 @@ out vec3 Position;
 out vec3 Normal;
 out vec2 Texcoord;
 
+
 uniform float Time;
 uniform vec3 EyePos;
 uniform mat4 ModelMat;
 uniform mat4 ModelViewProjMat;
 
 const float pi = 3.14159;
+
+uniform int Type;
 
 float positionY() {
     float frequency = 2 * pi ;
@@ -21,11 +24,17 @@ float positionY() {
 
 void main()
 {
-	vec4 wavePos = vec4(VertexPos.x, VertexPos.y + positionY(), VertexPos.z,VertexPos.w);
-	Position = (ModelMat * wavePos).xyz;
+	vec4 pos = vec4(0.0 ,0.0 ,0.0 ,0.0);
+	if(Type == 0){
+		pos = vec4(VertexPos.x, VertexPos.y + positionY(), VertexPos.z, VertexPos.w);
+	} else {
+		pos = VertexPos;
+	}
+	
+	Position = (ModelMat * pos).xyz;
 	Normal = normalize(ModelMat * VertexNormal).xyz;
 	Texcoord = VertexTexcoord;
-	gl_Position = ModelViewProjMat * wavePos;
+	gl_Position = ModelViewProjMat * pos;
 }
 
 

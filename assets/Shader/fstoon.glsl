@@ -9,6 +9,10 @@ uniform float SpecularExp;
 uniform vec3 AmbientColor;
 uniform sampler2D DiffuseTexture;
 
+uniform float Time;
+uniform int Type;
+uniform float Speed;
+
 uniform vec3 LightPos;
 uniform vec3 LightColor;
 uniform vec3 EyePos;
@@ -38,8 +42,18 @@ uniform Lights
 const int levels = 6;
 const float scaleFactor = 1.5 / levels;
 
+vec2 getTexturePosition(vec2 texcoord) {
+	vec2 direction = vec2(0.0, -1.0);
+	return texcoord + (Time * Speed * 0.42 * direction);
+}
+
 void main()
 {
+	vec2 texcoord = Texcoord;
+	if(Type == 1){
+		texcoord = getTexturePosition(texcoord);
+	} 
+
 	vec4 diffuseTexture = texture(DiffuseTexture, Texcoord);
 
 	vec3 N = normalize(Normal);

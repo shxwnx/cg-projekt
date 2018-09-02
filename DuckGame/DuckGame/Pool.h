@@ -1,11 +1,13 @@
 #pragma once 
 #include <stdio.h>
 #include "Model.h"
+#include "ToonShader.h"
+#include "Spawner.h"
 
 class Pool : public BaseModel
 {
 public:
-	Pool(Camera * cam);
+	Pool(Spawner* spawner);
 	virtual ~Pool();
 	bool loadModel(const char* file);
 	void update(float dtime);
@@ -13,7 +15,7 @@ public:
 
 protected:
 	Model * model;
-	Camera* camera;
+	Spawner* spawner;
 	float scale; 
 
 };

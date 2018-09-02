@@ -9,7 +9,9 @@ ToonShader::ToonShader() :
 	specularExp(20.0f),
 	lightPos(20.0f, 20.0f, 20.0f),
 	lightColor(1, 1, 1),
-	diffuseTexture(Texture::defaultTex())
+	diffuseTexture(Texture::defaultTex()),
+	type(OBJECT),
+	speed(0.0f)
 {
 	this->time = 0.0f;
 	//this->color = color;
@@ -28,6 +30,8 @@ ToonShader::ToonShader() :
 	this->eyePosLoc = getParameterID("EyePos");
 	this->diffuseTexLoc = getParameterID("DiffuseTexture");
 	this->timeLoc = getParameterID("Time");
+	this->typeLoc = getParameterID("Type");
+	this->speedLoc = getParameterID("Speed");
 }
 
 void ToonShader::activate(const BaseCamera& camera)	 const
@@ -51,4 +55,7 @@ void ToonShader::activate(const BaseCamera& camera)	 const
 
 	setParameter(eyePosLoc, camera.position());
 	setParameter(timeLoc, this->time);
+
+	setParameter(typeLoc, this->type);
+	setParameter(this->speedLoc, this->speed);
 }
