@@ -19,7 +19,7 @@ Camera::Camera(GLFWwindow* pWin) : m_Position(0.0f, 2.0f, 12.0f), m_Target(0.0f,
 		glfwGetWindowSize(pWindow, &WindowWidth, &WindowHeight);
 
 	m_ViewMatrix.identity();
-	m_ProjMatrix.perspective((float)M_PI * 70.0f / 180.0f, (float)WindowWidth / (float)WindowHeight, 0.045f, 1000.0f);
+	m_ProjMatrix.perspective((float)M_PI * 70.0f / 180.0f, (float)WindowWidth / (float)WindowHeight, 0.0045f, 10000.0f);
 
 
 }

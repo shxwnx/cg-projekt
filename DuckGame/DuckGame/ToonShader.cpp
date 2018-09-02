@@ -7,14 +7,14 @@ ToonShader::ToonShader() :
 	specularColor(0.5f, 0.5f, 0.5f),
 	ambientColor(0.2f, 0.2f, 0.2f),
 	specularExp(20.0f),
-	lightPos(20.0f, 20.0f, 20.0f),
+	lightPos(5.0f,20.0f, 20.0f),
 	lightColor(1, 1, 1),
 	diffuseTexture(Texture::defaultTex()),
 	type(OBJECT),
 	speed(0.0f)
 {
 	this->time = 0.0f;
-	//this->color = color;
+
 	bool loaded = load(SHADER_DIRECTORY "vstoon.glsl", SHADER_DIRECTORY "fstoon.glsl");
 	if (!loaded)
 		throw std::exception();
