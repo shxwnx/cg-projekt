@@ -17,11 +17,13 @@ Application::Application()
 {
 }
 
-Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
+Application::Application(GLFWwindow* pWin) : 
+	window(pWin), 
+	camera(pWin),
+	resetAvailable(false),
+	timePassed(0.0f),
+	isStopped(true)
 {
-	this->timePassed = 0.0f;
-	this->isStopped = true;
-
 	this->createSpawner();
 	this->createDuck();
 
@@ -46,7 +48,12 @@ void Application::update(float dTime)
 			this->reset();
 			std::cout << "Application::update(): Collision detected!" << std::endl;
 		}
-		if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+
+		if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_RELEASE) {
+			this->resetAvailable = true;
+		}
+		if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS && this->resetAvailable) {
+			this->resetAvailable = false;
 			this->reset();
 		}
 	}
