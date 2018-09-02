@@ -99,15 +99,9 @@ bool Duck::collisionDetected()
 
 float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation) {
 	float speed = 0.0f;
-<<<<<<< HEAD
 
 	if ((translation < defaultTranslation + border) && (translation > defaultTranslation - border)) { //no border
 		if (directionValue == 0.0f) { //no key pressed
-=======
-	if ((translation < defaultTranslation + border && directionValue <= 0.0f)
-		|| (translation > defaultTranslation - border && directionValue >= 0.0f)) {
-		if (directionValue == 0.0f) { //no key pressed 
->>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
 			}
@@ -117,6 +111,7 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			else if (currentSpeed > 0.0f) {
 				speed = currentSpeed - maxSpeed / 10;
 			}
+
 		}
 		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
 			speed = currentSpeed - maxSpeed / 10;
@@ -127,8 +122,8 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		else {
 			speed = currentSpeed;
 		}
-	} 
-	else if (translation < defaultTranslation + border && directionValue < 0.0f){ //left border and right pressed
+	}
+	else if (translation < defaultTranslation + border && directionValue < 0.0f) { //left border and right pressed
 		if (-maxSpeed < currentSpeed) {
 			speed = currentSpeed - maxSpeed / 10;
 		}
@@ -144,10 +139,7 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			speed = currentSpeed;
 		}
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 	return speed;
 }
 
@@ -181,7 +173,7 @@ Matrix Duck::defaultTransform() {
 
 void Duck::setCameraPosition() {
 
-<<<<<<< HEAD
+	/*
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
 	Vector cameraTarget(this->model->transform().translation().X / 2 , this->model->transform().translation().Y, this->model->transform().translation().Z);
@@ -194,8 +186,8 @@ void Duck::setCameraPosition() {
 	//}
 
 	this->camera->setPosition(cameraPositon);
-	this->camera->setTarget(cameraTarget);
-=======
+	this->camera->setTarget(cameraTarget);*/
+
 	Vector modelPosition = this->model->transform().translation();
 	Vector cameraPosition = this->camera->position();
 
@@ -209,8 +201,6 @@ void Duck::setCameraPosition() {
 
 	this->camera->setPosition(viewPosition);
 	this->camera->setTarget(viewTarget);
-
->>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 }
 
 void Duck::reset() {
