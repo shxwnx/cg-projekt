@@ -151,6 +151,13 @@ void Application::createPool() {
 	this->pool = new Pool(this->spawner);
 	this->pool->shader(shader, true);
 	this->pool->loadModel(ASSET_DIRECTORY "pool.dae");
+
+	Matrix mScale;
+	Matrix mPosition;
+	mScale.scale(100.0);
+	mPosition.translation(0, -1.5, 0);
+	this->pool->transform(mPosition*mScale);
+
 	this->models.push_back(this->pool);
 }
 
