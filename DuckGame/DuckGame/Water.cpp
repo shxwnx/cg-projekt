@@ -84,6 +84,9 @@ bool Water::generateWaves() {
 	return true;
 }
 
+void Water::transform(Matrix t) {
+	this->model->transform(t);
+}
 
 //http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch01.html
 //http://fire-face.com/personal/water/index.html

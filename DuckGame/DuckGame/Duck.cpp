@@ -11,7 +11,7 @@
 #define FORWARDBACKWARD true
 #define LEFTRIGHT false
 
-const float maxX = 5.5f;
+const float maxX = 5.6f;
 const float maxZ = 1.0f;
 const float maxSpeedLeftRight = 1.5f;
 const float maxSpeedForwardBackward = 0.5f;
@@ -166,7 +166,7 @@ Matrix Duck::defaultTransform() {
 
 	Matrix mPosition;
 	Matrix mScale;
-	mPosition.translation(0.0f, -0.2f, 9.5f);
+	mPosition.translation(0.0f, -0.2f, 9.2f);
 	mScale.scale(this->scale);
 	return mPosition * mScale;
 }
@@ -176,7 +176,7 @@ void Duck::setCameraPosition() {
 	
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
-	Vector cameraTarget(this->model->transform().translation().X, this->model->transform().translation().Y, this->defaultTransform().translation().Z - maxZ + (this->model->transform().translation().Z - this->defaultTransform().translation().Z)*0.4);
+	Vector cameraTarget(this->model->transform().translation().X, this->model->transform().translation().Y, this->defaultTransform().translation().Z - maxZ + (this->model->transform().translation().Z - this->defaultTransform().translation().Z)*0.2);
 	//cameraTarget.Z -= 1;
 	//if (this->speedLeftRight > 0.0f) {
 	//	cameraTarget.X *= -this->speedLeftRight * dtime;

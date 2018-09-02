@@ -26,7 +26,7 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createDuck();
 
 	//this->createWater(6.0f, 9.0f, 60, 90);
-	this->createWater(12.0f, 25.0f, 60, 125);
+	this->createWater(12.0f, 36.0f, 60, 180);
 	this->createPool();
 	this->createSkyBox();
 	this->createUI();
@@ -123,6 +123,7 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 	if (!this->water->generateWaves()) {
 		std::cout << "Application::createWater(): No WaterShader found!" << std::endl;
 	}
+
 	models.push_back(this->water);
 }
 
@@ -131,13 +132,11 @@ void Application::createPool() {
 	shader->setType(POOL);
 	this->pool = new Pool(this->spawner);
 	this->pool->shader(shader, true);
-	this->pool->loadModel(ASSET_DIRECTORY "pool.dae");
+	this->pool->loadModel(ASSET_DIRECTORY "pool_test.dae");
 
-	Matrix mScale;
 	Matrix mPosition;
-	mScale.scale(96.5);
-	mPosition.translation(0, -1.5, 0);
-	this->pool->transform(mPosition*mScale);
+	mPosition.translation(0.0, -2.0, 0.0);
+	this->pool->transform(mPosition);
 
 	this->models.push_back(this->pool);
 }

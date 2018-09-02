@@ -29,6 +29,8 @@ public:
 	bool generateWaves();
 	Vector2D getSize() { return Vector2D(this->sizeX, this->sizeZ); }
 
+	void transform(Matrix t);
+
 protected:
 	Spawner* spawner;
 
