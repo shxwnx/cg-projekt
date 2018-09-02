@@ -24,6 +24,7 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	this->objectsDodged = 0;
 	this->scale = 2.0f;
 	this->timePassed = 0.0f;
+	this->currentSpeed = 0.0f;
 }
 
 Spawner::~Spawner()
@@ -41,7 +42,7 @@ bool Spawner::loadModels(std::vector<const char*> files)
 	for (auto file : files) {
 		for (int i = 0; i < countPerObject; i++) {
 
-			auto model = new Model(file, false, this->scale);	
+			auto model = new Model(file, false, this->scale);
 			model->transform(this->defaultTransform());
 
 			auto shader = new ToonShader();
@@ -93,10 +94,23 @@ void Spawner::update(float dtime)
 		// Acceleration
 		this->accelerateTimePassed += dtime;
 		if (this->accelerateTimePassed > this->accelerateTime) {
-			//this->accelerateTime *= 2;
-			//this->spawnTime -= this->spawnTime * this->acceleration;
-			//this->speed += this->speed * this->acceleration;
+			this->accelerateTime = 4.0f;
+			this->spawnTime -= this->spawnTime * this->acceleration;
 			this->accelerateTimePassed = 0.0f;
+			this->currentSpeed = this->speed;
+		}
+	
+			this->calculateSpeed();
+		
+	}
+}
+
+void Spawner::calculateSpeed()
+{
+	if (this->currentSpeed > 0.0f) {
+		float maxSpeed = this->currentSpeed * this->acceleration + this->currentSpeed;
+		if (this->speed < maxSpeed) {		
+			this->speed += this->currentSpeed * this->acceleration / 1000.0f;
 		}
 	}
 }
@@ -137,7 +151,7 @@ Matrix Spawner::defaultTransform()
 {
 	Matrix position;
 	Matrix scale;
-	position.translation(0, 0, -6.0f);
+	position.translation(0, 0, -9.0f);
 	scale.scale(this->scale);
 	return position * scale;
 }
@@ -154,6 +168,8 @@ float Spawner::randomRotation()
 	float rot = this->random(0, PI);
 	return sign * rot;
 }
+
+
 
 Matrix Spawner::randomTransform()
 {
@@ -195,6 +211,7 @@ void Spawner::reset()
 	this->accelerateTimePassed = 0.0f;
 	this->spawnTime = this->defaultSpawnTime;
 	this->speed = this->defaultSpeed;
+	this->currentSpeed = 0.0f;
 	this->acceleration = this->defaultAcceleration;
 	this->accelerateTime = this->defaultAccelerateTime;
 
