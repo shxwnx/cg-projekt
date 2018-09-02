@@ -63,18 +63,18 @@ void Application::update(float dTime)
 void Application::createLight() {
 
 	auto dl = new DirectionalLight();
-	dl->direction(Vector(0.2f, -1, 1));
+	dl->direction(Vector(1.0f, -1, 1));
 	dl->color(Color(1.0f, 1.0f, 1.0f));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
 
-	Color c = Color(1.0f, 1.0f, 1.0f);
-	Vector a = Vector(1.0f, 0, 0.1f);
+	//Color c = Color(1.0f, 1.0f, 1.0f);
+	//Vector a = Vector(1.0f, 0, 0.1f);
 
-	this->sun = new TriangleSphereModel(20.0f);
-	this->sun->transform();
-	this->sun->shader(new ToonShader());
-	this->models.push_back(this->sun);
+	//this->sun = new TriangleSphereModel(20.0f);
+	//this->sun->transform();
+	//this->sun->shader(new ToonShader());
+	//this->models.push_back(this->sun);
 }
 
 void Application::createDuck()
@@ -118,7 +118,7 @@ void Application::controlDuck()
 void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(9, 3, 1.25f, 0.3f, 4.0f, 0.1f, 2.0f);
+	this->spawner = new Spawner(9, 3, 1.4f, 0.3f, 4.0f, 0.1f, 2.0f);
 	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
