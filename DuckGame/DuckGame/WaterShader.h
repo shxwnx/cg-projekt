@@ -2,9 +2,6 @@
 
 #define MAX_WAVES 5
 
-#ifndef WaterShader_hpp
-#define WaterShader_hpp
-
 #include <stdio.h>
 #ifdef WIN32
 #include <GL/glew.h>
@@ -35,21 +32,14 @@ public:
 	void setTime(const float t) { this->time = t; }
 	float getSpeed() const { return this->speed; }
 	void setSpeed(const float s) { this->speed = s; }
-	void setDepthTexture(GLuint* depthTexture) { this->depthTexture = depthTexture; }
 	void setWaves(Wave waves[MAX_WAVES], int num);
 
 	virtual void activate(const BaseCamera& Cam) const;
 
 protected:
 	void assignLocations();
-	void renderReflection(const Camera& Cam);
-	void renderRefractionAndDepth();
 
 private:
-	//variables...
-	Texture* reflectionTexture;
-	Texture* refractionTexture;
-	GLuint* depthTexture;
 	Texture* surfaceTexture;
 
 	Vector position;
@@ -63,14 +53,8 @@ private:
 	float speedValues[MAX_WAVES];		//distance the crest moves forward per second
 	Vector directionValues[MAX_WAVES];	//horizontal vector perpendicular to the wave front along which the crest travels
 
-	Color diffuseColor;
-	Color specularColor;
-	Color ambientColor;
-	float specularExp;
 	Vector lightPos;
 	Color lightColor;
-
-	GLint depthTextureLoc;
 
 	GLint positionLoc;
 	GLint timeLoc;
@@ -83,10 +67,6 @@ private:
 	GLint speedValuesLoc;
 	GLint directionValuesLoc;
 
-	GLint diffuseColorLoc;
-	GLint specularColorLoc;
-	GLint ambientColorLoc;
-	GLint specularExpLoc;
 	GLint lightPosLoc;
 	GLint lightColorLoc;
 
@@ -96,5 +76,3 @@ private:
 
 	GLint surfaceTextureLoc;
 };
-
-#endif /* WaterShader_hpp */

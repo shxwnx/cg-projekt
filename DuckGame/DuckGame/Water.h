@@ -1,11 +1,6 @@
 #pragma once
-//
-// Water.hpp
-//
-#define MAX_WAVES 5
 
-#ifndef Water_hpp
-#define Water_hpp
+#define MAX_WAVES 5
 
 #include <math.h>
 #include <assimp/vector2.h>
@@ -29,13 +24,10 @@ public:
 	bool generateWaves();
 	Vector2D getSize() { return Vector2D(this->sizeX, this->sizeZ); }
 
-	void transform(Matrix t);
-
 protected:
 	Spawner* spawner;
 
 	TrianglePlaneModel* model;
-	LinePlaneModel* testModel;
 
 	float sizeX;
 	float sizeZ;
@@ -44,9 +36,4 @@ protected:
 
 	float time;
 	Wave waves[MAX_WAVES];
-	//std::vector<Wave*> waves;
-
-	
 };
-
-#endif

@@ -1,9 +1,4 @@
-//
-//  Duck.hpp
-//  
-
-#ifndef Duck_hpp
-#define Duck_hpp
+#pragma one
 
 #include <stdio.h>
 #include "Model.h"
@@ -47,4 +42,4 @@ private:
 	bool boundingBoxIntersection(const Model* object);
 };
 
-#endif /* Duck_hpp */
+

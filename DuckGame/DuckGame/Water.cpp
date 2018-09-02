@@ -1,43 +1,25 @@
 #include "Water.h"
 #define PI 3.14159265358979323846
 
-Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ, Spawner* spawner)
+Water::Water(float sizeX, float sizeZ, int segmentsX, int segmentsZ, Spawner* spawner): 
+	sizeX(sizeX),
+	sizeZ(sizeZ),
+	segmentsX(segmentsX),
+	segmentsZ(segmentsZ),
+	spawner(spawner),
+	time(0.0f)
 {
-	this->sizeX = sizeX;
-	this->sizeZ = sizeZ;
-	this->segmentsX = segmentsX;
-	this->segmentsZ = segmentsZ;
-
-	this->spawner = spawner;
-
-	//default wave sollte sich mit den Objekten bewegen
-	//ggf. speed erhöhen, wenn Objekte schneller werden
-	//Wave* wave1 = new Wave(0.0f, 1.0f, 0.05f, 1.0f, Vector2D(0.0f, -1.0f));
-	//generateWaves();
-
-	//this->waves.push_back(defaultWave);
-
-	this->time = 0.0f;
 }
 
 Water::~Water()
 {
-	//this->testModel = NULL;
 	this->model = NULL;
 }
 
-bool Water::loadModel() {
-	
+bool Water::loadModel() 
+{
 	this->model = new TrianglePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
 	this->model->shader(this->pShader, true);
-
-	//this->testModel = new LinePlaneModel(this->sizeX, this->sizeZ, this->segmentsX, this->segmentsZ);
-	//this->testModel->shader(this->pShader, true);
-	//Matrix position;
-	//position.translation(0, 0, 0);
-	//this->testModel->transform(position);*/
-	//this->testModel->shader(this->pShader, true);
-
 	return true;
 }
 
@@ -47,20 +29,10 @@ void Water::update(float dTime) {
 	WaterShader* pShader = dynamic_cast<WaterShader*>(this->pShader);
 	pShader->setTime(this->time);
 	pShader->setSpeed(this->spawner->getSpeed());
-
-	Vector tmp;
-	for (float x = 0.0f; x <= this->sizeX; x += (this->sizeX / this->segmentsX)) {
-		for (float z = 0.0f; z <= this->sizeZ; z += (this->sizeZ / this->segmentsZ)) {
-			//tmp = calculateVertexPosition(x, z, this->time);
-			//calculateVertexNormal(tmp, this->time);
-		}
-	}
-	//für jeden Vertex neu berechnen und setzen
 }
 
 void Water::draw(const BaseCamera& Cam)
 {
-	//this->testModel->draw(Cam);
 	this->model->draw(Cam);
 }
 
@@ -84,9 +56,6 @@ bool Water::generateWaves() {
 	return true;
 }
 
-void Water::transform(Matrix t) {
-	this->model->transform(t);
-}
 
 //http://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch01.html
 //http://fire-face.com/personal/water/index.html

@@ -1,19 +1,20 @@
 #include "Wave.h"
 #define PI 3.14159265358979323846
 
-Wave::Wave() {
-	this->wavelength = 0.0f;
-	this->amplitude = 0.0f;
-	this->speed = 0.0f;
-	this->direction = Vector(0.0f, 0.0f, 0.0f);
+Wave::Wave(): 
+	wavelength(0.0f),
+	amplitude(0.0f),
+	speed(0.0f),
+	direction(0.0f, 0.0f, 0.0f)
+{
 }
 
-Wave::Wave(float wavelength, float amplitude, float speed, Vector direction)
+Wave::Wave(float wavelength, float amplitude, float speed, Vector direction):
+	wavelength(wavelength),
+	amplitude(amplitude),
+	speed(speed),
+	direction(direction)
 {
-	this->wavelength = wavelength;
-	this->amplitude = amplitude;
-	this->speed = speed;
-	this->direction = direction;
 }
 
 Wave::~Wave()

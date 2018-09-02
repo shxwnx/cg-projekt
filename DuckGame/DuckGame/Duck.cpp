@@ -1,8 +1,3 @@
-//
-//  Duck.cpp
-//  
-
-
 #include "Duck.h"
 #include "ToonShader.h"
 #include <iostream>
@@ -97,11 +92,12 @@ bool Duck::collisionDetected()
 	return this->isCollisionDetected;
 }
 
-float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation) {
+float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation) 
+{
 	float speed = 0.0f;
 
 	if ((translation < defaultTranslation + border) && (translation > defaultTranslation - border)) { //no border
-		if (directionValue == 0.0f) { //no key pressed
+		if (directionValue == 0.0f) {												//no key pressed
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
 			}
@@ -113,17 +109,17 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			}
 
 		}
-		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
+		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) {				//right
 			speed = currentSpeed - maxSpeed / 10;
 		}
-		else if (directionValue > 0.0f && maxSpeed > currentSpeed) { //left
+		else if (directionValue > 0.0f && maxSpeed > currentSpeed) {				//left
 			speed = currentSpeed + maxSpeed / 10;
 		}
 		else {
 			speed = currentSpeed;
 		}
 	}
-	else if (translation < defaultTranslation + border && directionValue < 0.0f) { //left border and right pressed
+	else if (translation < defaultTranslation + border && directionValue < 0.0f) {	//left border and right pressed
 		if (-maxSpeed < currentSpeed) {
 			speed = currentSpeed - maxSpeed / 10;
 		}
@@ -131,7 +127,7 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			speed = currentSpeed;
 		}
 	}
-	else if (translation > defaultTranslation - border && directionValue > 0.0f) { //right border and left pressed
+	else if (translation > defaultTranslation - border && directionValue > 0.0f) {	//right border and left pressed
 		if (maxSpeed > currentSpeed) {
 			speed = currentSpeed + maxSpeed / 10;
 		}
@@ -143,9 +139,9 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 	return speed;
 }
 
-float Duck::calculateSlope(float border) {
-
-	if (this->model->transform().translation().X >= border || this->model->transform().translation().X <= -border) {
+float Duck::calculateSlope(float border) 
+{
+	if (this->model->transform().translation().X >= this->defaultPosition.X + border || this->model->transform().translation().X <= this->defaultPosition.X - border) { //border
 		if (this->slope > 0.1f) {
 			return this->slope - 0.1;
 		}
@@ -154,16 +150,31 @@ float Duck::calculateSlope(float border) {
 		}
 		else return 0.0f;
 	}
-	else if (this->forwardBackward < 0.0f) {
+	else if (this->forwardBackward < 0.0f) {	//no border and backward
 		return (-this->speedLeftRight / 5);
 	}
-	else {
+	else if (this->forwardBackward > 0.0f) {	//no border and forward
 		return (this->speedLeftRight / 5);
+	}
+	else {										//no border and neither for- or backward
+		if (this->leftRight == 0.0) {			//no movement
+			if (this->slope > 0.1f) {
+				return this->slope - 0.1;
+			}
+			else if (this->slope < -0.1f) {
+				return this->slope + 0.1;
+			}
+			else return 0.0f;
+		}
+		else {									//only sideways
+			return (this->speedLeftRight / 5);
+		}
+		
 	}
 }
 
-Matrix Duck::defaultTransform() {
-
+Matrix Duck::defaultTransform() 
+{
 	Matrix mPosition;
 	Matrix mScale;
 	mPosition.translation(0.0f, -0.2f, 9.2f);
@@ -171,40 +182,18 @@ Matrix Duck::defaultTransform() {
 	return mPosition * mScale;
 }
 
-void Duck::setCameraPosition() {
-
-	
+void Duck::setCameraPosition() 
+{
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
 	Vector cameraTarget(this->model->transform().translation().X, this->model->transform().translation().Y, this->defaultTransform().translation().Z - maxZ + (this->model->transform().translation().Z - this->defaultTransform().translation().Z)*0.2);
-	//cameraTarget.Z -= 1;
-	//if (this->speedLeftRight > 0.0f) {
-	//	cameraTarget.X *= -this->speedLeftRight * dtime;
-	//}
-	//else {
-	//	cameraTarget.X = this->model->transform().translation().X  * dtime;
-	//}
 
 	this->camera->setPosition(cameraPositon);
 	this->camera->setTarget(cameraTarget);
-/*
-	Vector modelPosition = this->model->transform().translation();
-	Vector cameraPosition = this->camera->position();
-
-	Vector viewPosition(modelPosition.X, cameraPosition.Y, cameraPosition.Z);
-	Vector viewTarget(modelPosition);
-	viewTarget.Z -= 1.0f;
-
-	//float z = 10.0f - modelPosition.Z;
-	//viewTarget.Y = (z + modelPosition.Y) * 1.1f;
-	//viewPosition.Y = 2.0f - z;
-
-	this->camera->setPosition(viewPosition);
-	this->camera->setTarget(viewTarget);*/
 }
 
-void Duck::reset() {
-
+void Duck::reset() 
+{
 	this->slope = 0.0f;
 	this->speedLeftRight = 0.0f;
 	this->speedForwardBackward = 0.0f;
@@ -216,8 +205,8 @@ void Duck::reset() {
 	this->isCollisionDetected = false;
 }
 
-void Duck::checkCollision(float dtime) {
-
+void Duck::checkCollision(float dtime) 
+{
 	static float timePassed = 0.0f;
 	timePassed += dtime;
 	if (timePassed > 0.1f) {
@@ -242,16 +231,14 @@ void Duck::checkCollision(float dtime) {
 
 }
 
-
-bool Duck::boundingBoxIntersection(const Model* object) {
-	//Box Collision
-
+bool Duck::boundingBoxIntersection(const Model* object) 
+{
+	//box Collision
 	Vector posDuck = this->model->transform().translation();
 	Vector posObject = object->transform().translation();
 
 	AABB modelBox = this->model->boundingBox();
 	AABB objectBox = object->boundingBox();
-
 
 	if (modelBox.getX() - objectBox.getX() < modelBox.getSizeX() + objectBox.getSizeX()) {
 		if (modelBox.getZ() - objectBox.getZ() < modelBox.getSizeZ() + objectBox.getSizeZ()) {
@@ -260,6 +247,5 @@ bool Duck::boundingBoxIntersection(const Model* object) {
 			}
 		}
 	}
-
 	return false;
 }

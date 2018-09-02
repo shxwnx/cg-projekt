@@ -117,7 +117,6 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 	this->water = new Water(sizeX, sizeZ, segmentsX, segmentsZ, this->spawner);
 
 	WaterShader* shader = new WaterShader(Vector2D(sizeX, sizeZ));
-	shader->setDepthTexture(&this->depthTexture);
 	this->water->shader(shader, true);
 	this->water->loadModel();
 	if (!this->water->generateWaves()) {
