@@ -8,7 +8,7 @@
 
 
 Pool::Pool(Spawner* spawner): 
-	scale (4000.0f),
+	scale (1.0f),
 	spawner (spawner)
 {
 }
@@ -20,7 +20,7 @@ Pool::~Pool()
 
 bool Pool::loadModel(const char* file)
 {
-	this->model = new Model(file, true, this->scale);
+	this->model = new Model(file, false, this->scale);
 	this->model->shader(this->pShader, true);
 
 	return true;
@@ -37,4 +37,8 @@ void Pool::update(float dtime)
 void Pool::draw(const BaseCamera& Cam)
 {
 	this->model->draw(Cam);
+}
+
+void Pool::transform(Matrix t) {
+	this->model->transform(t);
 }

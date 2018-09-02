@@ -11,6 +11,8 @@
 #define FORWARDBACKWARD true
 #define LEFTRIGHT false
 
+const float maxX = 5.7f;
+const float maxZ = 1.0f;
 
 Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
 {
@@ -59,8 +61,8 @@ void Duck::update(float dtime)
 	//movement
 	Matrix forwardBackwardMatrix;	//translation
 	Matrix leftRightMatrix;			//translation
-	float maxX = 5.0f;						//leftRight border
-	float maxZ = 1.0f;						//forwardBackward border
+	//float maxX = 5.0f;						//leftRight border
+	//float maxZ = 1.0f;						//forwardBackward border
 	float maxSpeedLeftRight = 1.5f;			//max leftRight speed
 	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 

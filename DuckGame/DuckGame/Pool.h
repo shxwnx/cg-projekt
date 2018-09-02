@@ -13,6 +13,8 @@ public:
 	void update(float dtime);
 	virtual void draw(const BaseCamera& camera);
 
+	void transform(Matrix t);
+
 protected:
 	Model * model;
 	Spawner* spawner;
