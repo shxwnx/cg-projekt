@@ -166,17 +166,17 @@ Matrix Duck::defaultTransform() {
 
 	Matrix mPosition;
 	Matrix mScale;
-	mPosition.translation(0.0f, -0.2f, 10.0f);
+	mPosition.translation(0.0f, -0.2f, 9.5f);
 	mScale.scale(this->scale);
 	return mPosition * mScale;
 }
 
 void Duck::setCameraPosition() {
 
-	/*
+	
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
-	Vector cameraTarget(this->model->transform().translation().X / 2 , this->model->transform().translation().Y, this->model->transform().translation().Z);
+	Vector cameraTarget(this->model->transform().translation().X, this->model->transform().translation().Y, this->defaultTransform().translation().Z - maxZ + (this->model->transform().translation().Z - this->defaultTransform().translation().Z)*0.4);
 	//cameraTarget.Z -= 1;
 	//if (this->speedLeftRight > 0.0f) {
 	//	cameraTarget.X *= -this->speedLeftRight * dtime;
@@ -186,8 +186,8 @@ void Duck::setCameraPosition() {
 	//}
 
 	this->camera->setPosition(cameraPositon);
-	this->camera->setTarget(cameraTarget);*/
-
+	this->camera->setTarget(cameraTarget);
+/*
 	Vector modelPosition = this->model->transform().translation();
 	Vector cameraPosition = this->camera->position();
 
@@ -200,7 +200,7 @@ void Duck::setCameraPosition() {
 	//viewPosition.Y = 2.0f - z;
 
 	this->camera->setPosition(viewPosition);
-	this->camera->setTarget(viewTarget);
+	this->camera->setTarget(viewTarget);*/
 }
 
 void Duck::reset() {
