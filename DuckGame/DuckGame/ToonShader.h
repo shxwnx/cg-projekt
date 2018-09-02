@@ -38,7 +38,9 @@ public:
 	void addTime(float time) { this->time += time; }
 
 	virtual void activate(const BaseCamera& Cam) const;
-    
+
+protected:
+	void assignLocations();
     
 private:
 	int type;

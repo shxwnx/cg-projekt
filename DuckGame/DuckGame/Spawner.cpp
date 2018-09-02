@@ -5,26 +5,25 @@
 #define PI 3.14159265358979323846
 
 Spawner::Spawner(int countRows, int countObjects, float spacing,
-	float spawnTime, float speed, float acceleration, float accelerateTime)
+	float spawnTime, float speed, float acceleration, float accelerateTime):
+	defaultSpawnTime(spawnTime),
+	defaultSpeed(speed),
+	defaultAcceleration(acceleration),
+	defaultAccelerateTime(accelerateTime),
+	countRows(countRows),
+	countObjects(countObjects),
+	spacing(spacing),
+	spawnTime(spawnTime),
+	speed(speed),
+	acceleration(acceleration),
+	accelerateTime(accelerateTime),
+	accelerateTimePassed(0.0f),
+	objectsDodged(0),
+	scale(2.0f),
+	timePassed(0.0f),
+	currentSpeed(0.0f)
 {
-	this->defaultSpawnTime = spawnTime;
-	this->defaultSpeed = speed;
-	this->defaultAcceleration = acceleration;
-	this->defaultAccelerateTime = accelerateTime;
-
-	this->countRows = countRows;
-	this->countObjects = countObjects;
-	this->spacing = spacing;
-	this->spawnTime = spawnTime;
-	this->speed = speed;
 	this->spawnTimePassed = this->speed;
-	this->acceleration = acceleration;
-	this->accelerateTime = accelerateTime;
-	this->accelerateTimePassed = 0.0f;
-	this->objectsDodged = 0;
-	this->scale = 2.0f;
-	this->timePassed = 0.0f;
-	this->currentSpeed = 0.0f;
 }
 
 Spawner::~Spawner()
@@ -60,7 +59,7 @@ void Spawner::update(float dtime)
 	if (!isStopped) {
 
 		this->timePassed += dtime;
-		// Spawn Objects
+		// spawn Objects
 		this->spawnTimePassed += dtime;
 		if (this->spawnTimePassed > this->spawnTime) {
 
@@ -76,7 +75,7 @@ void Spawner::update(float dtime)
 			this->spawnTimePassed = 0.0f;
 		}
 
-		// Move Objects down
+		// move Objects down
 		for (auto model : this->outputModels) {
 
 			auto toonShader = dynamic_cast<ToonShader *>(model->shader());
@@ -91,7 +90,7 @@ void Spawner::update(float dtime)
 			model->transform(mPosition *  model->transform() * mRotation);
 		}
 
-		// Acceleration
+		// acceleration
 		this->accelerateTimePassed += dtime;
 		if (this->accelerateTimePassed > this->accelerateTime) {
 			this->accelerateTime = 4.0f;
@@ -156,7 +155,8 @@ Matrix Spawner::defaultTransform()
 	return position * scale;
 }
 
-float Spawner::random(float min, float max) {
+float Spawner::random(float min, float max) 
+{
 	return  (max - min) * ((((float)rand()) / (float)RAND_MAX)) + min;
 }
 
@@ -168,8 +168,6 @@ float Spawner::randomRotation()
 	float rot = this->random(0, PI);
 	return sign * rot;
 }
-
-
 
 Matrix Spawner::randomTransform()
 {
@@ -185,8 +183,6 @@ Matrix Spawner::randomTransform()
 	return  randomPosition * defaultPosition;
 }
 
-
-
 Model * Spawner::getRandomModel()
 {
 	if (inputModels.size() > 0) {
@@ -199,8 +195,8 @@ Model * Spawner::getRandomModel()
 	return nullptr;
 }
 
-
-std::vector<Model*> * Spawner::getOutputModels() {
+std::vector<Model*> * Spawner::getOutputModels() 
+{
 	return &this->outputModels;
 }
 

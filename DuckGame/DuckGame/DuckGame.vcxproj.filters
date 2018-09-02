@@ -70,7 +70,6 @@
     <ClCompile Include="Lights.cpp" />
     <ClCompile Include="UIService.cpp" />
     <ClCompile Include="FontShader.cpp" />
-    <ClCompile Include="DuckShader.cpp" />
     <ClCompile Include="ToonShader.cpp" />
     <ClCompile Include="ShaderLightMapper.cpp">
       <Filter>utils</Filter>
@@ -147,7 +146,6 @@
     <ClInclude Include="Lights.h" />
     <ClInclude Include="UIService.h" />
     <ClInclude Include="FontShader.h" />
-    <ClInclude Include="DuckShader.h" />
     <ClInclude Include="ToonShader.h" />
     <ClInclude Include="ShaderLightMapper.h">
       <Filter>utils</Filter>

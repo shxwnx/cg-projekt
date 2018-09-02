@@ -99,20 +99,22 @@ void Application::controlDuck()
 void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(9, 3, 1.25f, 0.3f, 4.0f, 0.1f, 2.0f);
+	this->spawner = new Spawner(9, 5, 1.25f, 0.3f, 4.0f, 0.1f, 2.0f);
 	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
-		//ASSET_DIRECTORY "donut_brown.dae" ,
+		ASSET_DIRECTORY "donut_brown.dae" ,
 		ASSET_DIRECTORY "donut_pink.dae" ,
 		ASSET_DIRECTORY "waterball_blue.dae" ,
-		ASSET_DIRECTORY "waterball_colorful.dae"
+		ASSET_DIRECTORY "waterball_colorful.dae",
+		ASSET_DIRECTORY "waterball_rainbow2.dae"
 	};
 	this->spawner->loadModels(files);
 	this->models.push_back(this->spawner);
 }
 
-void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ) {
+void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ) 
+{
 	this->water = new Water(sizeX, sizeZ, segmentsX, segmentsZ, this->spawner);
 
 	WaterShader* shader = new WaterShader(Vector2D(sizeX, sizeZ));
@@ -125,7 +127,8 @@ void Application::createWater(float sizeX, float sizeZ, int segmentsX, int segme
 	models.push_back(this->water);
 }
 
-void Application::createPool() {
+void Application::createPool() 
+{
 	auto shader = new ToonShader();
 	shader->setType(POOL);
 	this->pool = new Pool(this->spawner);
@@ -163,35 +166,36 @@ void Application::reset()
 
 void Application::start()
 {
-	glEnable(GL_DEPTH_TEST); // enable depth-testing
-	glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
+	glEnable(GL_DEPTH_TEST);// enable depth-testing
+	glDepthFunc(GL_LESS);	// depth-testing interprets a smaller value as "closer"
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
+
 Vector Application::calc3DRay(float x, float y, Vector& Pos)
 {
 	int width = 0;
 	int height = 0;
 	glfwGetWindowSize(this->window, &width, &height);
 
-	//Umrechnung der Pixelkoordinaten des Mauszeigers in normalisierte Bildkoordinaten
+	// pixel coordinates of the mouse pointer into normalized image coordinates
 	x = ((x * 2) / width) - 1;
 	y = (((y * 2) / height) - 1) * -1;
 	Vector temp = Vector(x, y, 0);
 
-	//Umrechnung in Kamera-Koordinaten
+	// conversion into camera coordinates
 	Matrix projectionMatrix = this->camera.getProjectionMatrix();
 	projectionMatrix.invert();
 	temp = projectionMatrix * temp;
 
-	//Umrechnung in Weltkoordinaten
+	// conversion into world coordinates
 	Matrix viewMatrix = this->camera.getViewMatrix();
 	viewMatrix.invert();
-	Vector temp2 = Vector(viewMatrix.transformVec3x3(temp)); //Ánpassung der Richtung (nicht Ursprung)
+	Vector temp2 = Vector(viewMatrix.transformVec3x3(temp)); // adjustment of direction (not origin)
 
-	//Schnittpunkt mit der Ebene
+	// plane intersection
 	float s = 0;
 	Pos.triangleIntersection(temp2, Vector(1, 0, 1), Vector(-1, 0, -1), Vector(-1, 0, 1), s);
 	temp2 = Pos + temp2 * s;
@@ -200,40 +204,22 @@ Vector Application::calc3DRay(float x, float y, Vector& Pos)
 }
 void Application::draw()
 {
-	//Generate texture
-	//glGenTextures(1, &depthTexture);
-	//glBindTexture(GL_TEXTURE_2D, depthTexture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 512,
-	//	512, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-
-	// 1. clear screen
+	// clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//ShaderLightMapper::instance().activate();
-	// 2. setup shaders and draw models
+	// setup shaders and draw models
 	for (ModelList::iterator it = models.begin(); it != models.end(); ++it)
 	{
 		(*it)->draw(camera);
 	}
 	//ShaderLightMapper::instance().deactivate();
 
-	// 3. check once per frame for opengl errors
+	// check once per frame for opengl errors
 	GLenum Error = glGetError();
 	assert(Error == 0);
-
-	////copy depth buffer to texture
-	//glBindTexture(GL_TEXTURE_2D, depthTexture);
-	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, 512, 512);
-
-	////enable texturing and bind the depth texture
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D, depthTexture);
-
 }
+
 void Application::end()
 {
 	for (ModelList::iterator it = models.begin(); it != models.end(); ++it)

@@ -36,31 +36,31 @@ protected:
 	bool isStopped;
 	GLuint depthTexture;
 
-	// Duck
+	// duck
 	Duck* duck;
 	void createDuck();
 	void controlDuck();
 
-	// Spawner
+	// spawner
 	Spawner* spawner;
 	void createSpawner();
 
-	// Water
+	// water
 	Water* water;
 	void createWater(float sizeX, float sizeZ, int segmentsX, int segmentsZ);
 
-	// Pool
+	// pool
 	Pool* pool;
 	void createPool();
 
-	// Skybox 
+	// skybox 
 	void createSkyBox();
 
 	// UI
 	UIService* uiService;
 	void createUI();
 
-	//	General
+	// general
 	float timePassed;
 	void reset();
 

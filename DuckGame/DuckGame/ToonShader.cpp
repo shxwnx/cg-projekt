@@ -19,19 +19,7 @@ ToonShader::ToonShader() :
 	if (!loaded)
 		throw std::exception();
 
-	this->modelMatLoc = getParameterID("ModelMat");
-	this->modelViewProjLoc = getParameterID("ModelViewProjMat");
-	this->diffuseColorLoc = getParameterID("DiffuseColor");
-	this->specularColorLoc = getParameterID("SpecularColor");
-	this->specularExpLoc = getParameterID("SpecularExp");
-	this->ambientColorLoc = getParameterID("AmbientColor");
-	this->lightPosLoc = getParameterID("LightPos");
-	this->lightColorLoc = getParameterID("LightColor");
-	this->eyePosLoc = getParameterID("EyePos");
-	this->diffuseTexLoc = getParameterID("DiffuseTexture");
-	this->timeLoc = getParameterID("Time");
-	this->typeLoc = getParameterID("Type");
-	this->speedLoc = getParameterID("Speed");
+	this->assignLocations();
 }
 
 void ToonShader::activate(const BaseCamera& camera)	 const
@@ -58,4 +46,21 @@ void ToonShader::activate(const BaseCamera& camera)	 const
 
 	setParameter(typeLoc, this->type);
 	setParameter(this->speedLoc, this->speed);
+}
+
+void ToonShader::assignLocations()
+{
+	this->modelMatLoc = getParameterID("ModelMat");
+	this->modelViewProjLoc = getParameterID("ModelViewProjMat");
+	this->diffuseColorLoc = getParameterID("DiffuseColor");
+	this->specularColorLoc = getParameterID("SpecularColor");
+	this->specularExpLoc = getParameterID("SpecularExp");
+	this->ambientColorLoc = getParameterID("AmbientColor");
+	this->lightPosLoc = getParameterID("LightPos");
+	this->lightColorLoc = getParameterID("LightColor");
+	this->eyePosLoc = getParameterID("EyePos");
+	this->diffuseTexLoc = getParameterID("DiffuseTexture");
+	this->timeLoc = getParameterID("Time");
+	this->typeLoc = getParameterID("Type");
+	this->speedLoc = getParameterID("Speed");
 }
