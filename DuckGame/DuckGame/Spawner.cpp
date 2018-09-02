@@ -12,7 +12,6 @@ Spawner::Spawner(int countRows, int countObjects, float spacing,
 	this->defaultAcceleration = acceleration;
 	this->defaultAccelerateTime = accelerateTime;
 
-
 	this->countRows = countRows;
 	this->countObjects = countObjects;
 	this->spacing = spacing;
@@ -42,12 +41,9 @@ bool Spawner::loadModels(std::vector<const char*> files)
 	for (auto file : files) {
 		for (int i = 0; i < countPerObject; i++) {
 
-			auto model = new Model(file, false, this->scale);
-
+			auto model = new Model(file, false, this->scale);	
 			model->transform(this->defaultTransform());
-			if (!model->load(file, false)) {
-				return false;
-			}
+
 			auto shader = new ToonShader();
 			model->shader(shader, true);
 

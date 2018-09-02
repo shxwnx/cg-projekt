@@ -40,7 +40,8 @@ Model::~Model()
 
 Model::Model(Model * model)
 {
-	this->shader(new PhongShader());
+	this->shader(model->pShader);
+
 	this->pMeshes = model->pMeshes;
 	this->MeshCount = model->MeshCount;
 	this->pMaterials = model->pMaterials;

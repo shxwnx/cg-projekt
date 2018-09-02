@@ -22,17 +22,6 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 {
 	this->timePassed = 0.0f;
 	this->isStopped = true;
-	BaseModel* pModel;
-	ConstantShader* pConstShader;
-	PhongShader* pPhongShader;
-
-	// create LineGrid model with constant color shader
-	/*pModel = new LinePlaneModel(6.0f, 9.0f, 6, 9);
-	pConstShader = new ConstantShader();
-	pConstShader->color(Color(1, 1, 1));
-	pModel->shader(pConstShader, true);
-	models.push_back(pModel);*/
-
 
 	this->createLight();
 	this->createSpawner();
@@ -48,7 +37,6 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 
 void Application::update(float dTime)
 {
-
 	if (!this->isStopped) {
 		this->timePassed += dTime;
 		this->controlDuck();
@@ -83,19 +71,11 @@ void Application::createLight() {
 
 	Color c = Color(1.0f, 1.0f, 1.0f);
 	Vector a = Vector(1.0f, 0, 0.1f);
-	
+
 	this->sun = new TriangleSphereModel(20.0f);
 	this->sun->transform();
 	this->sun->shader(new ToonShader());
 	this->models.push_back(this->sun);
-
-	// point lights
-	/*PointLight* pl = new PointLight();
-	Vector p(0.0f,1.0f,0.0f);
-	pl->position(p);
-	pl->color(c);
-	pl->attenuation(a);
-	ShaderLightMapper::instance().addLight(pl);*/
 }
 
 void Application::createDuck()
@@ -139,7 +119,7 @@ void Application::controlDuck()
 void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(5, 3, 1.0f, 0.4f, 3.0f, 0.1f, 2.0f);
+	this->spawner = new Spawner(9, 3, 1.25f, 0.3f, 4.0f, 0.1f, 2.0f);
 	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
