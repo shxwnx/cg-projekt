@@ -44,7 +44,7 @@ const float scaleFactor = 1.5 / levels;
 
 vec2 getTexturePosition(vec2 texcoord) {
 	vec2 direction = vec2(0.0, -1.0);
-	return texcoord + (Time * Speed * 0.42 * direction);
+	return texcoord - (Time * Speed * 0.2 * direction);
 }
 
 void main()
@@ -54,7 +54,7 @@ void main()
 		texcoord = getTexturePosition(texcoord);
 	} 
 
-	vec4 diffuseTexture = texture(DiffuseTexture, Texcoord);
+	vec4 diffuseTexture = texture(DiffuseTexture, texcoord);
 
 	vec3 N = normalize(Normal);
 	vec3 L = normalize(LightPos - Position);
@@ -85,7 +85,13 @@ void main()
 	float specMask = (pow(dot(H, N), SpecularExp) > 0.4) ? 1 : 0;
 	float edgeDetection = (dot(E, N) > 0.25) ? 1 : 0;
  
-    gl_FragColor =  vec4(edgeDetection * diffuseComponent  * diffuseTexture.rgb + specularComponent * specMask, 1);
+	if(Type == 1){
+		gl_FragColor =  vec4(diffuseComponent * diffuseTexture.rgb + specularComponent * specMask, 1);
+	} else {
+		gl_FragColor =  vec4(edgeDetection * diffuseComponent  * diffuseTexture.rgb + specularComponent * specMask, 1);
+	}
+
+    
 }
 
 

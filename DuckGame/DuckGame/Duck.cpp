@@ -11,7 +11,7 @@
 #define FORWARDBACKWARD true
 #define LEFTRIGHT false
 
-const float maxX = 5.7f;
+const float maxX = 5.5f;
 const float maxZ = 1.0f;
 
 Duck::Duck(std::vector<Model*> *obstacleModels, Camera * cam)
@@ -108,27 +108,9 @@ bool Duck::collisionDetected()
 
 float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation) {
 	float speed = 0.0f;
-	//falls die Duck weiter nach vorne als nach nach hinten kann
-	/*if (direction == FORWARDBACKWARD) {
-		if ((translation < (border + 1.0f) && directionValue < 0.0f) || (translation > -border && directionValue > 0.0f)) {
-			if (directionValue == 0.0f) { //no key pressed !!!!!!!
-				speed = 0.0f;
-			}
-			else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
-				speed = currentSpeed - maxSpeed / 10;
-			}
-			else if (directionValue > 0.0f && maxSpeed > currentSpeed) { //left
-				speed = currentSpeed + maxSpeed / 10;
-			}
-			else {
-				speed = currentSpeed;
-			}
-		}
 
-	} else {*/
-
-	if ((translation < defaultTranslation + border && directionValue <= 0.0f) || (translation > defaultTranslation - border && directionValue >= 0.0f)) {
-		if (directionValue == 0.0f) { //no key pressed !!!!!!!
+	if ((translation < defaultTranslation + border) && (translation > defaultTranslation - border)) { //no border
+		if (directionValue == 0.0f) { //no key pressed
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
 			}
@@ -149,11 +131,24 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 		else {
 			speed = currentSpeed;
 		}
+	} 
+	else if (translation < defaultTranslation + border && directionValue < 0.0f){ //left border and right pressed
+		if (-maxSpeed < currentSpeed) {
+			speed = currentSpeed - maxSpeed / 10;
+		}
+		else {
+			speed = currentSpeed;
+		}
 	}
-	//else if (translation == border || translation == -border) {
+	else if (translation > defaultTranslation - border && directionValue > 0.0f) { //right border and left pressed
+		if (maxSpeed > currentSpeed) {
+			speed = currentSpeed + maxSpeed / 10;
+		}
+		else {
+			speed = currentSpeed;
+		}
+	}
 
-	//}
-	//}
 	return speed;
 }
 
@@ -188,8 +183,8 @@ void Duck::setCameraPosition() {
 
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
-	Vector cameraTarget(this->model->transform().translation());
-	cameraTarget.Z -= 1;
+	Vector cameraTarget(this->model->transform().translation().X / 2 , this->model->transform().translation().Y, this->model->transform().translation().Z);
+	//cameraTarget.Z -= 1;
 	//if (this->speedLeftRight > 0.0f) {
 	//	cameraTarget.X *= -this->speedLeftRight * dtime;
 	//}

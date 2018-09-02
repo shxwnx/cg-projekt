@@ -154,7 +154,7 @@ void Application::createPool() {
 
 	Matrix mScale;
 	Matrix mPosition;
-	mScale.scale(100.0);
+	mScale.scale(96.5);
 	mPosition.translation(0, -1.5, 0);
 	this->pool->transform(mPosition*mScale);
 
