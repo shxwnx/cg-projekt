@@ -13,13 +13,13 @@ Camera::Camera()
 {
 }
 
-Camera::Camera(GLFWwindow* pWin) : m_Position(0.0f, 3.0f, 8.0f), m_Target(0.0f, 0.0f, 0.0f), m_Up(0.0f, 1.0f, 0.0f), m_LastMouseX(-1), m_LastMouseY(-1), m_Panning(0, 0, 0), m_Zoom(0, 0, 0), m_Rotation(0, 0, 0), WindowWidth(600), WindowHeight(900), pWindow(pWin)
+Camera::Camera(GLFWwindow* pWin) : m_Position(0.0f, 2.0f, 12.0f), m_Target(0.0f, 0.0f, 0.0f), m_Up(0.0f, 1.0f, 0.0f), m_LastMouseX(-1), m_LastMouseY(-1), m_Panning(0, 0, 0), m_Zoom(0, 0, 0), m_Rotation(0, 0, 0), WindowWidth(600), WindowHeight(900), pWindow(pWin)
 {
 	if (pWindow)
 		glfwGetWindowSize(pWindow, &WindowWidth, &WindowHeight);
 
 	m_ViewMatrix.identity();
-	m_ProjMatrix.perspective((float)M_PI * 75.0f / 180.0f, (float)WindowWidth / (float)WindowHeight, 0.045f, 1000.0f);
+	m_ProjMatrix.perspective((float)M_PI * 70.0f / 180.0f, (float)WindowWidth / (float)WindowHeight, 0.045f, 1000.0f);
 
 
 }

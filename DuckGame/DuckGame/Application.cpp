@@ -32,7 +32,6 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createPool();
 	this->createSkyBox();
 	this->createUI();
-
 }
 
 void Application::update(float dTime)

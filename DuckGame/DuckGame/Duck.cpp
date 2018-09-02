@@ -35,15 +35,8 @@ Duck::~Duck()
 bool Duck::loadModel(const char* file)
 {
 	this->model = new Model(file, false, this->scale);
-	Matrix d = defaultTransform();
-	this->defaultPosition = d.translation();
-	this->model->transform(d);
 
-	//if (!this->model->load(file, true)) {
-	//	return false;
-	//}
 	this->model->shader(this->pShader, true);
-	setCameraPosition();
 
 	return true;
 }
@@ -58,13 +51,6 @@ void Duck::update(float dtime)
 {
 	auto toonShader = dynamic_cast<ToonShader *>(this->shader());
 	toonShader->addTime(dtime);
-	//movement
-	Matrix forwardBackwardMatrix;	//translation
-	Matrix leftRightMatrix;			//translation
-	//float maxX = 5.0f;						//leftRight border
-	//float maxZ = 1.0f;						//forwardBackward border
-	float maxSpeedLeftRight = 1.5f;			//max leftRight speed
-	float maxSpeedForwardBackward = 0.5f;	//max forwardBackward speed
 
 
 	this->speedForwardBackward = this->calculateSpeed(maxSpeedForwardBackward, this->speedForwardBackward, this->forwardBackward, this->model->transform().translation().Z, maxZ, this->defaultPosition.Z);
@@ -73,27 +59,21 @@ void Duck::update(float dtime)
 	this->speedLeftRight = this->calculateSpeed(maxSpeedLeftRight, this->speedLeftRight, this->leftRight, this->model->transform().translation().X, maxX, this->defaultPosition.X);
 	leftRightMatrix.translation(-this->speedLeftRight * dtime, 0, 0);
 
-
 	//slope
 	Matrix newSlope;
 	Matrix oldSlope;
-	float newSlopeValue = calculateSlope(maxX);
 
 	newSlope.rotationY(newSlopeValue);
 	oldSlope.rotationY(-this->slope);
-
 
 	//transform
 	this->model->transform(this->model->transform() * oldSlope * forwardBackwardMatrix * leftRightMatrix * newSlope);
 	this->slope = newSlopeValue;
 
 	//camera positon
-	setCameraPosition();
 
 	//check collision
 	this->checkCollision(dtime);
-
-
 }
 
 void Duck::draw(const BaseCamera& Cam)
@@ -108,9 +88,12 @@ bool Duck::collisionDetected()
 
 float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionValue, float translation, float border, float defaultTranslation) {
 	float speed = 0.0f;
+<<<<<<< HEAD
 
 	if ((translation < defaultTranslation + border) && (translation > defaultTranslation - border)) { //no border
 		if (directionValue == 0.0f) { //no key pressed
+=======
+>>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 			if (currentSpeed == 0.0f) {
 				speed = 0.0f;
 			}
@@ -120,7 +103,6 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			else if (currentSpeed > 0.0f) {
 				speed = currentSpeed - maxSpeed / 10;
 			}
-
 		}
 		else if (directionValue < 0.0f && -maxSpeed < currentSpeed) { //right
 			speed = currentSpeed - maxSpeed / 10;
@@ -148,11 +130,15 @@ float Duck::calculateSpeed(float maxSpeed, float currentSpeed, float directionVa
 			speed = currentSpeed;
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 	return speed;
 }
 
 float Duck::calculateSlope(float border) {
+
 	if (this->model->transform().translation().X >= border || this->model->transform().translation().X <= -border) {
 		if (this->slope > 0.1f) {
 			return this->slope - 0.1;
@@ -174,13 +160,13 @@ Matrix Duck::defaultTransform() {
 
 	Matrix mPosition;
 	Matrix mScale;
-	mPosition.translation(0, -0.2, 6);
 	mScale.scale(this->scale);
 	return mPosition * mScale;
 }
 
 void Duck::setCameraPosition() {
 
+<<<<<<< HEAD
 	Vector actualCameraPosition = this->camera->position();
 	Vector cameraPositon(this->model->transform().translation().X, actualCameraPosition.Y, actualCameraPosition.Z);
 	Vector cameraTarget(this->model->transform().translation().X / 2 , this->model->transform().translation().Y, this->model->transform().translation().Z);
@@ -194,6 +180,8 @@ void Duck::setCameraPosition() {
 
 	this->camera->setPosition(cameraPositon);
 	this->camera->setTarget(cameraTarget);
+=======
+>>>>>>> 7f68eb7a7e4ab203374cfef7c5cc9da969a23415
 }
 
 void Duck::reset() {
