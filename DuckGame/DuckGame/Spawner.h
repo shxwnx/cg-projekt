@@ -41,6 +41,7 @@ protected:
 	float defaultAccelerateTime;
 	float spawnTime; //UI
 	float speed; //UI
+	float currentSpeed;
 	float acceleration;
 	float accelerateTime;
 	int objectsDodged; //UI
@@ -56,6 +57,7 @@ private:
 	Matrix randomTransform();
 	float random(float min, float max);
 	float randomRotation();
+	void calculateSpeed();
 
 	void rearrange();
 };

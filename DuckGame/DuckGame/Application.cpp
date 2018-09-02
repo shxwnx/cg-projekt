@@ -25,7 +25,6 @@ Application::Application(GLFWwindow* pWin) : window(pWin), camera(pWin)
 	this->createSpawner();
 	this->createDuck();
 
-	//this->createWater(6.0f, 9.0f, 60, 90);
 	this->createWater(12.0f, 36.0f, 60, 180);
 	this->createPool();
 	this->createSkyBox();
