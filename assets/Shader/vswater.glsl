@@ -19,6 +19,7 @@ uniform float AmplitudeValues[5];
 uniform float SpeedValues[5];
 uniform vec3 DirectionValues[5];
 
+// Funktionen aus Sine Wave Tutorial (siehe readme.pdf)
 float positionY(int i, float x, float z) 
 {
     float frequency = 2*pi/WavelengthValues[i];
