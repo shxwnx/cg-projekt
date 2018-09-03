@@ -129,7 +129,7 @@ void Spawner::rearrange()
 	for (auto model : this->outputModels) {
 		tmp.push_back(model);
 	}
-	this->outputModels.clear();
+ 	this->outputModels.clear();
 	for (auto model : tmp) {
 		auto pos = model->transform().translation();
 		if (this->camera != nullptr) {

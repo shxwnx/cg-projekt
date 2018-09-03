@@ -115,7 +115,7 @@ void Application::controlDuck()
 void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(9, 80, 1.25f, 0.2f, 5.0f, 0.1f, 2.0f);
+	this->spawner = new Spawner(9, 40, 1.25f, 0.15f, 5.0f, 0.15f, 2.0f);
 	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
