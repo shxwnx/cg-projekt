@@ -150,7 +150,7 @@ Matrix Spawner::defaultTransform()
 {
 	Matrix position;
 	Matrix scale;
-	position.translation(0, 0, -13.0f);
+	position.translation(0, 0, -16.0f);
 	scale.scale(this->scale);
 	return position * scale;
 }

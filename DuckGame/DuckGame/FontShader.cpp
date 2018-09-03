@@ -10,7 +10,11 @@ FontShader::FontShader(Vector color)
 		throw std::exception();
 
 	this->colorLoc = getParameterID("Color");
-	this->projectionLoc = getParameterID("Projection");
+	this->textureLoc = getParameterID("Texture");
+}
+
+void FontShader::setTexture(GLuint loc, GLuint i) {
+	this->setParameter(loc, i);
 }
 
 void FontShader::activate(const BaseCamera& camera)	 const
@@ -20,5 +24,5 @@ void FontShader::activate(const BaseCamera& camera)	 const
 	Matrix proj = camera.getProjectionMatrix();
 
 	setParameter(this->colorLoc, this->color);
-	setParameter(this->projectionLoc, proj.orthographic(600.0f,900.0f,1,1));
+	//setParameter(this->projectionLoc, proj.orthographic(600.0f,900.0f,1,1));
 }

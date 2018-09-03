@@ -7,7 +7,6 @@
 //
 
 #include "BaseShader.h"
-#include "ShaderLightMapper.h"
 
 const BaseShader* BaseShader::ShaderInPipe = NULL;
 
@@ -152,8 +151,8 @@ void BaseShader::activate(const BaseCamera& Cam) const
 	if (ShaderInPipe != this)
 	{
 		glUseProgram(ShaderProgram);
-		if (LightUniformBuffer != GL_INVALID_INDEX)
-			setBlock(LightUniformBuffer, ShaderLightMapper::instance().uniformBlockID());
+		/*if (LightUniformBuffer != GL_INVALID_INDEX)
+			setBlock(LightUniformBuffer, ShaderLightMapper::instance().uniformBlockID());*/
 	}
 	ShaderInPipe = this;
 }

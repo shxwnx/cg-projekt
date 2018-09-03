@@ -1,3 +1,5 @@
+//aus Text-Rendering Tutorial (siehe readme.pdf)
+
 #pragma once
 
 #include <vector>

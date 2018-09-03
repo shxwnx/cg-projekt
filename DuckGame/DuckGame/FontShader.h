@@ -16,11 +16,12 @@ public:
 	virtual void activate(const BaseCamera& camera)	 const;
 	Vector getColor() { return this->color; }
     
+	void setTexture(GLuint loc, GLuint i);
 private:
 	Vector color;
 	GLuint colorLoc;
-	Matrix projection;
-	GLuint projectionLoc;
+	
+	GLuint textureLoc;
     
 };
 

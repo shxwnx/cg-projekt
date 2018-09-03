@@ -1,3 +1,5 @@
+//aus Text-Rendering Tutorial (siehe readme.pdf)
+
 #include "UIService.h"
 #include "FontShader.h"
 

@@ -79,7 +79,7 @@ void Application::createDuck()
 	auto shader = new ToonShader();
 	this->duck = new Duck(this->spawner->getOutputModels(), &this->camera);
 	this->duck->shader(shader, true);
-	this->duck->loadModel(ASSET_DIRECTORY "newduck.dae");
+	this->duck->loadModel(ASSET_DIRECTORY "duck.dae");
 
 	this->models.push_back(this->duck);
 }
@@ -115,7 +115,7 @@ void Application::controlDuck()
 void Application::createSpawner()
 {
 	// countRows, countObjets, spacing, spawnTime, speed, acceleration, accelerateTime
-	this->spawner = new Spawner(9, 60, 1.25f, 0.3f, 4.0f, 0.1f, 2.0f);
+	this->spawner = new Spawner(9, 80, 1.25f, 0.2f, 5.0f, 0.1f, 2.0f);
 	this->spawner->setCamera(&this->camera);
 
 	std::vector<const char*> files = {
@@ -167,7 +167,7 @@ void Application::createSkyBox()
 
 void Application::createUI()
 {
-	this->uiService = new UIService(ASSET_DIRECTORY "arial.ttf", &this->camera);
+	this->uiService = new UIService(ASSET_DIRECTORY "roboto.ttf", &this->camera);
 	this->models.push_back(this->uiService);
 }
 
@@ -223,13 +223,11 @@ void Application::draw()
 	// clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//ShaderLightMapper::instance().activate();
 	// setup shaders and draw models
 	for (ModelList::iterator it = models.begin(); it != models.end(); ++it)
 	{
 		(*it)->draw(camera);
 	}
-	//ShaderLightMapper::instance().deactivate();
 
 	// check once per frame for opengl errors
 	GLenum Error = glGetError();

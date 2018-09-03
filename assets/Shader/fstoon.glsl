@@ -1,4 +1,5 @@
 #version 400
+ //aus Toon-Shader Tutorial (siehe readme.pdf)
 in vec3 Position;
 in vec3 Normal;
 in vec2 Texcoord;
@@ -61,6 +62,7 @@ void main()
 	}	
     specularComponent = LightColor * SpecularColor * specular;
     
+	 //aus Toon-Shader Tutorial (siehe readme.pdf)
 	float specMask = (pow(dot(H, N), SpecularExp) > 0.4) ? 1 : 0;
 	float edgeDetection = (dot(E, N) > 0.25) ? 1 : 0;
  

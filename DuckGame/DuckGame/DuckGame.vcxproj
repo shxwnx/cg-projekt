@@ -96,7 +96,6 @@
     <ClCompile Include="Duck.cpp" />
     <ClCompile Include="FontShader.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
-    <ClCompile Include="Lights.cpp" />
     <ClCompile Include="LineBoxModel.cpp" />
     <ClCompile Include="LinePlaneModel.cpp" />
     <ClCompile Include="DuckGame.cpp" />
@@ -105,7 +104,6 @@
     <ClCompile Include="PhongShader.cpp" />
     <ClCompile Include="Pool.cpp" />
     <ClCompile Include="rgbimage.cpp" />
-    <ClCompile Include="ShaderLightMapper.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ToonShader.cpp" />
@@ -131,7 +129,6 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="FontShader.h" />
     <ClInclude Include="IndexBuffer.h" />
-    <ClInclude Include="Lights.h" />
     <ClInclude Include="LineBoxModel.h" />
     <ClInclude Include="LinePlaneModel.h" />
     <ClInclude Include="Matrix.h" />
@@ -139,7 +136,6 @@
     <ClInclude Include="PhongShader.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="rgbimage.h" />
-    <ClInclude Include="ShaderLightMapper.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ToonShader.h" />

@@ -62,22 +62,34 @@
       <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Duck.cpp" />
-    <ClCompile Include="Spawner.cpp" />
-    <ClCompile Include="Water.cpp" />
-    <ClCompile Include="Wave.cpp" />
-    <ClCompile Include="WaterShader.cpp" />
-    <ClCompile Include="Lights.cpp" />
     <ClCompile Include="UIService.cpp" />
-    <ClCompile Include="FontShader.cpp" />
-    <ClCompile Include="ToonShader.cpp" />
-    <ClCompile Include="ShaderLightMapper.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
     <ClCompile Include="Vector2D.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="Pool.cpp" />
+    <ClCompile Include="WaterShader.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ToonShader.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="FontShader.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Duck.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Pool.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="Wave.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h">
@@ -138,26 +150,44 @@
       <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Duck.h" />
-    <ClInclude Include="Spawner.h" />
-    <ClInclude Include="Water.h" />
-    <ClInclude Include="Wave.h" />
-    <ClInclude Include="WaterShader.h" />
-    <ClInclude Include="Lights.h" />
     <ClInclude Include="UIService.h" />
-    <ClInclude Include="FontShader.h" />
-    <ClInclude Include="ToonShader.h" />
-    <ClInclude Include="ShaderLightMapper.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2D.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="Pool.h" />
+    <ClInclude Include="WaterShader.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ToonShader.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="FontShader.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Duck.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Pool.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="Wave.h">
+      <Filter>game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="utils">
       <UniqueIdentifier>{6a0c1a06-b076-4a75-ab45-2cf65e4bb1bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{51d7065c-eaa6-4139-a068-8e742885837d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{eafcdfc7-9d75-4971-8156-abbcc50c9d7f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
